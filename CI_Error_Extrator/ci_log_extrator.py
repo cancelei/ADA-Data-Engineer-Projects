@@ -4,11 +4,15 @@ import zipfile
 import io
 import re
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Constants
 REPO_OWNER = "rubyforgood"
 REPO_NAME = "human-essentials"
 GITHUB_TOKEN = "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"  # Use your GitHub token here
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"}
 WORKFLOW_FILES = [
     "add-help-wanted-labels.yml", "brakeman.yml", "factory-bot-lint.yml",
