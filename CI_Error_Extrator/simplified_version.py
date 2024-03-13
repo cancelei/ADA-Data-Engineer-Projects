@@ -1,10 +1,11 @@
 import re
 import csv
 import spacy
+from datetime import datetime
 
 # Section 1: Start Extrating relevant part of the log
 
-text = """
+log_data = """
 2024-03-01T20:34:05.7910724Z ##[group]Run RUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec
 2024-03-01T20:34:05.7911729Z [36;1mRUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec[0m
 2024-03-01T20:34:05.7939895Z shell: /usr/bin/bash -e {0}
@@ -652,16 +653,49 @@ text = """
 2024-03-01T20:36:17.1762290Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 38 / 10722 LOC (0.35%) covered.
 2024-03-01T20:36:17.2038846Z ##[error]Process completed with exit code 1.
 """
+failure_details_pattern = re.compile(
+    r"\d+\)\s*(.*?)\n\s*Failure/Error:\s*(.*?)\n\s*(\w+::\w+):\n\s*(.*?)\n\s*#\s*(.+?)(?=\n\d+\)|\Z)",
+    re.DOTALL
+)
 
-pattern = r"Failures:(.*?)Failed examples:"
+# Use the same summary extraction as before since it worked
+summary_pattern = re.compile(
+    r"Finished in (.+?)\n.*?(\d+) examples?, (\d+) failures?",
+    re.DOTALL
+)
 
-# Find all occurrences
-match = re.search(pattern, text, re.DOTALL)
+# Extract summary information
+summary_info = summary_pattern.search(log_data)
+summary_data = {
+    "Duration": summary_info.group(1) if summary_info else "N/A",
+    "TotalTests": summary_info.group(2) if summary_info else "N/A",
+    "Failures": summary_info.group(3) if summary_info else "N/A"
+}
 
-# Check if we found any matches and print them
-if match:
-    failure_details = match.group(1).strip()
-    print("Failure Details:")
-    print(failure_details)
-else:
-    print("No failure details found.")
+# Extract failure details
+failure_details = []
+for match in failure_details_pattern.finditer(log_data):
+    failure_details.append({
+        "TestDescription": match.group(1).strip(),
+        "FailureReason": match.group(2).strip(),
+        "ErrorType": match.group(3).strip(),
+        "ErrorMessage": match.group(4).strip(),
+        "Location": match.group(5).strip()
+    })
+
+# Save the extracted data into CSV files as before
+
+# Save summary data to CSV
+with open('test_summary.csv', 'w', newline='', encoding='utf-8') as file:
+    writer = csv.DictWriter(file, fieldnames=summary_data.keys())
+    writer.writeheader()
+    writer.writerow(summary_data)
+
+# Save failure details to CSV
+with open('failure_details.csv', 'w', newline='', encoding='utf-8') as file:
+    fieldnames = ["TestDescription", "FailureReason", "ErrorType", "ErrorMessage", "Location"]
+    writer = csv.DictWriter(file, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(failure_details)
+
+print("CSV files generated successfully.")
