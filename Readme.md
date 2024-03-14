@@ -1,54 +1,74 @@
-This repo contains 3 different data engineering projects.
+# Data Engineering Projects with NumPy and Pandas
+This repository showcases three distinct data engineering projects aimed at processing logs, audio, and images using Python with NumPy and Pandas libraries.
 ---
-Folder CI_Error
-contains a CI Run Extrator program, that analyzes data from a real NGO project by Ruby4Good. 
 
-To run it successfully, you need to generate a Github token from the settings of your personal account. Below is a picture that demonstrates that process:
+### CI_Error Folder
+This folder contains a program called CI Run Extractor, which analyzes data from a real NGO project by Ruby4Good.
+
+To run it successfully, you'll need to generate a GitHub token from your personal account settings. Refer to the image below for guidance:
 
 ![alt text](assets/image.png)
 
-Important to create the .env file with variable linking to your token information.
+Ensure to create a .env file with variables linking to your token information.
 ---
 
-Audio Processing.
----
+### Audio Processing.
+This project demonstrates audio processing utilizing various Python libraries.
 
-This project aims to demonstrate audio processing using the following Python libraries listed below in the index description.
+Database: [Emotional Speech Audio Dataset](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
 
-Database: https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio
-
-The database contains a wide range of audio files that can be converted into ndarrays - Different actors recorded audio with different emotions.
-In the present work, there are some audio manipulations, such as:
+The dataset comprises audio files recorded by different actors expressing various emotions. In this project, we perform several audio manipulations, including:
 
 1) Amplitude Alteration
 2) Frequency Change
 3) Adding Noise
 4) Audio Reversal
-5) Integration of audio from different actors - same emotion
-6) Integration of audio with different emotions - same actor
+5) Integration of audio from different actors with the same emotion
+6) Integration of audio with different emotions from the same actor
 7) Convolution
-8) Creation of Metadata.
+8) Creation of Metadata
 
-At the end of the project, we have the creation of a DataFrame with all the audios and their respective Metadata in .csv format.
-
-To access the saved audios (coming from a DataFrame), simply enter the "output" folder. In the "output" folder, there is also a .csv file coming from the audio DataFrame.
+The output includes a DataFrame containing all audios and their respective metadata in .csv format, stored in the "output" folder.
 
 There is also the possibility to develop next steps as described at the end of the code.
 
-The project functions appear throughout the code, as they are created according to the demand of the topics.
+Each stage of development is divided into very explanatory topics in the "audio.ipynb" file
+---
 
-## Installation
+### Image Processing.
+This project focuses on image processing using Python libraries to create a fractal similar to the Sierpinski Triangle.
+The main manipulations include:
 
-Before running the project, ensure you have Python installed on your system. Then, install the required Python packages using the following commands:
+1) Scaling
+2) Rotation
+3) Translation
+
+The processing is divided into three levels:
+
+* Level 1: Inserting a triangle within the main triangle
+* Level 2: Inserting three triangles within the main triangle
+* Level 3: Inserting nine triangles within the main triangle
+
+The images were joined by replacing the values of the main image array in the correct positions for the values of the arrays of each triangle created.
+
+The final results are stored in the "Images" folder, showcasing the primary image after transformations and insertions for each processing level.
+
+For future projects, recursive fractal creation is suggested for cleaner and more elegant code.
+
+Each stage of development is divided into very explanatory topics in the "imagem.ipynb" file
+---
+
+### Installation
+Ensure Python is installed on your system, then run the following commands to install necessary packages:
 
 ```sh
-pip install pandas
-pip install numpy
-pip install matplotlib
-pip install seaborn
-pip install scikit-learn
+pip install ipykernel pandas numpy matplotlib seaborn scikit-learn python-dotenv requests spacy
 ```
 
-If you have errors related to any packages being used by the program, you have to run the commands to install them like explained before.
+If any errors occur related to missing packages, install them as described above.
+
+### Source
+1) [Kaggle Dataset: Emotional Speech Audio Dataset](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
+2) [Wikipedia: Sierpinski Triangle](https://pt.wikipedia.org/wiki/Tri%C3%A2ngulo_de_Sierpinski)
 
 
