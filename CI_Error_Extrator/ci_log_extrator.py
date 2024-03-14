@@ -11,7 +11,7 @@ load_dotenv()
 # Constants
 REPO_OWNER = "rubyforgood"
 REPO_NAME = "human-essentials"
-GITHUB_TOKEN = "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"  # Use your GitHub token here
+# Use your GitHub token by creating a .env file with the variable name GITHUB_TOKEN
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 HEADERS = {"Authorization": f"token {GITHUB_TOKEN}"}
 WORKFLOW_FILES = [
@@ -24,18 +24,30 @@ WORKFLOW_FILES = [
 ]
 CSV_FILE = "ci_run_metadata_per_workflow.csv"
 
-def fetch_workflow_runs(workflow_file):
-    API_URL = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/workflows/{workflow_file}/runs"
-    params = {"per_page": 20}
-    response = requests.get(API_URL, headers=HEADERS, params=params)
-    response.raise_for_status()
-    return response.json()['workflow_runs']
+def fetch_workflow_runs(workflow_file, max_runs=120):
+    runs = []
+    page = 1
+    while len(runs) < max_runs:
+        API_URL = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/workflows/{workflow_file}/runs"
+        params = {
+            "per_page": min(100, max_runs - len(runs)),  # Fetch the lesser of 100 or the remaining runs needed
+            "page": page
+        }
+        response = requests.get(API_URL, headers=HEADERS, params=params)
+        response.raise_for_status()
+        current_runs = response.json()['workflow_runs']
+        if not current_runs:
+            break  # Exit loop if no more runs are returned
+        runs.extend(current_runs)
+        page += 1
+    return runs[:max_runs]  # Return only up to max_runs
 
-def save_runs_to_csv(data):
-    with open(CSV_FILE, mode='a', newline='', encoding='utf-8') as file:  # Use 'a' to append to the file
+def save_runs_to_csv(data, rspec_identifier):
+    with open(CSV_FILE, mode='a', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         for row in data:
-            writer.writerow(row)
+            extended_row = row + [rspec_identifier]
+            writer.writerow(extended_row)
 
 def parse_rspec_failures(log_content):
     # Adjust the regular expression as needed
@@ -65,11 +77,26 @@ def download_and_extract_log(run_id):
         print(f"Failed to download logs for run ID: {run_id}")
         return None
 
+def generate_rspec_identifier(workflow_file, run):
+    # Example logic to generate an identifier based on the workflow file name and run ID
+    # This is a placeholder. You should replace it with your actual logic.
+    
+    # Extracting a part of the workflow file name as an example
+    base_name = workflow_file.split('.')[0]  # Assuming the file has an extension and you want the name part
+    
+    # Incorporating the run ID for uniqueness
+    run_id_short = str(run['id'])[-4:]  # Taking the last 4 digits of the run ID for simplicity
+    
+    # Combining parts to form an identifier
+    identifier = f"{base_name}-{run_id_short}"
+    
+    return identifier
+
 
 def main():
     with open(CSV_FILE, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
-        writer.writerow(["Workflow File", "Run ID", "Workflow Name", "Status", "Conclusion"])
+        writer.writerow(["Workflow File", "Run ID", "Workflow Name", "Status", "Conclusion", "RSpec Identifier"])
     
     rspec_failures = []
     for workflow_file in WORKFLOW_FILES:
@@ -79,6 +106,7 @@ def main():
             log_dir = download_and_extract_log(run['id'])
             if log_dir:
                 # Ensure to process only files within the directory
+                rspec_identifier = generate_rspec_identifier(workflow_file, run)
                 for filename in os.listdir(log_dir):
                     file_path = os.path.join(log_dir, filename)
                     if os.path.isfile(file_path):  # Check if the path is a file
@@ -88,7 +116,7 @@ def main():
                             rspec_failures.extend(failures)
                             # Save metadata about the run
                             data = [[workflow_file, run['id'], run['name'], run['status'], run['conclusion']]]
-                            save_runs_to_csv(data)
+                            save_runs_to_csv(data, rspec_identifier)
     
     # After collecting all RSpec failures, save them to a CSV file
     save_rspec_failures_to_csv(rspec_failures)
