@@ -1,8 +1,10 @@
 # Data Engineering Projects with NumPy and Pandas
 This repository showcases three distinct data engineering projects aimed at processing logs, audio, and images using Python with NumPy and Pandas libraries.
----
+
 
 ### CI_Error Folder
+---
+
 This folder contains a program called CI Run Extractor, which analyzes data from a real NGO project by Ruby4Good.
 
 To run it successfully, you'll need to generate a GitHub token from your personal account settings. Refer to the image below for guidance:
@@ -10,9 +12,11 @@ To run it successfully, you'll need to generate a GitHub token from your persona
 ![alt text](assets/image.png)
 
 Ensure to create a .env file with variables linking to your token information.
----
+
 
 ### Audio Processing.
+---
+
 This project demonstrates audio processing utilizing various Python libraries.
 
 Database: [Emotional Speech Audio Dataset](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
@@ -33,9 +37,11 @@ The output includes a DataFrame containing all audios and their respective metad
 There is also the possibility to develop next steps as described at the end of the code.
 
 Each stage of development is divided into very explanatory topics in the "audio.ipynb" file
----
+
 
 ### Image Processing.
+---
+
 This project focuses on image processing using Python libraries to create a fractal similar to the Sierpinski Triangle.
 The main manipulations include:
 
@@ -56,9 +62,10 @@ The final results are stored in the "Images" folder, showcasing the primary imag
 For future projects, recursive fractal creation is suggested for cleaner and more elegant code.
 
 Each stage of development is divided into very explanatory topics in the "imagem.ipynb" file
----
 
 ### Installation
+---
+
 Ensure Python is installed on your system, then run the following commands to install necessary packages:
 
 ```sh
@@ -68,6 +75,7 @@ pip install ipykernel pandas numpy matplotlib seaborn scikit-learn python-dotenv
 If any errors occur related to missing packages, install them as described above.
 
 ### Source
+---
 1) [Kaggle Dataset: Emotional Speech Audio Dataset](https://www.kaggle.com/datasets/uwrfkaggler/ravdess-emotional-speech-audio)
 2) [Wikipedia: Sierpinski Triangle](https://pt.wikipedia.org/wiki/Tri%C3%A2ngulo_de_Sierpinski)
 
