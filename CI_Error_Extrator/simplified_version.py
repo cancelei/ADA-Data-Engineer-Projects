@@ -4,7 +4,6 @@ import spacy
 from datetime import datetime
 
 # Section 1: Start Extrating relevant part of the log
-
 log_data = """
 2024-03-01T20:34:05.7910724Z ##[group]Run RUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec
 2024-03-01T20:34:05.7911729Z [36;1mRUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec[0m
@@ -656,6 +655,17 @@ log_data = """
 
 # 2024-03-01T20:36:16.2060895Z 254 examples, 6 failures
 
+
+
+frase_padrao = re.compile(
+    r"r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d+Z Finished in (.+?)\n.*?(\d+) examples?, (\d+) failures?",
+    re.DOTALL
+)
+
+
+
+"""
+
 # Use the same summary extraction as before since it worked
 summary_pattern = re.compile(
     r"r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})\.\d+Z Finished in (.+?)\n.*?(\d+) examples?, (\d+) failures?",
@@ -676,4 +686,4 @@ with open('test_summary.csv', 'w', newline='', encoding='utf-8') as file:
     writer.writeheader()
     writer.writerow(summary_data)
 
-print("CSV files generated successfully.")
+print("CSV files generated successfully.")"""
