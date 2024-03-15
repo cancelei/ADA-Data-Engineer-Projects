@@ -2,17 +2,32 @@
 This repository showcases three distinct data engineering projects aimed at processing logs, audio, and images using Python with NumPy and Pandas libraries.
 
 
-### CI_Error Folder
+### Log_processing Folder
 ---
 
-This folder contains a program called CI Run Extractor, which analyzes data from a real NGO project by Ruby4Good.
+Contains a folder called CI_Error_extrator where a CI_Extrator.py will retrieve data from CI Test Workflows.
+In our case we are workign with real world data from Human Essentials (A Diaper Bank Platform) project by NGO/Ruby4Good, but the configurations contained could be adapted to work well with other repositories.
 
-To run it successfully, you'll need to generate a GitHub token from your personal account settings. Refer to the image below for guidance:
+If you want to re-populate the data with the most recent CI workflow runs, you'll need to generate a GitHub token from your personal account settings. Refer to the image below for guidance:
 
 ![alt text](assets/image.png)
 
 Ensure to create a .env file with variables linking to your token information.
 
+To understand the data, there is a .ipynb file that transforms and loads data and with help of external libraries bringing a visual representation of the Logs and it's behavior over time.
+
+The main manipulations include:
+1) Trends Over Time: Visualize test examples and failures over time to identify patterns or spikes in test outcomes.
+2) Relationship Between Examples and Failures: Explore the correlation between the number of tests run and failures using a scatter plot.
+3) Distribution of Failures: Analyze the frequency of failures to identify common failure rates and outliers with a histogram.
+4) Daily Summary of Failures: Summarize daily failures to pinpoint days with high failure rates, suggesting potential areas for investigation.
+5) Failures by Hour of the Day: Examine failure distribution by hour to determine if failures cluster at specific times, indicating optimal times for running tests.
+6) Failures by Day of the Week: Aggregate failures by day of the week to reveal patterns, helping in planning test schedules more effectively.
+
+Future Steps:
+- Enhancing error log data extraction for more detailed analysis.
+- Using machine learning to predict test outcomes based on historical data.
+- Automating the identification of flaky tests to improve test reliability.
 
 ### Audio Processing.
 ---
