@@ -1,0 +1,1975 @@
+2024-03-07T01:53:02.2980908Z Requested labels: ubuntu-latest
+2024-03-07T01:53:02.2981223Z Job defined at: rubyforgood/human-essentials/.github/workflows/rspec-events.yml@refs/pull/4011/merge
+2024-03-07T01:53:02.2981316Z Waiting for a runner to pick up this job...
+2024-03-07T01:53:03.5107574Z Job is waiting for a hosted runner to come online.
+2024-03-07T01:53:05.3593432Z Job is about to start running on the hosted runner: GitHub Actions 12 (hosted)
+2024-03-07T01:53:07.3528348Z Current runner version: '2.314.1'
+2024-03-07T01:53:07.3553253Z ##[group]Operating System
+2024-03-07T01:53:07.3554005Z Ubuntu
+2024-03-07T01:53:07.3554367Z 22.04.4
+2024-03-07T01:53:07.3554655Z LTS
+2024-03-07T01:53:07.3555063Z ##[endgroup]
+2024-03-07T01:53:07.3555448Z ##[group]Runner Image
+2024-03-07T01:53:07.3555839Z Image: ubuntu-22.04
+2024-03-07T01:53:07.3556337Z Version: 20240304.1.0
+2024-03-07T01:53:07.3557340Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240304.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-03-07T01:53:07.3558783Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240304.1
+2024-03-07T01:53:07.3559667Z ##[endgroup]
+2024-03-07T01:53:07.3560071Z ##[group]Runner Image Provisioner
+2024-03-07T01:53:07.3560544Z 2.0.359.1
+2024-03-07T01:53:07.3560949Z ##[endgroup]
+2024-03-07T01:53:07.3563066Z ##[group]GITHUB_TOKEN Permissions
+2024-03-07T01:53:07.3564766Z Actions: write
+2024-03-07T01:53:07.3565208Z Checks: write
+2024-03-07T01:53:07.3565823Z Contents: write
+2024-03-07T01:53:07.3566304Z Deployments: write
+2024-03-07T01:53:07.3566694Z Discussions: write
+2024-03-07T01:53:07.3567187Z Issues: write
+2024-03-07T01:53:07.3567560Z Metadata: read
+2024-03-07T01:53:07.3568016Z Packages: write
+2024-03-07T01:53:07.3568361Z Pages: write
+2024-03-07T01:53:07.3568735Z PullRequests: write
+2024-03-07T01:53:07.3569232Z RepositoryProjects: write
+2024-03-07T01:53:07.3569681Z SecurityEvents: write
+2024-03-07T01:53:07.3570050Z Statuses: write
+2024-03-07T01:53:07.3570522Z ##[endgroup]
+2024-03-07T01:53:07.3573454Z Secret source: Actions
+2024-03-07T01:53:07.3574033Z Prepare workflow directory
+2024-03-07T01:53:07.4452742Z Prepare all required actions
+2024-03-07T01:53:07.4609197Z Getting action download info
+2024-03-07T01:53:07.6083781Z Download action repository 'actions/checkout@v2' (SHA:ee0669bd1cc54295c223e0bb666b733df41de1c5)
+2024-03-07T01:53:07.7411341Z Download action repository 'ruby/setup-ruby@v1' (SHA:d4526a55538b775af234ba4af27118ed6f8f6677)
+2024-03-07T01:53:07.9687809Z Download action repository 'actions/upload-artifact@v2' (SHA:82c141cc518b40d92cc801eee768e7aafc9c2fa2)
+2024-03-07T01:53:08.1199598Z Complete job name: rspec-events (2, 1)
+2024-03-07T01:53:08.1856407Z ##[group]Checking docker version
+2024-03-07T01:53:08.1870628Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2024-03-07T01:53:08.2757326Z '1.43'
+2024-03-07T01:53:08.2769407Z Docker daemon API version: '1.43'
+2024-03-07T01:53:08.2770274Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2024-03-07T01:53:08.2928432Z '1.43'
+2024-03-07T01:53:08.2940946Z Docker client API version: '1.43'
+2024-03-07T01:53:08.2945525Z ##[endgroup]
+2024-03-07T01:53:08.2948935Z ##[group]Clean up resources from previous jobs
+2024-03-07T01:53:08.2954982Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=4e1cef"
+2024-03-07T01:53:08.3122682Z ##[command]/usr/bin/docker network prune --force --filter "label=4e1cef"
+2024-03-07T01:53:08.3258093Z ##[endgroup]
+2024-03-07T01:53:08.3258779Z ##[group]Create local container network
+2024-03-07T01:53:08.3268839Z ##[command]/usr/bin/docker network create --label 4e1cef github_network_68e202c12e2b406c966bb7b149e64062
+2024-03-07T01:53:08.3941288Z 1ec58d3f8798792dbe6e91f4daee1309eae1f406a0de81b355671cf3e974e313
+2024-03-07T01:53:08.3961618Z ##[endgroup]
+2024-03-07T01:53:08.4081501Z ##[group]Starting db service container
+2024-03-07T01:53:08.4156758Z ##[command]/usr/bin/docker pull postgres:12.3
+2024-03-07T01:53:08.6716232Z 12.3: Pulling from library/postgres
+2024-03-07T01:53:08.7394754Z bf5952930446: Pulling fs layer
+2024-03-07T01:53:08.7395794Z 9577476abb00: Pulling fs layer
+2024-03-07T01:53:08.7396486Z 2bd105512d5c: Pulling fs layer
+2024-03-07T01:53:08.7397167Z b1cd21c26e81: Pulling fs layer
+2024-03-07T01:53:08.7397900Z 34a7c86cf8fc: Pulling fs layer
+2024-03-07T01:53:08.7398499Z 274e7b0c38d5: Pulling fs layer
+2024-03-07T01:53:08.7399105Z 3e831b350d37: Pulling fs layer
+2024-03-07T01:53:08.7399834Z 38fa0d496534: Pulling fs layer
+2024-03-07T01:53:08.7400847Z 31a8349609a4: Pulling fs layer
+2024-03-07T01:53:08.7401467Z 14e4c2a4b7b7: Pulling fs layer
+2024-03-07T01:53:08.7402217Z 964acfa02beb: Pulling fs layer
+2024-03-07T01:53:08.7402856Z 31b1f20dffc0: Pulling fs layer
+2024-03-07T01:53:08.7403442Z 14771c2930e9: Pulling fs layer
+2024-03-07T01:53:08.7404166Z 2f30edd0ce8a: Pulling fs layer
+2024-03-07T01:53:08.7404782Z 38fa0d496534: Waiting
+2024-03-07T01:53:08.7405419Z 31a8349609a4: Waiting
+2024-03-07T01:53:08.7405826Z 14e4c2a4b7b7: Waiting
+2024-03-07T01:53:08.7406241Z 964acfa02beb: Waiting
+2024-03-07T01:53:08.7406742Z 31b1f20dffc0: Waiting
+2024-03-07T01:53:08.7407120Z 14771c2930e9: Waiting
+2024-03-07T01:53:08.7407528Z 2f30edd0ce8a: Waiting
+2024-03-07T01:53:08.7408019Z b1cd21c26e81: Waiting
+2024-03-07T01:53:08.7408432Z 34a7c86cf8fc: Waiting
+2024-03-07T01:53:08.7408810Z 3e831b350d37: Waiting
+2024-03-07T01:53:08.8227820Z 2bd105512d5c: Verifying Checksum
+2024-03-07T01:53:08.8228933Z 2bd105512d5c: Download complete
+2024-03-07T01:53:08.8619876Z 9577476abb00: Download complete
+2024-03-07T01:53:08.9336949Z b1cd21c26e81: Verifying Checksum
+2024-03-07T01:53:08.9338268Z b1cd21c26e81: Download complete
+2024-03-07T01:53:09.0174703Z 34a7c86cf8fc: Verifying Checksum
+2024-03-07T01:53:09.0175876Z 34a7c86cf8fc: Download complete
+2024-03-07T01:53:09.0248191Z bf5952930446: Verifying Checksum
+2024-03-07T01:53:09.0249025Z bf5952930446: Download complete
+2024-03-07T01:53:09.0272263Z 274e7b0c38d5: Verifying Checksum
+2024-03-07T01:53:09.0273118Z 274e7b0c38d5: Download complete
+2024-03-07T01:53:09.0975447Z 3e831b350d37: Verifying Checksum
+2024-03-07T01:53:09.0976844Z 3e831b350d37: Download complete
+2024-03-07T01:53:09.1066196Z 38fa0d496534: Verifying Checksum
+2024-03-07T01:53:09.1067143Z 38fa0d496534: Download complete
+2024-03-07T01:53:09.1872992Z 14e4c2a4b7b7: Verifying Checksum
+2024-03-07T01:53:09.1873962Z 14e4c2a4b7b7: Download complete
+2024-03-07T01:53:09.1879632Z 964acfa02beb: Verifying Checksum
+2024-03-07T01:53:09.1880330Z 964acfa02beb: Download complete
+2024-03-07T01:53:09.2797152Z 31b1f20dffc0: Verifying Checksum
+2024-03-07T01:53:09.2798732Z 31b1f20dffc0: Download complete
+2024-03-07T01:53:09.2872105Z 14771c2930e9: Verifying Checksum
+2024-03-07T01:53:09.2873754Z 14771c2930e9: Download complete
+2024-03-07T01:53:09.3675379Z 2f30edd0ce8a: Verifying Checksum
+2024-03-07T01:53:09.3676587Z 2f30edd0ce8a: Download complete
+2024-03-07T01:53:09.7804274Z 31a8349609a4: Verifying Checksum
+2024-03-07T01:53:09.7805223Z 31a8349609a4: Download complete
+2024-03-07T01:53:10.2180880Z bf5952930446: Pull complete
+2024-03-07T01:53:10.5120804Z 9577476abb00: Pull complete
+2024-03-07T01:53:10.5535681Z 2bd105512d5c: Pull complete
+2024-03-07T01:53:10.6034827Z b1cd21c26e81: Pull complete
+2024-03-07T01:53:10.9403231Z 34a7c86cf8fc: Pull complete
+2024-03-07T01:53:10.9813772Z 274e7b0c38d5: Pull complete
+2024-03-07T01:53:10.9922937Z 3e831b350d37: Pull complete
+2024-03-07T01:53:11.0045454Z 38fa0d496534: Pull complete
+2024-03-07T01:53:13.0322025Z 31a8349609a4: Pull complete
+2024-03-07T01:53:13.2870362Z 14e4c2a4b7b7: Pull complete
+2024-03-07T01:53:13.2974267Z 964acfa02beb: Pull complete
+2024-03-07T01:53:13.3173164Z 31b1f20dffc0: Pull complete
+2024-03-07T01:53:13.3281872Z 14771c2930e9: Pull complete
+2024-03-07T01:53:13.3382648Z 2f30edd0ce8a: Pull complete
+2024-03-07T01:53:13.3426594Z Digest: sha256:a06e6e6e519b7a329c419f8221edec66cfc45511e8b80e262c12103ba745cf19
+2024-03-07T01:53:13.3439780Z Status: Downloaded newer image for postgres:12.3
+2024-03-07T01:53:13.3450380Z docker.io/library/postgres:12.3
+2024-03-07T01:53:13.3553871Z ##[command]/usr/bin/docker create --name c0b5a5dd44b54585bcf2cdde81fe0663_postgres123_da2458 --label 4e1cef --network github_network_68e202c12e2b406c966bb7b149e64062 --network-alias db -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_PASSWORD=password" -e GITHUB_ACTIONS=true -e CI=true postgres:12.3
+2024-03-07T01:53:13.3822739Z cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:13.3846110Z ##[command]/usr/bin/docker start cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:13.6673249Z cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:13.6690817Z ##[command]/usr/bin/docker ps --all --filter id=cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2024-03-07T01:53:13.6817907Z cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c Up Less than a second (health: starting)
+2024-03-07T01:53:13.6843707Z ##[command]/usr/bin/docker port cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:13.6971748Z 5432/tcp -> 0.0.0.0:5432
+2024-03-07T01:53:13.6972376Z 5432/tcp -> [::]:5432
+2024-03-07T01:53:13.7048808Z ##[endgroup]
+2024-03-07T01:53:13.7074929Z ##[group]Waiting for all services to be ready
+2024-03-07T01:53:13.7111584Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:13.7248387Z starting
+2024-03-07T01:53:13.7274515Z db service is starting, waiting 2 seconds before checking again.
+2024-03-07T01:53:15.7269909Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:15.7398655Z starting
+2024-03-07T01:53:15.7411426Z db service is starting, waiting 3 seconds before checking again.
+2024-03-07T01:53:19.4031936Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:19.4153687Z starting
+2024-03-07T01:53:19.4165877Z db service is starting, waiting 8 seconds before checking again.
+2024-03-07T01:53:28.2733721Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:53:28.2854141Z healthy
+2024-03-07T01:53:28.2869730Z db service is healthy.
+2024-03-07T01:53:28.2870221Z ##[endgroup]
+2024-03-07T01:53:28.3236769Z ##[group]Run actions/checkout@v2
+2024-03-07T01:53:28.3237418Z with:
+2024-03-07T01:53:28.3237815Z   repository: rubyforgood/human-essentials
+2024-03-07T01:53:28.3238468Z   token: ***
+2024-03-07T01:53:28.3238858Z   ssh-strict: true
+2024-03-07T01:53:28.3239217Z   persist-credentials: true
+2024-03-07T01:53:28.3239608Z   clean: true
+2024-03-07T01:53:28.3239954Z   fetch-depth: 1
+2024-03-07T01:53:28.3240284Z   lfs: false
+2024-03-07T01:53:28.3240614Z   submodules: false
+2024-03-07T01:53:28.3241022Z   set-safe-directory: true
+2024-03-07T01:53:28.3241350Z ##[endgroup]
+2024-03-07T01:53:28.5222195Z Syncing repository: rubyforgood/human-essentials
+2024-03-07T01:53:28.5223999Z ##[group]Getting Git version info
+2024-03-07T01:53:28.5224745Z Working directory is '/home/runner/work/human-essentials/human-essentials'
+2024-03-07T01:53:28.5225807Z [command]/usr/bin/git version
+2024-03-07T01:53:28.5282747Z git version 2.43.2
+2024-03-07T01:53:28.5306430Z ##[endgroup]
+2024-03-07T01:53:28.5329467Z Temporarily overriding HOME='/home/runner/work/_temp/5fb4b2d0-fcf9-4220-b60f-d876a8e9a722' before making global git config changes
+2024-03-07T01:53:28.5331425Z Adding repository directory to the temporary git global config as a safe directory
+2024-03-07T01:53:28.5333288Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/human-essentials/human-essentials
+2024-03-07T01:53:28.5380461Z Deleting the contents of '/home/runner/work/human-essentials/human-essentials'
+2024-03-07T01:53:28.5385878Z ##[group]Initializing the repository
+2024-03-07T01:53:28.5390331Z [command]/usr/bin/git init /home/runner/work/human-essentials/human-essentials
+2024-03-07T01:53:28.5486589Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-03-07T01:53:28.5487743Z hint: is subject to change. To configure the initial branch name to use in all
+2024-03-07T01:53:28.5488821Z hint: of your new repositories, which will suppress this warning, call:
+2024-03-07T01:53:28.5489749Z hint: 
+2024-03-07T01:53:28.5490569Z hint: 	git config --global init.defaultBranch <name>
+2024-03-07T01:53:28.5491388Z hint: 
+2024-03-07T01:53:28.5492219Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-03-07T01:53:28.5493053Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-03-07T01:53:28.5493630Z hint: 
+2024-03-07T01:53:28.5494019Z hint: 	git branch -m <name>
+2024-03-07T01:53:28.5496531Z Initialized empty Git repository in /home/runner/work/human-essentials/human-essentials/.git/
+2024-03-07T01:53:28.5505854Z [command]/usr/bin/git remote add origin https://github.com/rubyforgood/human-essentials
+2024-03-07T01:53:28.5551054Z ##[endgroup]
+2024-03-07T01:53:28.5552167Z ##[group]Disabling automatic garbage collection
+2024-03-07T01:53:28.5555544Z [command]/usr/bin/git config --local gc.auto 0
+2024-03-07T01:53:28.5592959Z ##[endgroup]
+2024-03-07T01:53:28.5594200Z ##[group]Setting up auth
+2024-03-07T01:53:28.5600571Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-03-07T01:53:28.5640086Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-03-07T01:53:28.5976725Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-03-07T01:53:28.6015233Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-03-07T01:53:28.6255726Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-03-07T01:53:28.6315948Z ##[endgroup]
+2024-03-07T01:53:28.6316559Z ##[group]Fetching the repository
+2024-03-07T01:53:28.6324502Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +d882acb41bf62f138558745c0c157c5a658e26d0:refs/remotes/pull/4011/merge
+2024-03-07T01:53:28.8078811Z remote: Enumerating objects: 1740, done.        
+2024-03-07T01:53:28.8080627Z remote: Counting objects:   0% (1/1740)        
+2024-03-07T01:53:28.8082830Z remote: Counting objects:   1% (18/1740)        
+2024-03-07T01:53:28.8083644Z remote: Counting objects:   2% (35/1740)        
+2024-03-07T01:53:28.8084547Z remote: Counting objects:   3% (53/1740)        
+2024-03-07T01:53:28.8085574Z remote: Counting objects:   4% (70/1740)        
+2024-03-07T01:53:28.8086290Z remote: Counting objects:   5% (87/1740)        
+2024-03-07T01:53:28.8087170Z remote: Counting objects:   6% (105/1740)        
+2024-03-07T01:53:28.8088169Z remote: Counting objects:   7% (122/1740)        
+2024-03-07T01:53:28.8089147Z remote: Counting objects:   8% (140/1740)        
+2024-03-07T01:53:28.8090086Z remote: Counting objects:   9% (157/1740)        
+2024-03-07T01:53:28.8091133Z remote: Counting objects:  10% (174/1740)        
+2024-03-07T01:53:28.8092113Z remote: Counting objects:  11% (192/1740)        
+2024-03-07T01:53:28.8093010Z remote: Counting objects:  12% (209/1740)        
+2024-03-07T01:53:28.8094107Z remote: Counting objects:  13% (227/1740)        
+2024-03-07T01:53:28.8094753Z remote: Counting objects:  14% (244/1740)        
+2024-03-07T01:53:28.8095415Z remote: Counting objects:  15% (261/1740)        
+2024-03-07T01:53:28.8096262Z remote: Counting objects:  16% (279/1740)        
+2024-03-07T01:53:28.8096748Z remote: Counting objects:  17% (296/1740)        
+2024-03-07T01:53:28.8097185Z remote: Counting objects:  18% (314/1740)        
+2024-03-07T01:53:28.8097765Z remote: Counting objects:  19% (331/1740)        
+2024-03-07T01:53:28.8098242Z remote: Counting objects:  20% (348/1740)        
+2024-03-07T01:53:28.8098780Z remote: Counting objects:  21% (366/1740)        
+2024-03-07T01:53:28.8099233Z remote: Counting objects:  22% (383/1740)        
+2024-03-07T01:53:28.8100000Z remote: Counting objects:  23% (401/1740)        
+2024-03-07T01:53:28.8100581Z remote: Counting objects:  24% (418/1740)        
+2024-03-07T01:53:28.8101061Z remote: Counting objects:  25% (435/1740)        
+2024-03-07T01:53:28.8101496Z remote: Counting objects:  26% (453/1740)        
+2024-03-07T01:53:28.8102068Z remote: Counting objects:  27% (470/1740)        
+2024-03-07T01:53:28.8102540Z remote: Counting objects:  28% (488/1740)        
+2024-03-07T01:53:28.8103026Z remote: Counting objects:  29% (505/1740)        
+2024-03-07T01:53:28.8103546Z remote: Counting objects:  30% (522/1740)        
+2024-03-07T01:53:28.8104027Z remote: Counting objects:  31% (540/1740)        
+2024-03-07T01:53:28.8104510Z remote: Counting objects:  32% (557/1740)        
+2024-03-07T01:53:28.8105039Z remote: Counting objects:  33% (575/1740)        
+2024-03-07T01:53:28.8105470Z remote: Counting objects:  34% (592/1740)        
+2024-03-07T01:53:28.8105958Z remote: Counting objects:  35% (609/1740)        
+2024-03-07T01:53:28.8106511Z remote: Counting objects:  36% (627/1740)        
+2024-03-07T01:53:28.8106985Z remote: Counting objects:  37% (644/1740)        
+2024-03-07T01:53:28.8107434Z remote: Counting objects:  38% (662/1740)        
+2024-03-07T01:53:28.8107986Z remote: Counting objects:  39% (679/1740)        
+2024-03-07T01:53:28.8108458Z remote: Counting objects:  40% (696/1740)        
+2024-03-07T01:53:28.8108942Z remote: Counting objects:  41% (714/1740)        
+2024-03-07T01:53:28.8109439Z remote: Counting objects:  42% (731/1740)        
+2024-03-07T01:53:28.8109932Z remote: Counting objects:  43% (749/1740)        
+2024-03-07T01:53:28.8110404Z remote: Counting objects:  44% (766/1740)        
+2024-03-07T01:53:28.8110945Z remote: Counting objects:  45% (783/1740)        
+2024-03-07T01:53:28.8111411Z remote: Counting objects:  46% (801/1740)        
+2024-03-07T01:53:28.8111885Z remote: Counting objects:  47% (818/1740)        
+2024-03-07T01:53:28.8112417Z remote: Counting objects:  48% (836/1740)        
+2024-03-07T01:53:28.8112898Z remote: Counting objects:  49% (853/1740)        
+2024-03-07T01:53:28.8113533Z remote: Counting objects:  50% (870/1740)        
+2024-03-07T01:53:28.8114102Z remote: Counting objects:  51% (888/1740)        
+2024-03-07T01:53:28.8114569Z remote: Counting objects:  52% (905/1740)        
+2024-03-07T01:53:28.8115102Z remote: Counting objects:  53% (923/1740)        
+2024-03-07T01:53:28.8115550Z remote: Counting objects:  54% (940/1740)        
+2024-03-07T01:53:28.8116026Z remote: Counting objects:  55% (957/1740)        
+2024-03-07T01:53:28.8116557Z remote: Counting objects:  56% (975/1740)        
+2024-03-07T01:53:28.8117037Z remote: Counting objects:  57% (992/1740)        
+2024-03-07T01:53:28.8117484Z remote: Counting objects:  58% (1010/1740)        
+2024-03-07T01:53:28.8118060Z remote: Counting objects:  59% (1027/1740)        
+2024-03-07T01:53:28.8132852Z remote: Counting objects:  60% (1044/1740)        
+2024-03-07T01:53:28.8134110Z remote: Counting objects:  61% (1062/1740)        
+2024-03-07T01:53:28.8135032Z remote: Counting objects:  62% (1079/1740)        
+2024-03-07T01:53:28.8136202Z remote: Counting objects:  63% (1097/1740)        
+2024-03-07T01:53:28.8137033Z remote: Counting objects:  64% (1114/1740)        
+2024-03-07T01:53:28.8137693Z remote: Counting objects:  65% (1131/1740)        
+2024-03-07T01:53:28.8138308Z remote: Counting objects:  66% (1149/1740)        
+2024-03-07T01:53:28.8139031Z remote: Counting objects:  67% (1166/1740)        
+2024-03-07T01:53:28.8139612Z remote: Counting objects:  68% (1184/1740)        
+2024-03-07T01:53:28.8140227Z remote: Counting objects:  69% (1201/1740)        
+2024-03-07T01:53:28.8140974Z remote: Counting objects:  70% (1218/1740)        
+2024-03-07T01:53:28.8141509Z remote: Counting objects:  71% (1236/1740)        
+2024-03-07T01:53:28.8142036Z remote: Counting objects:  72% (1253/1740)        
+2024-03-07T01:53:28.8142608Z remote: Counting objects:  73% (1271/1740)        
+2024-03-07T01:53:28.8143350Z remote: Counting objects:  74% (1288/1740)        
+2024-03-07T01:53:28.8143830Z remote: Counting objects:  75% (1305/1740)        
+2024-03-07T01:53:28.8144419Z remote: Counting objects:  76% (1323/1740)        
+2024-03-07T01:53:28.8144904Z remote: Counting objects:  77% (1340/1740)        
+2024-03-07T01:53:28.8145406Z remote: Counting objects:  78% (1358/1740)        
+2024-03-07T01:53:28.8145917Z remote: Counting objects:  79% (1375/1740)        
+2024-03-07T01:53:28.8146651Z remote: Counting objects:  80% (1392/1740)        
+2024-03-07T01:53:28.8147296Z remote: Counting objects:  81% (1410/1740)        
+2024-03-07T01:53:28.8148136Z remote: Counting objects:  82% (1427/1740)        
+2024-03-07T01:53:28.8148725Z remote: Counting objects:  83% (1445/1740)        
+2024-03-07T01:53:28.8149215Z remote: Counting objects:  84% (1462/1740)        
+2024-03-07T01:53:28.8149777Z remote: Counting objects:  85% (1479/1740)        
+2024-03-07T01:53:28.8150275Z remote: Counting objects:  86% (1497/1740)        
+2024-03-07T01:53:28.8150747Z remote: Counting objects:  87% (1514/1740)        
+2024-03-07T01:53:28.8151330Z remote: Counting objects:  88% (1532/1740)        
+2024-03-07T01:53:28.8151823Z remote: Counting objects:  89% (1549/1740)        
+2024-03-07T01:53:28.8152362Z remote: Counting objects:  90% (1566/1740)        
+2024-03-07T01:53:28.8152812Z remote: Counting objects:  91% (1584/1740)        
+2024-03-07T01:53:28.8153308Z remote: Counting objects:  92% (1601/1740)        
+2024-03-07T01:53:28.8154204Z remote: Counting objects:  93% (1619/1740)        
+2024-03-07T01:53:28.8154927Z remote: Counting objects:  94% (1636/1740)        
+2024-03-07T01:53:28.8155688Z remote: Counting objects:  95% (1653/1740)        
+2024-03-07T01:53:28.8156271Z remote: Counting objects:  96% (1671/1740)        
+2024-03-07T01:53:28.8156778Z remote: Counting objects:  97% (1688/1740)        
+2024-03-07T01:53:28.8157262Z remote: Counting objects:  98% (1706/1740)        
+2024-03-07T01:53:28.8157773Z remote: Counting objects:  99% (1723/1740)        
+2024-03-07T01:53:28.8158281Z remote: Counting objects: 100% (1740/1740)        
+2024-03-07T01:53:28.8158991Z remote: Counting objects: 100% (1740/1740), done.        
+2024-03-07T01:53:28.8159634Z remote: Compressing objects:   0% (1/1565)        
+2024-03-07T01:53:28.8160118Z remote: Compressing objects:   1% (16/1565)        
+2024-03-07T01:53:28.8160627Z remote: Compressing objects:   2% (32/1565)        
+2024-03-07T01:53:28.8161211Z remote: Compressing objects:   3% (47/1565)        
+2024-03-07T01:53:28.8161714Z remote: Compressing objects:   4% (63/1565)        
+2024-03-07T01:53:28.8162187Z remote: Compressing objects:   5% (79/1565)        
+2024-03-07T01:53:28.8162772Z remote: Compressing objects:   6% (94/1565)        
+2024-03-07T01:53:28.8163310Z remote: Compressing objects:   7% (110/1565)        
+2024-03-07T01:53:28.8163843Z remote: Compressing objects:   8% (126/1565)        
+2024-03-07T01:53:28.8245365Z remote: Compressing objects:   9% (141/1565)        
+2024-03-07T01:53:28.8246488Z remote: Compressing objects:  10% (157/1565)        
+2024-03-07T01:53:28.8247535Z remote: Compressing objects:  11% (173/1565)        
+2024-03-07T01:53:28.8248824Z remote: Compressing objects:  12% (188/1565)        
+2024-03-07T01:53:28.8291106Z remote: Compressing objects:  13% (204/1565)        
+2024-03-07T01:53:28.8293693Z remote: Compressing objects:  14% (220/1565)        
+2024-03-07T01:53:28.8298908Z remote: Compressing objects:  15% (235/1565)        
+2024-03-07T01:53:28.8302635Z remote: Compressing objects:  16% (251/1565)        
+2024-03-07T01:53:28.8303509Z remote: Compressing objects:  17% (267/1565)        
+2024-03-07T01:53:28.8313302Z remote: Compressing objects:  18% (282/1565)        
+2024-03-07T01:53:28.8322081Z remote: Compressing objects:  19% (298/1565)        
+2024-03-07T01:53:28.8342677Z remote: Compressing objects:  20% (313/1565)        
+2024-03-07T01:53:28.8392294Z remote: Compressing objects:  21% (329/1565)        
+2024-03-07T01:53:28.8407729Z remote: Compressing objects:  22% (345/1565)        
+2024-03-07T01:53:28.8412193Z remote: Compressing objects:  23% (360/1565)        
+2024-03-07T01:53:28.8432581Z remote: Compressing objects:  24% (376/1565)        
+2024-03-07T01:53:28.8433688Z remote: Compressing objects:  25% (392/1565)        
+2024-03-07T01:53:28.8441899Z remote: Compressing objects:  26% (407/1565)        
+2024-03-07T01:53:28.8458431Z remote: Compressing objects:  27% (423/1565)        
+2024-03-07T01:53:28.8464914Z remote: Compressing objects:  28% (439/1565)        
+2024-03-07T01:53:28.8475785Z remote: Compressing objects:  29% (454/1565)        
+2024-03-07T01:53:28.8486058Z remote: Compressing objects:  30% (470/1565)        
+2024-03-07T01:53:28.8510572Z remote: Compressing objects:  31% (486/1565)        
+2024-03-07T01:53:28.8518183Z remote: Compressing objects:  32% (501/1565)        
+2024-03-07T01:53:28.8525072Z remote: Compressing objects:  33% (517/1565)        
+2024-03-07T01:53:28.8546213Z remote: Compressing objects:  34% (533/1565)        
+2024-03-07T01:53:28.8547242Z remote: Compressing objects:  35% (548/1565)        
+2024-03-07T01:53:28.8547756Z remote: Compressing objects:  36% (564/1565)        
+2024-03-07T01:53:28.8550279Z remote: Compressing objects:  37% (580/1565)        
+2024-03-07T01:53:28.8551755Z remote: Compressing objects:  38% (595/1565)        
+2024-03-07T01:53:28.8552972Z remote: Compressing objects:  39% (611/1565)        
+2024-03-07T01:53:28.8559065Z remote: Compressing objects:  40% (626/1565)        
+2024-03-07T01:53:28.8560261Z remote: Compressing objects:  41% (642/1565)        
+2024-03-07T01:53:28.8568496Z remote: Compressing objects:  42% (658/1565)        
+2024-03-07T01:53:28.8569389Z remote: Compressing objects:  43% (673/1565)        
+2024-03-07T01:53:28.8569916Z remote: Compressing objects:  44% (689/1565)        
+2024-03-07T01:53:28.8573514Z remote: Compressing objects:  45% (705/1565)        
+2024-03-07T01:53:28.8581159Z remote: Compressing objects:  46% (720/1565)        
+2024-03-07T01:53:28.8584148Z remote: Compressing objects:  47% (736/1565)        
+2024-03-07T01:53:28.8587859Z remote: Compressing objects:  48% (752/1565)        
+2024-03-07T01:53:28.8593658Z remote: Compressing objects:  49% (767/1565)        
+2024-03-07T01:53:28.8606738Z remote: Compressing objects:  50% (783/1565)        
+2024-03-07T01:53:28.8607492Z remote: Compressing objects:  51% (799/1565)        
+2024-03-07T01:53:28.8608548Z remote: Compressing objects:  52% (814/1565)        
+2024-03-07T01:53:28.8609455Z remote: Compressing objects:  53% (830/1565)        
+2024-03-07T01:53:28.8611586Z remote: Compressing objects:  54% (846/1565)        
+2024-03-07T01:53:28.8616365Z remote: Compressing objects:  55% (861/1565)        
+2024-03-07T01:53:28.8645810Z remote: Compressing objects:  56% (877/1565)        
+2024-03-07T01:53:28.8678991Z remote: Compressing objects:  57% (893/1565)        
+2024-03-07T01:53:28.8691666Z remote: Compressing objects:  58% (908/1565)        
+2024-03-07T01:53:28.8702379Z remote: Compressing objects:  59% (924/1565)        
+2024-03-07T01:53:28.8703378Z remote: Compressing objects:  60% (939/1565)        
+2024-03-07T01:53:28.8703971Z remote: Compressing objects:  61% (955/1565)        
+2024-03-07T01:53:28.8709300Z remote: Compressing objects:  62% (971/1565)        
+2024-03-07T01:53:28.8718647Z remote: Compressing objects:  63% (986/1565)        
+2024-03-07T01:53:28.8723315Z remote: Compressing objects:  64% (1002/1565)        
+2024-03-07T01:53:28.8729574Z remote: Compressing objects:  65% (1018/1565)        
+2024-03-07T01:53:28.8732184Z remote: Compressing objects:  66% (1033/1565)        
+2024-03-07T01:53:28.8740169Z remote: Compressing objects:  67% (1049/1565)        
+2024-03-07T01:53:28.8748557Z remote: Compressing objects:  68% (1065/1565)        
+2024-03-07T01:53:28.8754641Z remote: Compressing objects:  69% (1080/1565)        
+2024-03-07T01:53:28.8755351Z remote: Compressing objects:  70% (1096/1565)        
+2024-03-07T01:53:28.8768665Z remote: Compressing objects:  71% (1112/1565)        
+2024-03-07T01:53:28.8781245Z remote: Compressing objects:  72% (1127/1565)        
+2024-03-07T01:53:28.8791608Z remote: Compressing objects:  73% (1143/1565)        
+2024-03-07T01:53:28.8798512Z remote: Compressing objects:  74% (1159/1565)        
+2024-03-07T01:53:28.8808731Z remote: Compressing objects:  75% (1174/1565)        
+2024-03-07T01:53:28.8870685Z remote: Compressing objects:  76% (1190/1565)        
+2024-03-07T01:53:28.8901647Z remote: Compressing objects:  77% (1206/1565)        
+2024-03-07T01:53:28.8908143Z remote: Compressing objects:  78% (1221/1565)        
+2024-03-07T01:53:28.8930195Z remote: Compressing objects:  79% (1237/1565)        
+2024-03-07T01:53:28.8953530Z remote: Compressing objects:  80% (1252/1565)        
+2024-03-07T01:53:28.8999689Z remote: Compressing objects:  81% (1268/1565)        
+2024-03-07T01:53:28.9030248Z remote: Compressing objects:  82% (1284/1565)        
+2024-03-07T01:53:28.9077041Z remote: Compressing objects:  83% (1299/1565)        
+2024-03-07T01:53:28.9092141Z remote: Compressing objects:  84% (1315/1565)        
+2024-03-07T01:53:28.9133893Z remote: Compressing objects:  85% (1331/1565)        
+2024-03-07T01:53:28.9179807Z remote: Compressing objects:  86% (1346/1565)        
+2024-03-07T01:53:28.9199651Z remote: Compressing objects:  87% (1362/1565)        
+2024-03-07T01:53:28.9212948Z remote: Compressing objects:  88% (1378/1565)        
+2024-03-07T01:53:28.9213787Z remote: Compressing objects:  89% (1393/1565)        
+2024-03-07T01:53:28.9214386Z remote: Compressing objects:  90% (1409/1565)        
+2024-03-07T01:53:28.9216953Z remote: Compressing objects:  91% (1425/1565)        
+2024-03-07T01:53:28.9217701Z remote: Compressing objects:  92% (1440/1565)        
+2024-03-07T01:53:28.9218581Z remote: Compressing objects:  93% (1456/1565)        
+2024-03-07T01:53:28.9220029Z remote: Compressing objects:  94% (1472/1565)        
+2024-03-07T01:53:28.9220989Z remote: Compressing objects:  95% (1487/1565)        
+2024-03-07T01:53:28.9228875Z remote: Compressing objects:  96% (1503/1565)        
+2024-03-07T01:53:28.9241042Z remote: Compressing objects:  97% (1519/1565)        
+2024-03-07T01:53:28.9241867Z remote: Compressing objects:  98% (1534/1565)        
+2024-03-07T01:53:28.9243218Z remote: Compressing objects:  99% (1550/1565)        
+2024-03-07T01:53:28.9244213Z remote: Compressing objects: 100% (1565/1565)        
+2024-03-07T01:53:28.9245120Z remote: Compressing objects: 100% (1565/1565), done.        
+2024-03-07T01:53:28.9272258Z Receiving objects:   0% (1/1740)
+2024-03-07T01:53:28.9275279Z Receiving objects:   1% (18/1740)
+2024-03-07T01:53:28.9289562Z Receiving objects:   2% (35/1740)
+2024-03-07T01:53:28.9625889Z Receiving objects:   3% (53/1740)
+2024-03-07T01:53:29.0450732Z Receiving objects:   4% (70/1740)
+2024-03-07T01:53:29.0452486Z Receiving objects:   5% (87/1740)
+2024-03-07T01:53:29.0455297Z Receiving objects:   6% (105/1740)
+2024-03-07T01:53:29.0460132Z Receiving objects:   7% (122/1740)
+2024-03-07T01:53:29.0463693Z Receiving objects:   8% (140/1740)
+2024-03-07T01:53:29.0467099Z Receiving objects:   9% (157/1740)
+2024-03-07T01:53:29.0470051Z Receiving objects:  10% (174/1740)
+2024-03-07T01:53:29.0472564Z Receiving objects:  11% (192/1740)
+2024-03-07T01:53:29.0477150Z Receiving objects:  12% (209/1740)
+2024-03-07T01:53:29.0486736Z Receiving objects:  13% (227/1740)
+2024-03-07T01:53:29.0490949Z Receiving objects:  14% (244/1740)
+2024-03-07T01:53:29.0493768Z Receiving objects:  15% (261/1740)
+2024-03-07T01:53:29.0497533Z Receiving objects:  16% (279/1740)
+2024-03-07T01:53:29.0503085Z Receiving objects:  17% (296/1740)
+2024-03-07T01:53:29.0507682Z Receiving objects:  18% (314/1740)
+2024-03-07T01:53:29.0512070Z Receiving objects:  19% (331/1740)
+2024-03-07T01:53:29.0515882Z Receiving objects:  20% (348/1740)
+2024-03-07T01:53:29.0519476Z Receiving objects:  21% (366/1740)
+2024-03-07T01:53:29.0529182Z Receiving objects:  22% (383/1740)
+2024-03-07T01:53:29.0533555Z Receiving objects:  23% (401/1740)
+2024-03-07T01:53:29.0536083Z Receiving objects:  24% (418/1740)
+2024-03-07T01:53:29.0539596Z Receiving objects:  25% (435/1740)
+2024-03-07T01:53:29.0541147Z Receiving objects:  26% (453/1740)
+2024-03-07T01:53:29.0543931Z Receiving objects:  27% (470/1740)
+2024-03-07T01:53:29.0545888Z Receiving objects:  28% (488/1740)
+2024-03-07T01:53:29.0547196Z Receiving objects:  29% (505/1740)
+2024-03-07T01:53:29.0551086Z Receiving objects:  30% (522/1740)
+2024-03-07T01:53:29.0555114Z Receiving objects:  31% (540/1740)
+2024-03-07T01:53:29.0557573Z Receiving objects:  32% (557/1740)
+2024-03-07T01:53:29.0559244Z Receiving objects:  33% (575/1740)
+2024-03-07T01:53:29.0560919Z Receiving objects:  34% (592/1740)
+2024-03-07T01:53:29.0562181Z Receiving objects:  35% (609/1740)
+2024-03-07T01:53:29.0567020Z Receiving objects:  36% (627/1740)
+2024-03-07T01:53:29.0568933Z Receiving objects:  37% (644/1740)
+2024-03-07T01:53:29.0570745Z Receiving objects:  38% (662/1740)
+2024-03-07T01:53:29.0573109Z Receiving objects:  39% (679/1740)
+2024-03-07T01:53:29.0575367Z Receiving objects:  40% (696/1740)
+2024-03-07T01:53:29.0578160Z Receiving objects:  41% (714/1740)
+2024-03-07T01:53:29.0580156Z Receiving objects:  42% (731/1740)
+2024-03-07T01:53:29.0589911Z Receiving objects:  43% (749/1740)
+2024-03-07T01:53:29.0592685Z Receiving objects:  44% (766/1740)
+2024-03-07T01:53:29.0594613Z Receiving objects:  45% (783/1740)
+2024-03-07T01:53:29.0596726Z Receiving objects:  46% (801/1740)
+2024-03-07T01:53:29.0599107Z Receiving objects:  47% (818/1740)
+2024-03-07T01:53:29.0601688Z Receiving objects:  48% (836/1740)
+2024-03-07T01:53:29.0603576Z Receiving objects:  49% (853/1740)
+2024-03-07T01:53:29.0609904Z Receiving objects:  50% (870/1740)
+2024-03-07T01:53:29.0610831Z Receiving objects:  51% (888/1740)
+2024-03-07T01:53:29.0615452Z Receiving objects:  52% (905/1740)
+2024-03-07T01:53:29.0619809Z Receiving objects:  53% (923/1740)
+2024-03-07T01:53:29.0624759Z Receiving objects:  54% (940/1740)
+2024-03-07T01:53:29.0631699Z Receiving objects:  55% (957/1740)
+2024-03-07T01:53:29.0633053Z Receiving objects:  56% (975/1740)
+2024-03-07T01:53:29.0634750Z Receiving objects:  57% (992/1740)
+2024-03-07T01:53:29.0636231Z Receiving objects:  58% (1010/1740)
+2024-03-07T01:53:29.0638208Z Receiving objects:  59% (1027/1740)
+2024-03-07T01:53:29.0639759Z Receiving objects:  60% (1044/1740)
+2024-03-07T01:53:29.0641123Z Receiving objects:  61% (1062/1740)
+2024-03-07T01:53:29.0643605Z Receiving objects:  62% (1079/1740)
+2024-03-07T01:53:29.0644696Z Receiving objects:  63% (1097/1740)
+2024-03-07T01:53:29.0645987Z Receiving objects:  64% (1114/1740)
+2024-03-07T01:53:29.0648790Z Receiving objects:  65% (1131/1740)
+2024-03-07T01:53:29.0650552Z Receiving objects:  66% (1149/1740)
+2024-03-07T01:53:29.0651665Z Receiving objects:  67% (1166/1740)
+2024-03-07T01:53:29.0653379Z Receiving objects:  68% (1184/1740)
+2024-03-07T01:53:29.0655613Z Receiving objects:  69% (1201/1740)
+2024-03-07T01:53:29.0657154Z Receiving objects:  70% (1218/1740)
+2024-03-07T01:53:29.0670286Z Receiving objects:  71% (1236/1740)
+2024-03-07T01:53:29.0683594Z Receiving objects:  72% (1253/1740)
+2024-03-07T01:53:29.0686192Z Receiving objects:  73% (1271/1740)
+2024-03-07T01:53:29.0688069Z Receiving objects:  74% (1288/1740)
+2024-03-07T01:53:29.0895754Z Receiving objects:  75% (1305/1740)
+2024-03-07T01:53:29.1092925Z Receiving objects:  76% (1323/1740)
+2024-03-07T01:53:29.1226662Z Receiving objects:  77% (1340/1740)
+2024-03-07T01:53:29.1445927Z Receiving objects:  78% (1358/1740)
+2024-03-07T01:53:29.1549351Z Receiving objects:  79% (1375/1740)
+2024-03-07T01:53:29.1826486Z Receiving objects:  80% (1392/1740)
+2024-03-07T01:53:29.1833004Z Receiving objects:  81% (1410/1740)
+2024-03-07T01:53:29.1835302Z Receiving objects:  82% (1427/1740)
+2024-03-07T01:53:29.1838166Z Receiving objects:  83% (1445/1740)
+2024-03-07T01:53:29.1843697Z Receiving objects:  84% (1462/1740)
+2024-03-07T01:53:29.1847614Z Receiving objects:  85% (1479/1740)
+2024-03-07T01:53:29.1854994Z Receiving objects:  86% (1497/1740)
+2024-03-07T01:53:29.1861891Z Receiving objects:  87% (1514/1740)
+2024-03-07T01:53:29.1866720Z Receiving objects:  88% (1532/1740)
+2024-03-07T01:53:29.1873225Z Receiving objects:  89% (1549/1740)
+2024-03-07T01:53:29.1879583Z Receiving objects:  90% (1566/1740)
+2024-03-07T01:53:29.1885559Z Receiving objects:  91% (1584/1740)
+2024-03-07T01:53:29.1891082Z Receiving objects:  92% (1601/1740)
+2024-03-07T01:53:29.1896376Z Receiving objects:  93% (1619/1740)
+2024-03-07T01:53:29.1900813Z Receiving objects:  94% (1636/1740)
+2024-03-07T01:53:29.1904950Z Receiving objects:  95% (1653/1740)
+2024-03-07T01:53:29.1907402Z Receiving objects:  96% (1671/1740)
+2024-03-07T01:53:29.1916940Z Receiving objects:  97% (1688/1740)
+2024-03-07T01:53:29.1925189Z Receiving objects:  98% (1706/1740)
+2024-03-07T01:53:29.1942266Z Receiving objects:  99% (1723/1740)
+2024-03-07T01:53:29.1943826Z remote: Total 1740 (delta 273), reused 974 (delta 136), pack-reused 0        
+2024-03-07T01:53:29.1954905Z Receiving objects: 100% (1740/1740)
+2024-03-07T01:53:29.1956439Z Receiving objects: 100% (1740/1740), 6.59 MiB | 24.55 MiB/s, done.
+2024-03-07T01:53:29.1960717Z Resolving deltas:   0% (0/273)
+2024-03-07T01:53:29.1962094Z Resolving deltas:   1% (3/273)
+2024-03-07T01:53:29.1969633Z Resolving deltas:   2% (6/273)
+2024-03-07T01:53:29.1989487Z Resolving deltas:   3% (9/273)
+2024-03-07T01:53:29.1990908Z Resolving deltas:   4% (11/273)
+2024-03-07T01:53:29.1993663Z Resolving deltas:   5% (14/273)
+2024-03-07T01:53:29.1994766Z Resolving deltas:   6% (17/273)
+2024-03-07T01:53:29.1995887Z Resolving deltas:   7% (20/273)
+2024-03-07T01:53:29.1997118Z Resolving deltas:   8% (22/273)
+2024-03-07T01:53:29.1999174Z Resolving deltas:   9% (25/273)
+2024-03-07T01:53:29.2000818Z Resolving deltas:  10% (28/273)
+2024-03-07T01:53:29.2002581Z Resolving deltas:  11% (31/273)
+2024-03-07T01:53:29.2003890Z Resolving deltas:  12% (33/273)
+2024-03-07T01:53:29.2006015Z Resolving deltas:  13% (37/273)
+2024-03-07T01:53:29.2007064Z Resolving deltas:  14% (39/273)
+2024-03-07T01:53:29.2010367Z Resolving deltas:  15% (41/273)
+2024-03-07T01:53:29.2012103Z Resolving deltas:  16% (44/273)
+2024-03-07T01:53:29.2013725Z Resolving deltas:  17% (47/273)
+2024-03-07T01:53:29.2014961Z Resolving deltas:  18% (50/273)
+2024-03-07T01:53:29.2017077Z Resolving deltas:  19% (52/273)
+2024-03-07T01:53:29.2019005Z Resolving deltas:  20% (55/273)
+2024-03-07T01:53:29.2020273Z Resolving deltas:  21% (58/273)
+2024-03-07T01:53:29.2024582Z Resolving deltas:  22% (61/273)
+2024-03-07T01:53:29.2025429Z Resolving deltas:  23% (63/273)
+2024-03-07T01:53:29.2026087Z Resolving deltas:  24% (66/273)
+2024-03-07T01:53:29.2026756Z Resolving deltas:  25% (69/273)
+2024-03-07T01:53:29.2031394Z Resolving deltas:  26% (71/273)
+2024-03-07T01:53:29.2032526Z Resolving deltas:  27% (74/273)
+2024-03-07T01:53:29.2033600Z Resolving deltas:  28% (77/273)
+2024-03-07T01:53:29.2035258Z Resolving deltas:  29% (80/273)
+2024-03-07T01:53:29.2036286Z Resolving deltas:  30% (82/273)
+2024-03-07T01:53:29.2037279Z Resolving deltas:  31% (85/273)
+2024-03-07T01:53:29.2038191Z Resolving deltas:  32% (88/273)
+2024-03-07T01:53:29.2039265Z Resolving deltas:  33% (91/273)
+2024-03-07T01:53:29.2040213Z Resolving deltas:  34% (93/273)
+2024-03-07T01:53:29.2041383Z Resolving deltas:  35% (96/273)
+2024-03-07T01:53:29.2042113Z Resolving deltas:  36% (99/273)
+2024-03-07T01:53:29.2042749Z Resolving deltas:  37% (102/273)
+2024-03-07T01:53:29.2043556Z Resolving deltas:  38% (104/273)
+2024-03-07T01:53:29.2044231Z Resolving deltas:  39% (107/273)
+2024-03-07T01:53:29.2045009Z Resolving deltas:  40% (110/273)
+2024-03-07T01:53:29.2125016Z Resolving deltas:  41% (112/273)
+2024-03-07T01:53:29.2125888Z Resolving deltas:  42% (115/273)
+2024-03-07T01:53:29.2126643Z Resolving deltas:  43% (118/273)
+2024-03-07T01:53:29.2127518Z Resolving deltas:  44% (121/273)
+2024-03-07T01:53:29.2128197Z Resolving deltas:  45% (123/273)
+2024-03-07T01:53:29.2128871Z Resolving deltas:  46% (126/273)
+2024-03-07T01:53:29.2129750Z Resolving deltas:  47% (129/273)
+2024-03-07T01:53:29.2130419Z Resolving deltas:  48% (132/273)
+2024-03-07T01:53:29.2131138Z Resolving deltas:  49% (134/273)
+2024-03-07T01:53:29.2131986Z Resolving deltas:  50% (137/273)
+2024-03-07T01:53:29.2133051Z Resolving deltas:  51% (140/273)
+2024-03-07T01:53:29.2133747Z Resolving deltas:  52% (142/273)
+2024-03-07T01:53:29.2134601Z Resolving deltas:  53% (145/273)
+2024-03-07T01:53:29.2135342Z Resolving deltas:  54% (148/273)
+2024-03-07T01:53:29.2136246Z Resolving deltas:  55% (151/273)
+2024-03-07T01:53:29.2137200Z Resolving deltas:  56% (153/273)
+2024-03-07T01:53:29.2137959Z Resolving deltas:  57% (156/273)
+2024-03-07T01:53:29.2138858Z Resolving deltas:  58% (159/273)
+2024-03-07T01:53:29.2139602Z Resolving deltas:  59% (162/273)
+2024-03-07T01:53:29.2140359Z Resolving deltas:  60% (164/273)
+2024-03-07T01:53:29.2141199Z Resolving deltas:  61% (167/273)
+2024-03-07T01:53:29.2141969Z Resolving deltas:  62% (170/273)
+2024-03-07T01:53:29.2142617Z Resolving deltas:  63% (172/273)
+2024-03-07T01:53:29.2143435Z Resolving deltas:  64% (175/273)
+2024-03-07T01:53:29.2144149Z Resolving deltas:  65% (178/273)
+2024-03-07T01:53:29.2144799Z Resolving deltas:  66% (181/273)
+2024-03-07T01:53:29.2145678Z Resolving deltas:  67% (183/273)
+2024-03-07T01:53:29.2146459Z Resolving deltas:  68% (186/273)
+2024-03-07T01:53:29.2147189Z Resolving deltas:  69% (189/273)
+2024-03-07T01:53:29.2147997Z Resolving deltas:  70% (192/273)
+2024-03-07T01:53:29.2148779Z Resolving deltas:  71% (194/273)
+2024-03-07T01:53:29.2149513Z Resolving deltas:  72% (197/273)
+2024-03-07T01:53:29.2150369Z Resolving deltas:  73% (200/273)
+2024-03-07T01:53:29.2151101Z Resolving deltas:  74% (203/273)
+2024-03-07T01:53:29.2151835Z Resolving deltas:  75% (205/273)
+2024-03-07T01:53:29.2152735Z Resolving deltas:  76% (208/273)
+2024-03-07T01:53:29.2153447Z Resolving deltas:  77% (211/273)
+2024-03-07T01:53:29.2154085Z Resolving deltas:  78% (213/273)
+2024-03-07T01:53:29.2154912Z Resolving deltas:  79% (216/273)
+2024-03-07T01:53:29.2155581Z Resolving deltas:  80% (219/273)
+2024-03-07T01:53:29.2156165Z Resolving deltas:  81% (222/273)
+2024-03-07T01:53:29.2156969Z Resolving deltas:  82% (225/273)
+2024-03-07T01:53:29.2157605Z Resolving deltas:  83% (227/273)
+2024-03-07T01:53:29.2158259Z Resolving deltas:  84% (230/273)
+2024-03-07T01:53:29.2159039Z Resolving deltas:  85% (233/273)
+2024-03-07T01:53:29.2160007Z Resolving deltas:  86% (235/273)
+2024-03-07T01:53:29.2160752Z Resolving deltas:  87% (238/273)
+2024-03-07T01:53:29.2161527Z Resolving deltas:  88% (241/273)
+2024-03-07T01:53:29.2162133Z Resolving deltas:  89% (243/273)
+2024-03-07T01:53:29.2162831Z Resolving deltas:  90% (246/273)
+2024-03-07T01:53:29.2163595Z Resolving deltas:  91% (249/273)
+2024-03-07T01:53:29.2164264Z Resolving deltas:  92% (252/273)
+2024-03-07T01:53:29.2164879Z Resolving deltas:  93% (254/273)
+2024-03-07T01:53:29.2165655Z Resolving deltas:  94% (257/273)
+2024-03-07T01:53:29.2166330Z Resolving deltas:  95% (260/273)
+2024-03-07T01:53:29.2166949Z Resolving deltas:  96% (263/273)
+2024-03-07T01:53:29.2167708Z Resolving deltas:  97% (265/273)
+2024-03-07T01:53:29.2168369Z Resolving deltas:  98% (268/273)
+2024-03-07T01:53:29.2169143Z Resolving deltas:  99% (271/273)
+2024-03-07T01:53:29.2169773Z Resolving deltas: 100% (273/273)
+2024-03-07T01:53:29.2170466Z Resolving deltas: 100% (273/273), done.
+2024-03-07T01:53:29.2299226Z From https://github.com/rubyforgood/human-essentials
+2024-03-07T01:53:29.2300402Z  * [new ref]         d882acb41bf62f138558745c0c157c5a658e26d0 -> pull/4011/merge
+2024-03-07T01:53:29.2325289Z ##[endgroup]
+2024-03-07T01:53:29.2326088Z ##[group]Determining the checkout info
+2024-03-07T01:53:29.2327368Z ##[endgroup]
+2024-03-07T01:53:29.2328164Z ##[group]Checking out the ref
+2024-03-07T01:53:29.2331459Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4011/merge
+2024-03-07T01:53:29.3848794Z Note: switching to 'refs/remotes/pull/4011/merge'.
+2024-03-07T01:53:29.3849600Z 
+2024-03-07T01:53:29.3850412Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-03-07T01:53:29.3851348Z changes and commit them, and you can discard any commits you make in this
+2024-03-07T01:53:29.3852553Z state without impacting any branches by switching back to a branch.
+2024-03-07T01:53:29.3853251Z 
+2024-03-07T01:53:29.3853544Z If you want to create a new branch to retain commits you create, you may
+2024-03-07T01:53:29.3854370Z do so (now or later) by using -c with the switch command. Example:
+2024-03-07T01:53:29.3854981Z 
+2024-03-07T01:53:29.3855373Z   git switch -c <new-branch-name>
+2024-03-07T01:53:29.3855818Z 
+2024-03-07T01:53:29.3856271Z Or undo this operation with:
+2024-03-07T01:53:29.3856781Z 
+2024-03-07T01:53:29.3857019Z   git switch -
+2024-03-07T01:53:29.3857465Z 
+2024-03-07T01:53:29.3858031Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-03-07T01:53:29.3858750Z 
+2024-03-07T01:53:29.3859635Z HEAD is now at d882acb Merge ab12bc65d6f567e5799bacfe7c4559cc9cc6450e into 7f9f88342ef6b65a71dc55d4f4cd2a4e751bcdbc
+2024-03-07T01:53:29.3861800Z ##[endgroup]
+2024-03-07T01:53:29.3911841Z [command]/usr/bin/git log -1 --format='%H'
+2024-03-07T01:53:29.3948105Z 'd882acb41bf62f138558745c0c157c5a658e26d0'
+2024-03-07T01:53:29.4258854Z ##[group]Run ruby/setup-ruby@v1
+2024-03-07T01:53:29.4259416Z with:
+2024-03-07T01:53:29.4259713Z   bundler-cache: true
+2024-03-07T01:53:29.4260073Z   ruby-version: default
+2024-03-07T01:53:29.4260489Z ##[endgroup]
+2024-03-07T01:53:29.6536228Z Using 3.2.2 as input from file .ruby-version
+2024-03-07T01:53:29.6564011Z ##[group]Modifying PATH
+2024-03-07T01:53:29.6564956Z Entries added to PATH to use selected Ruby:
+2024-03-07T01:53:29.6565849Z   /opt/hostedtoolcache/Ruby/3.2.2/x64/bin
+2024-03-07T01:53:29.6567252Z ##[endgroup]
+2024-03-07T01:53:29.6587935Z ##[group]Downloading Ruby
+2024-03-07T01:53:29.6590819Z https://github.com/ruby/ruby-builder/releases/download/toolcache/ruby-3.2.2-ubuntu-22.04.tar.gz
+2024-03-07T01:53:30.0611870Z Took   0.40 seconds
+2024-03-07T01:53:30.0613837Z ##[endgroup]
+2024-03-07T01:53:30.0614694Z ##[group]Extracting  Ruby
+2024-03-07T01:53:30.0646057Z [command]/usr/bin/tar -xz -C /opt/hostedtoolcache/Ruby/3.2.2 -f /home/runner/work/_temp/741ed746-e5d7-40d2-a0b6-46f53811d98c
+2024-03-07T01:53:30.4642980Z Took   0.40 seconds
+2024-03-07T01:53:30.4644553Z ##[endgroup]
+2024-03-07T01:53:30.4645610Z ##[group]Print Ruby version
+2024-03-07T01:53:30.4656281Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/ruby --version
+2024-03-07T01:53:30.4858848Z ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux]
+2024-03-07T01:53:30.4878316Z Took   0.02 seconds
+2024-03-07T01:53:30.4879321Z ##[endgroup]
+2024-03-07T01:53:30.4880319Z ##[group]Installing Bundler
+2024-03-07T01:53:30.4886012Z Using Bundler 2.5.6 from Gemfile.lock BUNDLED WITH 2.5.6
+2024-03-07T01:53:30.4890965Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/gem install bundler -v 2.5.6
+2024-03-07T01:53:31.0086700Z Successfully installed bundler-2.5.6
+2024-03-07T01:53:31.0087673Z 1 gem installed
+2024-03-07T01:53:31.0140825Z Took   0.53 seconds
+2024-03-07T01:53:31.0142002Z ##[endgroup]
+2024-03-07T01:53:31.0142832Z > bundle install
+2024-03-07T01:53:31.0160971Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle config --local path /home/runner/work/human-essentials/human-essentials/vendor/bundle
+2024-03-07T01:53:31.1641204Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle config --local deployment true
+2024-03-07T01:53:31.3132663Z Cache key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.2.2-wd-/home/runner/work/human-essentials/human-essentials-with--without--only--Gemfile.lock-4d33c700f7ba6b276ff29199ee0ad50f50eaee1ebc70333043a17640f6a66093
+2024-03-07T01:53:32.3014246Z Cache Size: ~205 MB (215052876 B)
+2024-03-07T01:53:32.3133891Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9e130ae8-6280-48d7-a996-64b94b3efaac/cache.tzst -P -C /home/runner/work/human-essentials/human-essentials --use-compress-program unzstd
+2024-03-07T01:53:32.4346143Z Received 215052876 of 215052876 (100.0%), 205.1 MBs/sec
+2024-03-07T01:53:33.9127834Z Cache restored successfully
+2024-03-07T01:53:33.9547246Z Found cache for key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.2.2-wd-/home/runner/work/human-essentials/human-essentials-with--without--only--Gemfile.lock-4d33c700f7ba6b276ff29199ee0ad50f50eaee1ebc70333043a17640f6a66093
+2024-03-07T01:53:33.9555971Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle install --jobs 4
+2024-03-07T01:53:34.3699801Z Bundle complete! 85 Gemfile dependencies, 246 gems now installed.
+2024-03-07T01:53:34.3702027Z Bundled gems are installed into `./vendor/bundle`
+2024-03-07T01:53:34.3748445Z Took   3.36 seconds
+2024-03-07T01:53:34.3914929Z ##[group]Run sudo apt-get -yqq install libpq-dev
+2024-03-07T01:53:34.3915733Z [36;1msudo apt-get -yqq install libpq-dev[0m
+2024-03-07T01:53:34.3982011Z shell: /usr/bin/bash -e {0}
+2024-03-07T01:53:34.3982437Z ##[endgroup]
+2024-03-07T01:53:35.6837055Z ##[group]Run bundle exec rake db:create
+2024-03-07T01:53:35.6837586Z [36;1mbundle exec rake db:create[0m
+2024-03-07T01:53:35.6838177Z [36;1mbundle exec rake db:schema:load[0m
+2024-03-07T01:53:35.6888246Z shell: /usr/bin/bash -e {0}
+2024-03-07T01:53:35.6888669Z env:
+2024-03-07T01:53:35.6888955Z   POSTGRES_HOST: localhost
+2024-03-07T01:53:35.6889438Z   DATABASE_HOST: localhost
+2024-03-07T01:53:35.6889823Z   PG_USERNAME: postgres
+2024-03-07T01:53:35.6890256Z   PG_PASSWORD: password
+2024-03-07T01:53:35.6890646Z   POSTGRES_HOST_AUTH_METHOD: trust
+2024-03-07T01:53:35.6891052Z   POSTGRES_PORT: 5432
+2024-03-07T01:53:35.6891478Z   RAILS_ENV: test
+2024-03-07T01:53:35.6891772Z ##[endgroup]
+2024-03-07T01:53:42.7576454Z We could not find your database: diaper_test. Which can be found in the database configuration file located at config/database.yml.
+2024-03-07T01:53:42.7577907Z 
+2024-03-07T01:53:42.7578154Z To resolve this issue:
+2024-03-07T01:53:42.7578494Z 
+2024-03-07T01:53:42.7579650Z - Did you create the database for this app, or delete it? You may need to create your database.
+2024-03-07T01:53:42.7581423Z - Has the database name changed? Check your database.yml config has the correct database name.
+2024-03-07T01:53:42.7582266Z 
+2024-03-07T01:53:42.7582741Z To create your database, run:
+2024-03-07T01:53:42.7583258Z 
+2024-03-07T01:53:42.7583491Z         bin/rails db:create
+2024-03-07T01:53:42.7584609Z . You likely need to run `rails g flipper:active_record` and/or `rails db:migrate`.
+2024-03-07T01:53:42.9342137Z Created database 'diaper_test'
+2024-03-07T01:53:43.2336456Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 442 / 9942 LOC (4.45%) covered.
+2024-03-07T01:53:49.7366331Z PG::UndefinedTable: ERROR:  relation "flipper_gates" does not exist
+2024-03-07T01:53:49.7367788Z LINE 9:  WHERE a.attrelid = '"flipper_gates"'::regclass
+2024-03-07T01:53:49.7368584Z                             ^
+2024-03-07T01:53:49.7369682Z . You likely need to run `rails g flipper:active_record` and/or `rails db:migrate`.
+2024-03-07T01:53:50.6061506Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 442 / 9942 LOC (4.45%) covered.
+2024-03-07T01:53:50.6413115Z ##[group]Run RUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec
+2024-03-07T01:53:50.6414027Z [36;1mRUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec[0m
+2024-03-07T01:53:50.6464568Z shell: /usr/bin/bash -e {0}
+2024-03-07T01:53:50.6464963Z env:
+2024-03-07T01:53:50.6465286Z   POSTGRES_HOST: localhost
+2024-03-07T01:53:50.6465747Z   DATABASE_HOST: localhost
+2024-03-07T01:53:50.6466134Z   PG_USERNAME: postgres
+2024-03-07T01:53:50.6466532Z   PG_PASSWORD: password
+2024-03-07T01:53:50.6466990Z   POSTGRES_HOST_AUTH_METHOD: trust
+2024-03-07T01:53:50.6467399Z   POSTGRES_PORT: 5432
+2024-03-07T01:53:50.6467770Z   PGHOST: localhost
+2024-03-07T01:53:50.6468180Z   PGUSER: postgres
+2024-03-07T01:53:50.6468487Z   RAILS_ENV: test
+2024-03-07T01:53:50.6469088Z   KNAPSACK_PRO_TEST_SUITE_TOKEN_RSPEC: ***
+2024-03-07T01:53:50.6469617Z   KNAPSACK_PRO_CI_NODE_TOTAL: 2
+2024-03-07T01:53:50.6470039Z   KNAPSACK_PRO_CI_NODE_INDEX: 1
+2024-03-07T01:53:50.6470680Z   KNAPSACK_PRO_RSPEC_SPLIT_BY_TEST_EXAMPLES: true
+2024-03-07T01:53:50.6471177Z   KNAPSACK_PRO_LOG_LEVEL: info
+2024-03-07T01:53:50.6471893Z   KNAPSACK_PRO_TEST_FILE_EXCLUDE_PATTERN: {spec/system/**{,/*/**}/*_spec.rb,spec/requests/**{,/*/**}/*_spec.rb}
+2024-03-07T01:53:50.6472731Z   EVENTS_READ: true
+2024-03-07T01:53:50.6473096Z ##[endgroup]
+2024-03-07T01:54:00.5045645Z /opt/hostedtoolcache/Ruby/3.2.2/x64/bin/ruby -I/home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-core-3.12.2/lib:/home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-support-3.12.1/lib /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-core-3.12.2/exe/rspec  --format documentation --format KnapsackPro::Formatters::TimeTracker --default-path spec "spec/events/inventory_aggregate_spec.rb" "spec/models/product_drive_spec.rb" "spec/models/distribution_spec.rb" "spec/services/kit_create_service_spec.rb" "spec/services/organization_update_service_spec.rb" "spec/models/kit_spec.rb" "spec/models/audit_spec.rb" "spec/services/distribution_destroy_service_spec.rb" "spec/services/reports/adult_incontinence_report_service_spec.rb" "spec/models/storage_location_spec.rb" "spec/services/add_role_service_spec.rb" "spec/services/reports/summary_report_service_spec.rb" "spec/services/reports/warehouse_report_service_spec.rb" "spec/queries/items_in_query_spec.rb" "spec/services/remove_role_service_spec.rb" "spec/services/distribution_create_service_spec.rb" "spec/controllers/application_controller_spec.rb" "spec/services/item_create_service_spec.rb" "spec/models/donation_spec.rb" "spec/services/reports/period_supply_report_service_spec.rb" "spec/services/user_invite_service_spec.rb" "spec/services/exports/export_distributions_csv_service_spec.rb" "spec/jobs/partner_mailer_job_spec.rb" "spec/controllers/donations_controller_spec.rb" "spec/models/manufacturer_spec.rb" "spec/services/partner_fetch_requestable_items_service_spec.rb" "spec/models/event_spec.rb" "spec/helpers/application_helper_spec.rb" "spec/models/product_drive_participant_spec.rb" "spec/models/barcode_item_spec.rb" "spec/controllers/transfers_controller_spec.rb" "spec/services/distribution_update_service_spec.rb" "spec/services/distributions_by_county_report_service_spec.rb" "spec/services/historical_trend_service_spec.rb" "spec/services/partners/request_create_service_spec.rb" "spec/models/vendor_spec.rb" "spec/models/partners/family_spec.rb" "spec/queries/items_out_query_spec.rb" "spec/models/donation_site_spec.rb" "spec/models/user_spec.rb" "spec/services/distribution_reminder_spec.rb" "spec/services/partner_profile_update_service_spec.rb" "spec/models/partners/profile_spec.rb" "spec/pdfs/distribution_pdf_spec.rb" "spec/queries/items_out_total_query_spec.rb" "spec/mailers/reminder_deadline_mailer_spec.rb" "spec/services/partners/update_family_spec.rb" "spec/services/request_destroy_service_spec.rb" "spec/models/broadcast_announcement_spec.rb" "spec/models/question_spec.rb" "spec/mailers/organization_mailer_spec.rb" "spec/models/organization_stats_spec.rb" "spec/models/item_category_spec.rb" "spec/models/inventory_item_spec.rb" "spec/models/base_item_spec.rb" "spec/mailers/request_mailer_spec.rb" "spec/services/donation_destroy_service_spec.rb" "spec/models/request_spec.rb" "spec/models/partners/child_item_request_spec.rb" "spec/models/ndbn_member_spec.rb" "spec/controllers/help_controller_spec.rb" "spec/models/role_spec.rb" "spec/services/donation_create_service_spec.rb" "spec/helpers/product_drive_helper_spec.rb" "spec/helpers/historical_trends_helper_spec.rb" "spec/lib/dispersed_past_dates_generator_spec.rb" "spec/models/kit_allocation_spec.rb" "spec/services/exports/export_report_csv_service_spec.rb"
+2024-03-07T01:54:09.2759741Z 
+2024-03-07T01:54:09.2760506Z Randomized with seed 61226
+2024-03-07T01:54:10.1624050Z 
+2024-03-07T01:54:10.1624714Z Distribution
+2024-03-07T01:54:10.1625974Z   Scopes >
+2024-03-07T01:54:10.1627023Z     by_item_id >
+2024-03-07T01:54:10.3686497Z       only returns distributions with given item id
+2024-03-07T01:54:10.3687585Z     by_partner >
+2024-03-07T01:54:10.4193019Z       only returns distributions with given partner id
+2024-03-07T01:54:10.4193905Z     during >
+2024-03-07T01:54:10.5189135Z       returns all distributions created between two dates
+2024-03-07T01:54:10.5190055Z     this_week >
+2024-03-07T01:54:10.5190928Z       When it's Sunday (end of the week)
+2024-03-07T01:54:10.5711242Z         doesn't include distributions past Sunday
+2024-03-07T01:54:10.5712264Z       When it's Tuesday (mid-week)
+2024-03-07T01:54:10.6407973Z         includes distributions as early as Monday and as late as upcoming Sunday
+2024-03-07T01:54:10.6409101Z     by_location >
+2024-03-07T01:54:10.6945301Z       only returns distributions with given location id
+2024-03-07T01:54:10.6946348Z   behaves like itemizable
+2024-03-07T01:54:10.6946915Z     .to_a
+2024-03-07T01:54:10.6947523Z       with Flipper flag :deprecate_to_a enabled
+2024-03-07T01:54:10.7301471Z         raises an error
+2024-03-07T01:54:10.7302019Z       with Flipper flag :deprecate_to_a disabled
+2024-03-07T01:54:10.7635029Z         calls line_item_values
+2024-03-07T01:54:10.7635689Z     .line_items
+2024-03-07T01:54:10.7636487Z       combine!
+2024-03-07T01:54:10.8082435Z         combines multiple line_items with the same item_id into a single record
+2024-03-07T01:54:10.8669931Z         incrementally combines line_items on donations that have already been created
+2024-03-07T01:54:10.8670891Z       sorted
+2024-03-07T01:54:10.9905736Z         displays the items, sorted by name
+2024-03-07T01:54:11.0823425Z       total
+2024-03-07T01:54:11.0824344Z         has an item total
+2024-03-07T01:54:11.0825025Z       quantities_by_name
+2024-03-07T01:54:11.1691949Z         leaves out zero-quantitied items if requested
+2024-03-07T01:54:11.2529841Z         returns a hash of items with id, name, and quantity
+2024-03-07T01:54:11.2530806Z   CSV export >
+2024-03-07T01:54:11.2531377Z     for_csv_export >
+2024-03-07T01:54:11.5798922Z       filters only to the given filter
+2024-03-07T01:54:11.9183178Z       filters only to the given organization
+2024-03-07T01:54:12.2541060Z       filters only to the given issue time range
+2024-03-07T01:54:12.2541678Z     csv_export_attributes
+2024-03-07T01:54:12.6649398Z       returns the set of attributes which define a row in case of distribution export
+2024-03-07T01:54:12.6650219Z   Validations >
+2024-03-07T01:54:12.6708155Z     requires a storage location
+2024-03-07T01:54:12.6763797Z     must belong to an organization
+2024-03-07T01:54:12.6928378Z     ensures the associated line_items are invalid with a zero quantity
+2024-03-07T01:54:12.6963693Z     ensures that any included items are found in the associated storage location
+2024-03-07T01:54:12.7124503Z     ensures the associated line_items are invalid with a nil quantity
+2024-03-07T01:54:12.7174162Z     requires a partner
+2024-03-07T01:54:12.7580005Z     ensures the associated line_items are valid
+2024-03-07T01:54:12.7640705Z     ensures that the issued at is no earlier than 2000
+2024-03-07T01:54:12.7642189Z     when delivery method is other then shipped
+2024-03-07T01:54:12.7915825Z       allows to save distribution
+2024-03-07T01:54:12.7916805Z     when delivery method is shipped
+2024-03-07T01:54:12.7917535Z       shipping cost is none negative
+2024-03-07T01:54:12.8185392Z         allows to save distribution
+2024-03-07T01:54:12.8186157Z       shipping cost is negative
+2024-03-07T01:54:12.8246708Z         will not allow to save distribution
+2024-03-07T01:54:12.8247521Z   versioning
+2024-03-07T01:54:12.8284497Z     is expected to be versioned
+2024-03-07T01:54:12.8285181Z   Callbacks >
+2024-03-07T01:54:12.8788551Z     initializes the issued_at field to default to midnight if it wasn't explicitly set
+2024-03-07T01:54:12.8789704Z     #before_save
+2024-03-07T01:54:12.8790286Z       #reset_shipping_cost
+2024-03-07T01:54:12.8791221Z         when delivery_method is other then shipped
+2024-03-07T01:54:12.9097691Z           distribution will be created successfully and the shipping_cost will be zero
+2024-03-07T01:54:12.9099040Z   Methods >
+2024-03-07T01:54:12.9101264Z     #distributed_at
+2024-03-07T01:54:12.9619117Z       displays explicit issued_at date
+2024-03-07T01:54:12.9889188Z       shows the hour and minutes if it has been provided
+2024-03-07T01:54:12.9890443Z     #copy_line_items
+2024-03-07T01:54:13.0319473Z       replicates line_items from a donation into a distribution
+2024-03-07T01:54:13.0320540Z     #future?
+2024-03-07T01:54:13.0321139Z       when issued_at has passed
+2024-03-07T01:54:13.0602383Z         returns false
+2024-03-07T01:54:13.0603467Z       when issued_at has not passed
+2024-03-07T01:54:13.0883809Z         returns true
+2024-03-07T01:54:13.0884816Z     #copy_from_request
+2024-03-07T01:54:13.1213941Z       copy over relevant request information into the distrubution
+2024-03-07T01:54:13.1214925Z     #combine_duplicates
+2024-03-07T01:54:13.1638508Z       condenses duplicate line_items if the item_ids match
+2024-03-07T01:54:13.1640500Z 
+2024-03-07T01:54:13.1640858Z Audit
+2024-03-07T01:54:13.1641897Z   behaves like itemizable
+2024-03-07T01:54:13.1642757Z     .line_items
+2024-03-07T01:54:13.1643659Z       quantities_by_name
+2024-03-07T01:54:13.2529297Z         returns a hash of items with id, name, and quantity
+2024-03-07T01:54:13.3319918Z         leaves out zero-quantitied items if requested
+2024-03-07T01:54:13.3321058Z       combine!
+2024-03-07T01:54:13.3877429Z         combines multiple line_items with the same item_id into a single record
+2024-03-07T01:54:13.4366427Z         incrementally combines line_items on donations that have already been created
+2024-03-07T01:54:13.4367811Z       total
+2024-03-07T01:54:13.5244687Z         has an item total
+2024-03-07T01:54:13.5245307Z       sorted
+2024-03-07T01:54:13.6439003Z         displays the items, sorted by name
+2024-03-07T01:54:13.6439849Z     .to_a
+2024-03-07T01:54:13.6440826Z       with Flipper flag :deprecate_to_a enabled
+2024-03-07T01:54:13.6934305Z         raises an error
+2024-03-07T01:54:13.6934978Z       with Flipper flag :deprecate_to_a disabled
+2024-03-07T01:54:13.7426772Z         calls line_item_values
+2024-03-07T01:54:13.7427504Z   Methods >
+2024-03-07T01:54:13.9861743Z     `self.storage_locations_audited_for` returns only storage_locations that are used for one org
+2024-03-07T01:54:14.3481805Z     `self.finalized_since?` returns true iff some finalized audit occurred after itemizable created_at that shares item for location(s)
+2024-03-07T01:54:14.3483495Z   Scopes >
+2024-03-07T01:54:14.3916487Z     `at_location` can filter out audits to a specific location
+2024-03-07T01:54:14.3917109Z   Validations >
+2024-03-07T01:54:14.4532125Z     can not have line items that has quantity as negative integer
+2024-03-07T01:54:14.5127673Z     can have line items that has quantity as zero
+2024-03-07T01:54:14.5689930Z     can have line items that has quantity as a positive integer
+2024-03-07T01:54:14.5980771Z     must belong to an organization
+2024-03-07T01:54:14.6082663Z     must belong to an organization admin of its organization
+2024-03-07T01:54:14.6631901Z     can not have line items that has quantity as a string that cannot be reduced to an integer
+2024-03-07T01:54:14.7177601Z     cannot have duplicate line items
+2024-03-07T01:54:14.7178365Z   versioning
+2024-03-07T01:54:14.7215614Z     is expected to be versioned
+2024-03-07T01:54:14.7216376Z 
+2024-03-07T01:54:14.7216617Z BroadcastAnnouncement
+2024-03-07T01:54:14.7313006Z   is expected to belong to organization optional: true
+2024-03-07T01:54:14.7370406Z   is expected to validate that :message cannot be empty/falsy
+2024-03-07T01:54:14.7428944Z   should roughly check if link is valid
+2024-03-07T01:54:14.7469110Z   is expected to belong to user required: true
+2024-03-07T01:54:14.7522538Z   should validate a good link
+2024-03-07T01:54:14.7575848Z   should validate a valid announcement
+2024-03-07T01:54:14.7577131Z   filter_announcements
+2024-03-07T01:54:14.7718124Z     shouldn't include expired announcements
+2024-03-07T01:54:14.7852116Z     should include only announcements from the passed organization
+2024-03-07T01:54:14.8000586Z     sorts announcements from most recently created to last
+2024-03-07T01:54:14.8001766Z   versioning
+2024-03-07T01:54:14.8039832Z     is expected to be versioned
+2024-03-07T01:54:14.8040928Z   expired?
+2024-03-07T01:54:14.8108341Z     should be false if the announcement has not expired
+2024-03-07T01:54:14.8168667Z     should be true if the announcement is expired
+2024-03-07T01:54:14.8169348Z 
+2024-03-07T01:54:14.8169586Z ItemsOutTotalQuery
+2024-03-07T01:54:14.8172498Z   items_out_total_query
+2024-03-07T01:54:14.9424946Z     returns a sum total of all out-flows
+2024-03-07T01:54:14.9425546Z 
+2024-03-07T01:54:14.9426055Z HistoricalTrendsHelper
+2024-03-07T01:54:14.9426812Z   #last_12_months
+2024-03-07T01:54:14.9498046Z     returns the last 12 months starting from July when the current month is June
+2024-03-07T01:54:14.9539243Z     returns the last 12 months starting from Feb when the current month is Jan
+2024-03-07T01:54:14.9580914Z     returns the last 12 months starting from Jan when the current month is Dec
+2024-03-07T01:54:14.9581768Z 
+2024-03-07T01:54:14.9582009Z ProductDriveHelper
+2024-03-07T01:54:14.9582952Z   #is_virtual
+2024-03-07T01:54:14.9584854Z     when the product drive wasn't held virtually
+2024-03-07T01:54:14.9694527Z       is expected to eq "No"
+2024-03-07T01:54:14.9695373Z     when the product drive was held virtually
+2024-03-07T01:54:14.9747193Z       is expected to eq "Yes"
+2024-03-07T01:54:14.9748155Z     when a product drive was not provided
+2024-03-07T01:54:14.9791831Z       with blank argument
+2024-03-07T01:54:14.9835114Z       without argument
+2024-03-07T01:54:14.9836346Z 
+2024-03-07T01:54:14.9836704Z TransfersController
+2024-03-07T01:54:14.9837973Z   While not signed in
+2024-03-07T01:54:14.9977109Z     redirects the user to the sign-in page for CRUD actions
+2024-03-07T01:54:14.9978049Z   While signed in
+2024-03-07T01:54:14.9978638Z     GET #new
+2024-03-07T01:54:15.0167986Z       returns http success
+2024-03-07T01:54:15.0168686Z     POST #create
+2024-03-07T01:54:15.0635641Z       redirects to #show when successful
+2024-03-07T01:54:15.0781002Z       renders to #new when failing
+2024-03-07T01:54:15.0781774Z     GET #show
+2024-03-07T01:54:15.1036979Z       returns http success
+2024-03-07T01:54:15.1038073Z     Looking at a different organization
+2024-03-07T01:54:15.2826904Z       redirects the user to the sign-in page for CRUD actions
+2024-03-07T01:54:15.2827752Z     GET #index
+2024-03-07T01:54:15.2975245Z       returns http success
+2024-03-07T01:54:15.2976685Z       when filtering by date
+2024-03-07T01:54:15.2977426Z         when date parameters are supplied
+2024-03-07T01:54:15.3515123Z           only returns the correct obejects
+2024-03-07T01:54:15.3516322Z         when date parameters are not supplied
+2024-03-07T01:54:15.3919454Z           returns all objects
+2024-03-07T01:54:15.3919984Z 
+2024-03-07T01:54:15.3920524Z Event
+2024-03-07T01:54:15.3921269Z   #most_recent_snapshot
+2024-03-07T01:54:15.6339812Z     should include the last usable snapshot
+2024-03-07T01:54:15.8791639Z     should not include an unusable snapshot
+2024-03-07T01:54:15.8792316Z 
+2024-03-07T01:54:15.8792843Z PartnerMailerJob
+2024-03-07T01:54:15.8793796Z   conditionally sending the emails
+2024-03-07T01:54:16.1895841Z     sends mail for future distributions immediately
+2024-03-07T01:54:16.4011502Z     does not send mail for past distributions
+2024-03-07T01:54:16.4012201Z     when the distribution is for a deactivated partner
+2024-03-07T01:54:16.6002484Z       does not send the email
+2024-03-07T01:54:16.6003504Z 
+2024-03-07T01:54:16.6004219Z StorageLocation
+2024-03-07T01:54:16.6006051Z   Validations >
+2024-03-07T01:54:16.6076995Z     is expected to validate that :name cannot be empty/falsy
+2024-03-07T01:54:16.6138447Z     is expected to validate that :address cannot be empty/falsy
+2024-03-07T01:54:16.6194394Z     is expected to validate that :organization cannot be empty/falsy
+2024-03-07T01:54:16.6195219Z   Methods >
+2024-03-07T01:54:16.6197067Z     csv_export_attributes
+2024-03-07T01:54:16.6838630Z       returns an array of storage location attributes, followed by inventory item quantities that are sorted by alphabetized item names
+2024-03-07T01:54:16.6840428Z     import_csv
+2024-03-07T01:54:16.7049453Z       imports storage locations from a csv file
+2024-03-07T01:54:16.7050634Z     geocode
+2024-03-07T01:54:16.7175136Z       adds coordinates to the database
+2024-03-07T01:54:16.7175884Z     decrease_inventory
+2024-03-07T01:54:16.8260983Z       decreases inventory quantities from an itemizable object
+2024-03-07T01:54:16.8262003Z       when there is insufficient inventory available
+2024-03-07T01:54:16.8353118Z         gives informative errors
+2024-03-07T01:54:16.8440357Z         does not change inventory quantities if there is an error
+2024-03-07T01:54:16.8441267Z     StorageLocation.items_inventoried
+2024-03-07T01:54:16.9303030Z       returns a collection of items that are stored within inventories
+2024-03-07T01:54:16.9303719Z     item_total
+2024-03-07T01:54:16.9694812Z       retrieves the total for a single item
+2024-03-07T01:54:16.9695891Z     increase_inventory
+2024-03-07T01:54:16.9696708Z       With existing inventory
+2024-03-07T01:54:17.0763057Z         increases inventory quantities from an itemizable object
+2024-03-07T01:54:17.0764176Z       when providing a new item that does not yet exist
+2024-03-07T01:54:17.1832372Z         creates those new inventory items in the storage location
+2024-03-07T01:54:17.1833683Z     inventory_total_value_in_dollars
+2024-03-07T01:54:17.2315657Z       returns total value of all items in this storage location
+2024-03-07T01:54:17.2727608Z       returns a value including cents if the total isn't an even dollar amount
+2024-03-07T01:54:17.2862784Z       returns 0 when there are no items in this storage location
+2024-03-07T01:54:17.2863675Z     size
+2024-03-07T01:54:17.3337129Z       returns total quantity of all items in this storage location
+2024-03-07T01:54:17.3338119Z     import_inventory
+2024-03-07T01:54:17.6287921Z       imports storage locations from a csv file
+2024-03-07T01:54:17.6288803Z   Callbacks >
+2024-03-07T01:54:17.6289187Z     before_destroy
+2024-03-07T01:54:17.6673595Z       does not delete storage locations with inventory items on it
+2024-03-07T01:54:17.7307709Z       deletes storage locations with no inventory items on it
+2024-03-07T01:54:17.7308905Z   versioning
+2024-03-07T01:54:17.7350726Z     is expected to be versioned
+2024-03-07T01:54:17.7351424Z   Filtering >
+2024-03-07T01:54:17.8084186Z     ->containing yields only inventories that have that item
+2024-03-07T01:54:17.8174730Z     ->active_locations yields only storage locations that haven't been discarded
+2024-03-07T01:54:17.8175690Z 
+2024-03-07T01:54:17.8176137Z ProductDrive
+2024-03-07T01:54:18.0509789Z   calculates donation quantity by date
+2024-03-07T01:54:18.2960070Z   calculates and returns all donated organization item quantities by name and date
+2024-03-07T01:54:18.4474533Z   calculates in-kind value
+2024-03-07T01:54:18.5892039Z   calculates donation quantity
+2024-03-07T01:54:19.2731471Z   calculates and returns all donated organization item quantities by category and date
+2024-03-07T01:54:19.2732273Z   validations
+2024-03-07T01:54:19.4144444Z     is expected not to be valid
+2024-03-07T01:54:19.5539655Z     is expected not to be valid
+2024-03-07T01:54:19.6955821Z     is expected not to be valid
+2024-03-07T01:54:19.6956893Z   scopes
+2024-03-07T01:54:19.6957439Z     .within_date_range
+2024-03-07T01:54:19.8411877Z       returns the product drive 1
+2024-03-07T01:54:19.9957610Z       does not include product drive 2
+2024-03-07T01:54:19.9958330Z     .by_item_category_id
+2024-03-07T01:54:20.3280386Z       returns the product_drive with name some_name
+2024-03-07T01:54:20.6726461Z       does not return other_name
+2024-03-07T01:54:20.6727243Z     .by_name
+2024-03-07T01:54:20.8274641Z       does not return other_name
+2024-03-07T01:54:20.9740674Z       returns the product_drive with name some_name
+2024-03-07T01:54:20.9741496Z   donation_source_view
+2024-03-07T01:54:21.1142538Z     returns formatted text
+2024-03-07T01:54:21.1143119Z   associations
+2024-03-07T01:54:21.2113673Z     has_many donations
+2024-03-07T01:54:21.2978673Z     has_many product_drive_participants through donations
+2024-03-07T01:54:21.2979558Z   .search_date_range
+2024-03-07T01:54:21.4360401Z     is expected to eq {:end_date=>"2019-12-19", :start_date=>"2019-12-17"}
+2024-03-07T01:54:21.4361051Z   distinct_items
+2024-03-07T01:54:21.8032135Z     counts the distinct items correctly by given date
+2024-03-07T01:54:22.1576636Z     counts the distinct items correctly in overlapping donations
+2024-03-07T01:54:22.5167191Z     doesn't double_count the items if there are two donations for the same item
+2024-03-07T01:54:22.8708289Z     counts the distinct items correctly by given category
+2024-03-07T01:54:23.2180840Z     counts the items correctly for 1 donation with multiple items
+2024-03-07T01:54:23.2181791Z   versioning
+2024-03-07T01:54:23.3601345Z     is expected to be versioned
+2024-03-07T01:54:23.3601925Z 
+2024-03-07T01:54:23.3602167Z NDBNMember
+2024-03-07T01:54:23.3603008Z   validations
+2024-03-07T01:54:23.3704496Z     is expected to validate that :ndbn_member_id cannot be empty/falsy
+2024-03-07T01:54:23.3789694Z     is expected to validate that :ndbn_member_id is case-sensitively unique
+2024-03-07T01:54:23.3861008Z     is expected to validate that :account_name cannot be empty/falsy
+2024-03-07T01:54:23.3861826Z   #full_name
+2024-03-07T01:54:23.3900795Z     should equal the id and the account name
+2024-03-07T01:54:23.3901717Z   versioning
+2024-03-07T01:54:23.3939717Z     is expected to be versioned
+2024-03-07T01:54:23.3940397Z 
+2024-03-07T01:54:23.3940716Z DonationDestroyService
+2024-03-07T01:54:23.3941640Z   #call
+2024-03-07T01:54:23.3943200Z     when the donation_id matches no Donation owned by the organization
+2024-03-07T01:54:23.3988101Z       to not be a success
+2024-03-07T01:54:23.3989203Z     when storage_location fails to decrease the inventory of the donation
+2024-03-07T01:54:23.4049400Z       to not be a success
+2024-03-07T01:54:23.4050434Z     when the donation destroy fails
+2024-03-07T01:54:23.4127696Z       to not be a success
+2024-03-07T01:54:23.4128255Z     when the donation succesfully gets destroyed
+2024-03-07T01:54:23.4405316Z       to be a success
+2024-03-07T01:54:23.4406240Z     when the organization_id matches no Organization
+2024-03-07T01:54:23.4449795Z       to not be a success
+2024-03-07T01:54:23.4450470Z 
+2024-03-07T01:54:23.4450984Z KitAllocation
+2024-03-07T01:54:23.4454421Z   add some examples to (or delete) /home/runner/work/human-essentials/human-essentials/spec/models/kit_allocation_spec.rb (PENDING: Not yet implemented)
+2024-03-07T01:54:23.4455389Z   versioning
+2024-03-07T01:54:23.4524473Z     is expected to be versioned
+2024-03-07T01:54:23.4527026Z 
+2024-03-07T01:54:23.4527337Z DonationsController
+2024-03-07T01:54:23.4528546Z   While signed in as a normal user >
+2024-03-07T01:54:23.4529890Z     PUT#update
+2024-03-07T01:54:23.5634963Z       updates storage quantity correctly
+2024-03-07T01:54:23.6076670Z       redirects to index after update
+2024-03-07T01:54:23.6077585Z       when removing a line item
+2024-03-07T01:54:23.7104543Z         updates storage invetory item quantity correctly
+2024-03-07T01:54:23.7105746Z       when changing storage location
+2024-03-07T01:54:23.7212242Z         rolls back updates if quantity would go below 0
+2024-03-07T01:54:23.8264286Z         updates storage quantity correctly
+2024-03-07T01:54:23.8265099Z     POST#create
+2024-03-07T01:54:23.8498488Z       renders GET#new with error on failure
+2024-03-07T01:54:23.8899462Z       redirects to GET#edit on success
+2024-03-07T01:54:23.8900674Z     GET #show
+2024-03-07T01:54:23.9067665Z       returns http success
+2024-03-07T01:54:23.9068334Z     DELETE #destroy
+2024-03-07T01:54:23.9230045Z       redirects to the dashboard path
+2024-03-07T01:54:23.9230784Z     GET #index
+2024-03-07T01:54:23.9367222Z       returns http success
+2024-03-07T01:54:23.9368188Z     GET #edit
+2024-03-07T01:54:23.9546275Z       returns http success
+2024-03-07T01:54:23.9546914Z     GET #new
+2024-03-07T01:54:23.9678082Z       returns http success
+2024-03-07T01:54:23.9678952Z   calculating total value of multiple donations
+2024-03-07T01:54:24.0998535Z     works correctly for multiple line items per donation
+2024-03-07T01:54:24.1038715Z     returns zero for an empty array of donations
+2024-03-07T01:54:24.1039824Z   calculating total money raised for all donations
+2024-03-07T01:54:24.1076484Z     returns zero for an empty array of donations
+2024-03-07T01:54:24.1215048Z     correctly calculates the total
+2024-03-07T01:54:24.1216118Z   While signed in as an organization admin >
+2024-03-07T01:54:24.1217094Z     DELETE #destroy
+2024-03-07T01:54:24.1547959Z       redirects to the index
+2024-03-07T01:54:24.1548563Z 
+2024-03-07T01:54:24.1548823Z Reports::SummaryReportService
+2024-03-07T01:54:24.1549717Z   #report
+2024-03-07T01:54:24.6262308Z     should report negative values
+2024-03-07T01:54:25.0812786Z     should report positive values
+2024-03-07T01:54:25.2608217Z     should report zero values
+2024-03-07T01:54:25.2609131Z 
+2024-03-07T01:54:25.2609346Z Role
+2024-03-07T01:54:25.2648141Z   is expected to accepts_nested_attributes_for :users
+2024-03-07T01:54:25.2649233Z   versioning
+2024-03-07T01:54:25.2685061Z     is expected to be versioned
+2024-03-07T01:54:25.2685820Z   Associations
+2024-03-07T01:54:25.2748369Z     is expected to have and belong to many users
+2024-03-07T01:54:25.2785169Z     is expected to belong to resource optional: true
+2024-03-07T01:54:25.2786224Z   Validations
+2024-03-07T01:54:25.2837774Z     is expected to validate that :resource_type is either ‹"Organization"› or ‹"Partner"›
+2024-03-07T01:54:25.2838668Z 
+2024-03-07T01:54:25.2839112Z Manufacturer
+2024-03-07T01:54:25.2839690Z   Validations
+2024-03-07T01:54:25.4623878Z     must belong to an organization
+2024-03-07T01:54:25.4723297Z     must have a unique name within organization
+2024-03-07T01:54:25.4724146Z   versioning
+2024-03-07T01:54:25.4760587Z     is expected to be versioned
+2024-03-07T01:54:25.4762652Z   Private Methods
+2024-03-07T01:54:25.4763400Z     #exists_in_org?
+2024-03-07T01:54:25.6561550Z       returns true if manufacturer exists in an organization
+2024-03-07T01:54:25.6562766Z   Methods
+2024-03-07T01:54:25.6563314Z     volume
+2024-03-07T01:54:25.7919610Z       retrieves the amount of product that has been donated by manufacturer from multiple donations
+2024-03-07T01:54:25.9376124Z       ignores the amount of product from other manufacturers
+2024-03-07T01:54:26.0034172Z       retrieves the amount of product that has been donated by manufacturer
+2024-03-07T01:54:26.0034984Z 
+2024-03-07T01:54:26.0035319Z Reports::WarehouseReportService
+2024-03-07T01:54:26.0035951Z   #report
+2024-03-07T01:54:26.3518540Z     should print unknown warehouse type
+2024-03-07T01:54:26.7084643Z     should print normal values
+2024-03-07T01:54:26.8877548Z     should print unknown square footage
+2024-03-07T01:54:27.0618389Z     should print zero values
+2024-03-07T01:54:27.0619005Z 
+2024-03-07T01:54:27.0619887Z Partners::ChildItemRequest
+2024-03-07T01:54:27.0620819Z   #quantity
+2024-03-07T01:54:27.0763921Z     should return the quantity divided by the number of children
+2024-03-07T01:54:27.0765186Z   #ordered_item_diaperid
+2024-03-07T01:54:27.0808134Z     should return the item_id on the item_request
+2024-03-07T01:54:27.0808995Z   versioning
+2024-03-07T01:54:27.0842937Z     is expected to be versioned
+2024-03-07T01:54:27.0843682Z   associations
+2024-03-07T01:54:27.0891077Z     is expected to belong to item_request required: true
+2024-03-07T01:54:27.0929165Z     is expected to belong to authorized_family_member optional: true
+2024-03-07T01:54:27.0970205Z     is expected to belong to child required: true
+2024-03-07T01:54:27.0971048Z 
+2024-03-07T01:54:27.0971275Z ItemsOutQuery
+2024-03-07T01:54:27.0971887Z   items_out_query
+2024-03-07T01:54:27.2179953Z     includes distributions, adjustments, transfers among sources
+2024-03-07T01:54:27.3386429Z     returns a collection with the fields name, item_id, quantity
+2024-03-07T01:54:27.3387181Z 
+2024-03-07T01:54:27.3387810Z Partners::RequestCreateService
+2024-03-07T01:54:27.3388549Z   #call
+2024-03-07T01:54:27.3389506Z     when the arguments are incorrect
+2024-03-07T01:54:27.3390948Z       because a unrecogonized item_id was provided
+2024-03-07T01:54:27.3792234Z         should return the Request object with an error
+2024-03-07T01:54:27.3792971Z       because no item_requests_attributes and comments were defined
+2024-03-07T01:54:27.4064614Z         should return the Request object with an error
+2024-03-07T01:54:27.4065425Z     when the arguments are correct
+2024-03-07T01:54:27.4452597Z       should create a Request record
+2024-03-07T01:54:27.4850987Z       should notify the Partner via email
+2024-03-07T01:54:27.5223680Z       should have no errors
+2024-03-07T01:54:27.5224590Z       but a unexpected error occured during the save
+2024-03-07T01:54:27.5225913Z         for the Request record
+2024-03-07T01:54:27.5611593Z           should NOT create a Request record
+2024-03-07T01:54:27.5975085Z           should NOT notify the Partner via email
+2024-03-07T01:54:27.6352425Z           should have an error with the raised error
+2024-03-07T01:54:27.6353225Z 
+2024-03-07T01:54:27.6353688Z UserInviteService
+2024-03-07T01:54:27.7447009Z   should invite a user with the partner role
+2024-03-07T01:54:28.1109630Z   should create the user without a name with default role
+2024-03-07T01:54:28.1119586Z   with a new user
+2024-03-07T01:54:28.3164500Z     should create the user with roles
+2024-03-07T01:54:28.3452449Z     should create the user without name with role
+2024-03-07T01:54:28.3453634Z   with existing user
+2024-03-07T01:54:28.3543281Z     should raise an error when reinviting an existing user with the same role
+2024-03-07T01:54:28.5521574Z     should add roles to existing user
+2024-03-07T01:54:28.5522370Z     with force: true
+2024-03-07T01:54:28.5753093Z       should reinvite the user
+2024-03-07T01:54:28.5753762Z 
+2024-03-07T01:54:28.5754363Z PartnerProfileUpdateService
+2024-03-07T01:54:28.5755241Z   #call
+2024-03-07T01:54:28.5756571Z     when there are no pre-existing served areas
+2024-03-07T01:54:28.5757423Z       and the new values are correct
+2024-03-07T01:54:28.6101154Z         stores the new values and returns success
+2024-03-07T01:54:28.6101938Z         and there are other errors in the profile
+2024-03-07T01:54:28.6307188Z           does not store the new values and it returns a failure
+2024-03-07T01:54:28.6307847Z       and the new values are incorrect
+2024-03-07T01:54:28.6496422Z 0
+2024-03-07T01:54:28.6506129Z         does not store the new values and returns a failure
+2024-03-07T01:54:28.6507322Z     when served area client shares pre-exist
+2024-03-07T01:54:28.6508357Z       and the new values are incorrect
+2024-03-07T01:54:28.6811497Z         maintains the old values and returns failure
+2024-03-07T01:54:28.6812480Z       and the new values are correct
+2024-03-07T01:54:28.6813516Z         and there are no other errors
+2024-03-07T01:54:28.7115689Z           replaces the old values and returns success
+2024-03-07T01:54:28.7116372Z         and there are errors on the profile
+2024-03-07T01:54:28.7406033Z           maintains the old values and returns failure
+2024-03-07T01:54:28.7406662Z 
+2024-03-07T01:54:28.7407058Z KitCreateService
+2024-03-07T01:54:28.7408213Z   #call
+2024-03-07T01:54:28.9471324Z     should return an the instance
+2024-03-07T01:54:28.9472195Z     when the parameters are valid
+2024-03-07T01:54:29.1427498Z       should create a new Item
+2024-03-07T01:54:29.3382452Z       should create a new Kit
+2024-03-07T01:54:29.5352349Z       should create the new Item associated with the Kit
+2024-03-07T01:54:29.5353287Z       but an unexpected error gets raised
+2024-03-07T01:54:29.7336808Z         should not create the Kit
+2024-03-07T01:54:29.9224709Z         should not create a Item
+2024-03-07T01:54:30.1192762Z         should have an error that includes the raised error
+2024-03-07T01:54:30.1193721Z       but the ItemCreationService is unsuccesful
+2024-03-07T01:54:30.3095184Z         should have an error that includes the error
+2024-03-07T01:54:30.5073700Z         should not create the Kit
+2024-03-07T01:54:30.6977486Z         should not create a Item
+2024-03-07T01:54:30.6978411Z     when the parameters provided are invalid
+2024-03-07T01:54:30.6979292Z       because the kit_params is invalid for kit creation
+2024-03-07T01:54:30.8752814Z         should have errors saying why the kit_params are invalid
+2024-03-07T01:54:30.8753960Z       because the organization_id does not match any Organization
+2024-03-07T01:54:30.8810612Z         should have an error on organization_id saying it does not match any Organization
+2024-03-07T01:54:30.8811922Z 
+2024-03-07T01:54:30.8812186Z Partners::Profile
+2024-03-07T01:54:30.8850871Z   must allow deleting served_areas
+2024-03-07T01:54:30.8851885Z   client share behaviour
+2024-03-07T01:54:30.8852622Z     no served areas
+2024-03-07T01:54:30.8905699Z       has 0 client share
+2024-03-07T01:54:30.8906334Z     multiple
+2024-03-07T01:54:30.9072644Z       is valid if client share sum is 100
+2024-03-07T01:54:30.9232085Z       sums the client shares
+2024-03-07T01:54:30.9232909Z   social media info validation for profile
+2024-03-07T01:54:30.9234145Z     no social media presence and the checkbox isn't checked
+2024-03-07T01:54:30.9338014Z       should be valid if media_information is not needed
+2024-03-07T01:54:30.9394490Z       should not be valid
+2024-03-07T01:54:30.9395360Z     has social media presence and the checkbox is unchecked
+2024-03-07T01:54:30.9467601Z       with just a website it should be valid
+2024-03-07T01:54:30.9539973Z       with just twitter it should be valid
+2024-03-07T01:54:30.9609262Z       with just instagram it should be valid
+2024-03-07T01:54:30.9678782Z       with just facebook it should be valid
+2024-03-07T01:54:30.9749941Z       with every social media option it should be valid
+2024-03-07T01:54:30.9750867Z     no social media presence and the checkbox is checked
+2024-03-07T01:54:30.9809935Z       should be valid
+2024-03-07T01:54:30.9810773Z   associations
+2024-03-07T01:54:30.9856339Z     is expected to have a has_many_attached called documents
+2024-03-07T01:54:30.9892560Z     is expected to have a has_one_attached called proof_of_form_990
+2024-03-07T01:54:30.9929420Z     is expected to have many served_areas
+2024-03-07T01:54:30.9965778Z     is expected to have a has_one_attached called proof_of_partner_status
+2024-03-07T01:54:30.9966874Z   request settings validation for profile
+2024-03-07T01:54:30.9967905Z     at least one request type is set to true
+2024-03-07T01:54:31.0037910Z       should be valid when enable_individual_requests is true
+2024-03-07T01:54:31.0106260Z       should be valid when enable_child_based_requests is true
+2024-03-07T01:54:31.0174182Z       should be valid when enable_quantity_based_requests is true
+2024-03-07T01:54:31.0175094Z     no settings are set to true
+2024-03-07T01:54:31.0223636Z       should not be valid
+2024-03-07T01:54:31.0224414Z   versioning
+2024-03-07T01:54:31.0260088Z     is expected to be versioned
+2024-03-07T01:54:31.0260722Z 
+2024-03-07T01:54:31.0261012Z Vendor
+2024-03-07T01:54:31.0261996Z   Methods
+2024-03-07T01:54:31.0262903Z     volume
+2024-03-07T01:54:31.1155138Z       retrieves the amount of product that has been bought from this vendor
+2024-03-07T01:54:31.1156230Z   behaves like provideable
+2024-03-07T01:54:31.1156862Z     Validations
+2024-03-07T01:54:31.1198914Z       is invalid without an organization
+2024-03-07T01:54:31.1257388Z       is invalid unless it has either a contact name or a business name
+2024-03-07T01:54:31.1258152Z     geocode
+2024-03-07T01:54:31.1315761Z       adds coordinates to the database
+2024-03-07T01:54:31.1316233Z     import_csv
+2024-03-07T01:54:31.3107356Z       imports from a csv file
+2024-03-07T01:54:31.3108657Z   versioning
+2024-03-07T01:54:31.3149604Z     is expected to be versioned
+2024-03-07T01:54:31.3150140Z 
+2024-03-07T01:54:31.3150352Z RemoveRoleService
+2024-03-07T01:54:31.3151303Z   #call
+2024-03-07T01:54:31.3152329Z     when the role does not exist
+2024-03-07T01:54:31.5065012Z       should raise an error
+2024-03-07T01:54:31.5065599Z     when not enough information provided
+2024-03-07T01:54:31.6978998Z       should raise an error
+2024-03-07T01:54:31.6979804Z     when the role exists
+2024-03-07T01:54:32.0784250Z       should remove the admin role when removing user role
+2024-03-07T01:54:32.2809566Z       should work with a type and ID instead of role ID
+2024-03-07T01:54:32.4791473Z       should remove the role
+2024-03-07T01:54:32.4792138Z 
+2024-03-07T01:54:32.4792468Z ProductDriveParticipant
+2024-03-07T01:54:32.4794257Z   Methods
+2024-03-07T01:54:32.4795119Z     donation_source_view
+2024-03-07T01:54:32.4796445Z       contact name present
+2024-03-07T01:54:32.4859907Z         is expected to eq "Contact Name (participant)"
+2024-03-07T01:54:32.4860529Z       no contact name
+2024-03-07T01:54:32.4919776Z         is expected to be nil
+2024-03-07T01:54:32.4920514Z     volume
+2024-03-07T01:54:32.5604503Z       retrieves the amount of product that has been donated by participant
+2024-03-07T01:54:32.5605780Z     volume_by_product_drive
+2024-03-07T01:54:32.7040872Z       retrieves the amount of product that has been donated through specific product drive
+2024-03-07T01:54:32.7042075Z   behaves like provideable
+2024-03-07T01:54:32.7042991Z     geocode
+2024-03-07T01:54:32.7106153Z       adds coordinates to the database
+2024-03-07T01:54:32.7106923Z     import_csv
+2024-03-07T01:54:32.8945486Z       imports from a csv file
+2024-03-07T01:54:32.8946015Z     Validations
+2024-03-07T01:54:32.9008351Z       is invalid unless it has either a contact name or a business name
+2024-03-07T01:54:32.9045724Z       is invalid without an organization
+2024-03-07T01:54:32.9046525Z   Validations
+2024-03-07T01:54:32.9082930Z     is invalid without an organization
+2024-03-07T01:54:32.9141775Z     is invalid unless it has either a phone number or an email
+2024-03-07T01:54:32.9142580Z   versioning
+2024-03-07T01:54:32.9175399Z     is expected to be versioned
+2024-03-07T01:54:32.9176183Z 
+2024-03-07T01:54:32.9176494Z OrganizationMailer
+2024-03-07T01:54:32.9179958Z   #partner_approval_request
+2024-03-07T01:54:32.9466290Z     includes a link to the relevant partner
+2024-03-07T01:54:32.9718509Z     renders the body with correct text with partner information
+2024-03-07T01:54:32.9968296Z     should be sent to the partner main email with the correct subject line
+2024-03-07T01:54:32.9969160Z 
+2024-03-07T01:54:32.9969541Z DistributionCreateService
+2024-03-07T01:54:32.9970468Z   call
+2024-03-07T01:54:33.0781157Z     replaces a big distribution with a smaller one, resulting in increased stored quantities
+2024-03-07T01:54:33.1480691Z     returns a successful object with Scheduled distribution
+2024-03-07T01:54:33.1481793Z     partner is deactivated
+2024-03-07T01:54:33.2247834Z       does not send an email
+2024-03-07T01:54:33.2249194Z     when there's multiple line items and one has insufficient inventory
+2024-03-07T01:54:33.2913329Z       preserves the Insufficiency error and is unsuccessful
+2024-03-07T01:54:33.2914318Z     when it fails to save
+2024-03-07T01:54:33.3422065Z       preserves the error and is unsuccessful
+2024-03-07T01:54:33.3423351Z     partner has send reminders setting set to true
+2024-03-07T01:54:33.4957610Z       Sends a PartnerMailer
+2024-03-07T01:54:33.4958405Z     when provided with a request ID
+2024-03-07T01:54:33.5771490Z       changes the status of the request
+2024-03-07T01:54:33.5772708Z       and the request already has a distribution associated with it
+2024-03-07T01:54:33.6494718Z         should not be successful
+2024-03-07T01:54:33.6495627Z     when the line item quantity is not positive
+2024-03-07T01:54:33.7009168Z       preserves the RecordInvalid error and is unsuccessful
+2024-03-07T01:54:33.7010077Z     when there's not sufficient inventory
+2024-03-07T01:54:33.7594441Z       preserves the Insufficiency error and is unsuccessful
+2024-03-07T01:54:33.7595480Z     partner has send reminders setting set to false
+2024-03-07T01:54:33.8340843Z       does not send a PartnerMailer
+2024-03-07T01:54:33.8341488Z 
+2024-03-07T01:54:33.8341787Z RequestDestroyService
+2024-03-07T01:54:33.8342613Z   #call
+2024-03-07T01:54:33.8499683Z     should return an instance of itself
+2024-03-07T01:54:33.8500840Z     when the request's partner is deactivated
+2024-03-07T01:54:33.8797516Z       should have errors
+2024-03-07T01:54:33.8798445Z     when the request_id matches no request
+2024-03-07T01:54:33.8841363Z       should not be successful and have errors indicating request id is invalid
+2024-03-07T01:54:33.8842571Z     when there are no validation errors
+2024-03-07T01:54:33.8972820Z       should send a email notification to the partner
+2024-03-07T01:54:33.9117708Z       should update the discarded_at column on the request
+2024-03-07T01:54:33.9260271Z       should update the status column on the request
+2024-03-07T01:54:33.9260906Z     when the request is already discarded
+2024-03-07T01:54:33.9365421Z       should not be successful and have errors
+2024-03-07T01:54:33.9366227Z 
+2024-03-07T01:54:33.9366521Z DistributionByCountyReportService
+2024-03-07T01:54:33.9367276Z   get_breakdown
+2024-03-07T01:54:34.0100042Z     will have 100% unspecified shows if no served_areas
+2024-03-07T01:54:34.0964019Z     divides the item numbers and values according to the partner profile
+2024-03-07T01:54:34.2843160Z     handles multiple partners with overlapping service areas properly
+2024-03-07T01:54:34.2843913Z 
+2024-03-07T01:54:34.2844191Z Exports::ExportReportCSVService
+2024-03-07T01:54:34.2844939Z   .generate_csv_data
+2024-03-07T01:54:34.2886653Z     creates a CSV string
+2024-03-07T01:54:34.2918813Z     creates CSV data including headers
+2024-03-07T01:54:34.2919400Z 
+2024-03-07T01:54:34.2919766Z RequestMailer
+2024-03-07T01:54:34.2920612Z   #request_cancel_partner_notification
+2024-03-07T01:54:34.3107812Z     should be sent to the partner main email with the correct subject line
+2024-03-07T01:54:34.3302290Z     renders the body with correct text with partner information
+2024-03-07T01:54:34.3303165Z 
+2024-03-07T01:54:34.3303661Z Reports::PeriodSupplyReportService
+2024-03-07T01:54:34.3304638Z   #report
+2024-03-07T01:54:34.5276448Z     should report zero values
+2024-03-07T01:54:34.5277122Z     with values
+2024-03-07T01:54:35.1420076Z       should report normal values
+2024-03-07T01:54:35.1420645Z 
+2024-03-07T01:54:35.1420982Z AddRoleService
+2024-03-07T01:54:35.1421883Z   #call
+2024-03-07T01:54:35.1422742Z     when the role already exists
+2024-03-07T01:54:35.3334609Z       should raise an error
+2024-03-07T01:54:35.5224898Z       should raise an error for super admin
+2024-03-07T01:54:35.5225644Z     when the role does not yet exist
+2024-03-07T01:54:35.7266289Z       works with a partner
+2024-03-07T01:54:35.9249140Z       should add the role
+2024-03-07T01:54:36.1161800Z       works with super admin
+2024-03-07T01:54:36.3224305Z       should add the user role when asked to add admin
+2024-03-07T01:54:36.3225228Z 
+2024-03-07T01:54:36.3225812Z DistributionDestroyService
+2024-03-07T01:54:36.3226657Z   #call
+2024-03-07T01:54:36.3227745Z     when the distribution_id does match a Distribution
+2024-03-07T01:54:36.3228814Z       and the operations succeed
+2024-03-07T01:54:36.5525519Z         should destroy the Distribution
+2024-03-07T01:54:36.7637527Z         should be successful
+2024-03-07T01:54:36.9688917Z         should increase the inventory of the storage location
+2024-03-07T01:54:36.9689564Z       and the destroy! operation fails
+2024-03-07T01:54:37.1817477Z         should not delete the Distribution
+2024-03-07T01:54:37.3820066Z         should not be successful and have the error message
+2024-03-07T01:54:37.3820994Z       and the increase inventory operations fails
+2024-03-07T01:54:37.5803030Z         should not delete the Distribution
+2024-03-07T01:54:37.7800143Z         should not be successful and have the error message
+2024-03-07T01:54:37.7801118Z     when the distribution_id matches no Distribution
+2024-03-07T01:54:37.7842516Z       to not be a success
+2024-03-07T01:54:37.7843166Z 
+2024-03-07T01:54:37.7843530Z Partners::UpdateFamily
+2024-03-07T01:54:37.7844429Z   #call
+2024-03-07T01:54:37.7845321Z     when an error occurs during archiving
+2024-03-07T01:54:37.8556731Z       does not archive the family or its children and adds error to the service
+2024-03-07T01:54:37.8557854Z     when family has children
+2024-03-07T01:54:37.8953491Z       archives the family and its children
+2024-03-07T01:54:37.8954355Z 
+2024-03-07T01:54:37.8954744Z DonationCreateService
+2024-03-07T01:54:37.8955624Z   #call
+2024-03-07T01:54:37.9169610Z     should create the donation
+2024-03-07T01:54:37.9170203Z 
+2024-03-07T01:54:37.9170526Z Question
+2024-03-07T01:54:37.9174735Z   validations
+2024-03-07T01:54:37.9290870Z     is expected to validate that :answer cannot be empty/falsy
+2024-03-07T01:54:37.9352888Z     is expected to validate that :title cannot be empty/falsy
+2024-03-07T01:54:37.9511556Z     question for_banks and for_partners attributes can't both be false
+2024-03-07T01:54:37.9512488Z   versioning
+2024-03-07T01:54:37.9549928Z     is expected to be versioned
+2024-03-07T01:54:37.9550612Z   scope for_partners
+2024-03-07T01:54:37.9786895Z     should filter out questions that aren't meant for partners
+2024-03-07T01:54:37.9787869Z   punctuate
+2024-03-07T01:54:37.9827024Z     should punctuate each string in a given array
+2024-03-07T01:54:37.9827858Z   scope for_banks
+2024-03-07T01:54:38.0064433Z     should filter out questions that aren't meant for banks
+2024-03-07T01:54:38.0065478Z   remove_redundant_error
+2024-03-07T01:54:38.0109797Z     should return an array with only one error message related to the checkboxes.
+2024-03-07T01:54:38.0111470Z 
+2024-03-07T01:54:38.0111803Z Donation
+2024-03-07T01:54:38.0113923Z   behaves like itemizable
+2024-03-07T01:54:38.0114977Z     .line_items
+2024-03-07T01:54:38.0116100Z       combine!
+2024-03-07T01:54:38.0523741Z         combines multiple line_items with the same item_id into a single record
+2024-03-07T01:54:38.1005325Z         incrementally combines line_items on donations that have already been created
+2024-03-07T01:54:38.1006440Z       total
+2024-03-07T01:54:38.1375069Z         has an item total
+2024-03-07T01:54:38.1376279Z       quantities_by_name
+2024-03-07T01:54:38.1740276Z         leaves out zero-quantitied items if requested
+2024-03-07T01:54:38.2111201Z         returns a hash of items with id, name, and quantity
+2024-03-07T01:54:38.2112380Z       sorted
+2024-03-07T01:54:38.2652941Z         displays the items, sorted by name
+2024-03-07T01:54:38.2653806Z     .to_a
+2024-03-07T01:54:38.2654763Z       with Flipper flag :deprecate_to_a enabled
+2024-03-07T01:54:38.3005211Z         raises an error
+2024-03-07T01:54:38.3006029Z       with Flipper flag :deprecate_to_a disabled
+2024-03-07T01:54:38.3337107Z         calls line_item_values
+2024-03-07T01:54:38.3337986Z   Callbacks >
+2024-03-07T01:54:38.3498874Z     automatically combines duplicate line_item records when they're created
+2024-03-07T01:54:38.3626453Z     inititalizes the issued_at field to default to midnight if it wasn't explicitly set
+2024-03-07T01:54:38.3627531Z   Methods >
+2024-03-07T01:54:38.3628056Z     source_view
+2024-03-07T01:54:38.3628577Z       from a drive
+2024-03-07T01:54:38.3629548Z         participant known
+2024-03-07T01:54:38.3630191Z           contact name present
+2024-03-07T01:54:38.3752120Z             returns participant display name
+2024-03-07T01:54:38.3752668Z           no contact name
+2024-03-07T01:54:38.3874067Z             returns drive display name
+2024-03-07T01:54:38.3874783Z         unknown participant
+2024-03-07T01:54:38.3975340Z           returns drive display name
+2024-03-07T01:54:38.3976179Z       not from a drive
+2024-03-07T01:54:38.4085291Z         returns source
+2024-03-07T01:54:38.4085736Z       details
+2024-03-07T01:54:38.4088703Z         misc
+2024-03-07T01:54:38.4172536Z           returns a truncated comment
+2024-03-07T01:54:38.4173367Z         donation site
+2024-03-07T01:54:38.4276555Z           returns donation_site name
+2024-03-07T01:54:38.4277462Z         manufacturer
+2024-03-07T01:54:38.4389643Z           returns manufacturer name
+2024-03-07T01:54:38.4390548Z         product drive
+2024-03-07T01:54:38.4502152Z           returns product_drive name
+2024-03-07T01:54:38.4502911Z     money_raised
+2024-03-07T01:54:38.5115797Z       tracks the money raised in a donation
+2024-03-07T01:54:38.5116307Z     remove
+2024-03-07T01:54:38.5756735Z       removes the item from the donation
+2024-03-07T01:54:38.6363095Z       works with either an id or an object
+2024-03-07T01:54:38.7046125Z       fails gracefully if the item doesn't exist
+2024-03-07T01:54:38.7047028Z   Scopes >
+2024-03-07T01:54:38.7047906Z     by_source >
+2024-03-07T01:54:38.7048532Z       when source is a symbol
+2024-03-07T01:54:38.7049351Z         when source is invalid
+2024-03-07T01:54:38.7227587Z           does not throw errors, returns no results
+2024-03-07T01:54:38.7228389Z         when source is valid
+2024-03-07T01:54:38.7403383Z           allows a symbol as an argument, referencing the SOURCES hash
+2024-03-07T01:54:38.7404048Z       when source is not a symbol
+2024-03-07T01:54:38.7404625Z         when source is invalid
+2024-03-07T01:54:38.7584621Z           does not throw errors, returns no results
+2024-03-07T01:54:38.7585242Z         when source comes from the SOURCES hash
+2024-03-07T01:54:38.7770482Z           returns all donations with the provided source
+2024-03-07T01:54:38.7771135Z     during >
+2024-03-07T01:54:38.7964705Z       returns all donations created between two dates
+2024-03-07T01:54:38.7965249Z   Associations >
+2024-03-07T01:54:38.7965772Z     items >
+2024-03-07T01:54:38.8138528Z       has_many
+2024-03-07T01:54:38.8138961Z   SOURCES
+2024-03-07T01:54:38.8179654Z     the hash values are immutable
+2024-03-07T01:54:38.8215365Z     is a hash that is referenceable by key to avoid 'magic strings'
+2024-03-07T01:54:38.8251428Z     the hash is immutable
+2024-03-07T01:54:38.8252213Z   Validations >
+2024-03-07T01:54:38.8385010Z     requires a product drive participant if the source is 'Product Drive'
+2024-03-07T01:54:38.8439162Z     ensures that the issued at is no earlier than 2000
+2024-03-07T01:54:38.8560627Z     requires a manufacturer if the source is 'Manufacturer'
+2024-03-07T01:54:38.8604385Z     requires an inventory (storage location)
+2024-03-07T01:54:38.8950258Z     requires a donation_site if the source is 'Donation Site'
+2024-03-07T01:54:38.8951232Z     must belong to an organization
+2024-03-07T01:54:38.8968523Z     is invalid when the line items are invalid
+2024-03-07T01:54:38.9037771Z     requires a source from the list of available sources
+2024-03-07T01:54:38.9038483Z   versioning
+2024-03-07T01:54:38.9072896Z     is expected to be versioned
+2024-03-07T01:54:38.9073506Z 
+2024-03-07T01:54:38.9073664Z DonationSite
+2024-03-07T01:54:38.9074826Z   import_csv
+2024-03-07T01:54:39.0779032Z     imports storage locations from a csv file
+2024-03-07T01:54:39.0779752Z   versioning
+2024-03-07T01:54:39.0820187Z     is expected to be versioned
+2024-03-07T01:54:39.0820742Z   Validations >
+2024-03-07T01:54:39.0865850Z     is invalid without an address
+2024-03-07T01:54:39.0909925Z     is invalid without a name
+2024-03-07T01:54:39.0949053Z     must belong to an organization
+2024-03-07T01:54:39.0949615Z   geocode
+2024-03-07T01:54:39.1027343Z     adds coordinates to the database
+2024-03-07T01:54:39.1027820Z 
+2024-03-07T01:54:39.1028116Z DistributionUpdateService
+2024-03-07T01:54:39.1029597Z   resend_notification?
+2024-03-07T01:54:39.1926869Z     changes the issue_date, resulting in resend_notification? = true
+2024-03-07T01:54:39.2858770Z     changes the delivery_method, resulting in resend_notification? = true
+2024-03-07T01:54:39.3851412Z     changes any distribution content, resulting in resend_notification? = true
+2024-03-07T01:54:39.3852276Z   call
+2024-03-07T01:54:39.4961747Z     replaces a big distribution with a smaller one, resulting in increased stored quantities
+2024-03-07T01:54:39.4962608Z 
+2024-03-07T01:54:39.4962780Z OrganizationStats
+2024-03-07T01:54:39.4963696Z   locations_with_inventory method >
+2024-03-07T01:54:39.4965139Z     current org is not nil + no locations have items >
+2024-03-07T01:54:39.5041554Z       should return an empty array
+2024-03-07T01:54:39.5042148Z     current org is nil >
+2024-03-07T01:54:39.5077353Z       should return an empty array
+2024-03-07T01:54:39.5078077Z     current org is not nil + locations have items >
+2024-03-07T01:54:39.5437909Z       should return storage location
+2024-03-07T01:54:39.5439019Z   partners_added method >
+2024-03-07T01:54:39.5439540Z     current org is nil >
+2024-03-07T01:54:39.5479575Z       should return 0
+2024-03-07T01:54:39.5480087Z     current org is not nil >
+2024-03-07T01:54:39.5515171Z       should return actual count of partners
+2024-03-07T01:54:39.5515861Z   storage_locations_added method >
+2024-03-07T01:54:39.5516580Z     current org is not nil >
+2024-03-07T01:54:39.5553680Z       should return actual count of locations
+2024-03-07T01:54:39.5554367Z     current org is nil >
+2024-03-07T01:54:39.5591233Z       should return 0
+2024-03-07T01:54:39.5591760Z   donation_sites_added method >
+2024-03-07T01:54:39.5592722Z     current org is nil >
+2024-03-07T01:54:39.5629026Z       should return 0
+2024-03-07T01:54:39.5629546Z     current org is not nil >
+2024-03-07T01:54:39.5666892Z       should return actual count of donation sites
+2024-03-07T01:54:39.5667611Z 
+2024-03-07T01:54:39.5667905Z HistoricalTrendService
+2024-03-07T01:54:39.5668771Z   #series
+2024-03-07T01:54:39.8503592Z     returns an array of items with their monthly data
+2024-03-07T01:54:39.8504157Z 
+2024-03-07T01:54:39.8504327Z BarcodeItem
+2024-03-07T01:54:39.8505527Z   versioning
+2024-03-07T01:54:39.8603163Z     is expected to be versioned
+2024-03-07T01:54:39.8603752Z   Organization barcodes
+2024-03-07T01:54:39.8742983Z     updates a counter in Item whenever it tracks a new barcode
+2024-03-07T01:54:39.8743776Z     validations >
+2024-03-07T01:54:39.8877495Z       allows multiple barcodes to point at the same item
+2024-03-07T01:54:39.9035730Z       is valid only with an organization
+2024-03-07T01:54:39.9281820Z       does not enforces value uniqueness across organizations
+2024-03-07T01:54:39.9437457Z       enforces value uniqueness within the organization
+2024-03-07T01:54:39.9438136Z       quantity >
+2024-03-07T01:54:39.9528679Z         is not a negative number
+2024-03-07T01:54:39.9622596Z         is an integer
+2024-03-07T01:54:39.9714341Z         is not nil
+2024-03-07T01:54:39.9715258Z       item >
+2024-03-07T01:54:39.9809030Z         is invalid without an item associated with it
+2024-03-07T01:54:39.9809712Z       value >
+2024-03-07T01:54:39.9904826Z         requires a value
+2024-03-07T01:54:39.9905333Z     scopes >
+2024-03-07T01:54:40.0115147Z       #by_item_partner_key returns barcodes that match the partner key
+2024-03-07T01:54:40.2022805Z       ->for_csv_export will accept an organization and provide all barcodes for that org
+2024-03-07T01:54:40.2233539Z       ->by_value returns the barcode with that value
+2024-03-07T01:54:40.2234041Z     filters >
+2024-03-07T01:54:40.2467756Z       ->item_id shows only barcodes for a specific item_id
+2024-03-07T01:54:40.2469909Z     to_h >
+2024-03-07T01:54:40.2601895Z       emits a hash for a line_item
+2024-03-07T01:54:40.2602790Z 
+2024-03-07T01:54:40.2603068Z InventoryItem
+2024-03-07T01:54:40.2642092Z   initializes the quantity to 0 if it was not specified
+2024-03-07T01:54:40.2642842Z   versioning
+2024-03-07T01:54:40.2681097Z     is expected to be versioned
+2024-03-07T01:54:40.2681695Z   Filtering >
+2024-03-07T01:54:40.2682412Z     ->by_partner_key
+2024-03-07T01:54:40.2827064Z       shows the Base Items by partner_key
+2024-03-07T01:54:40.2827697Z   Validations >
+2024-03-07T01:54:40.2874710Z     requires an item
+2024-03-07T01:54:40.2927151Z     requires an inventory association
+2024-03-07T01:54:40.2927754Z     quantity >
+2024-03-07T01:54:40.2987814Z       is less than the max integer
+2024-03-07T01:54:40.3046282Z       is required
+2024-03-07T01:54:40.3195008Z       is gte 0
+2024-03-07T01:54:40.3255827Z       is numerical
+2024-03-07T01:54:40.3257743Z 
+2024-03-07T01:54:40.3258083Z Kit
+2024-03-07T01:54:40.5394567Z   deactivate and reactivate
+2024-03-07T01:54:40.5395181Z   versioning
+2024-03-07T01:54:40.5435517Z     is expected to be versioned
+2024-03-07T01:54:40.5436107Z   Value >
+2024-03-07T01:54:40.5608716Z     converts cents to dollars
+2024-03-07T01:54:40.5775780Z     converts dollars to cents
+2024-03-07T01:54:40.5776599Z     .value_per_itemizable
+2024-03-07T01:54:40.6173172Z       calculates values from associated items
+2024-03-07T01:54:40.6174162Z   #can_deactivate?
+2024-03-07T01:54:40.6174659Z     with inventory items
+2024-03-07T01:54:40.8366754Z       should return false
+2024-03-07T01:54:40.8367330Z     without inventory items
+2024-03-07T01:54:41.0313908Z       should return true
+2024-03-07T01:54:41.0314487Z   Validations >
+2024-03-07T01:54:41.0497317Z     can't have negative value
+2024-03-07T01:54:41.0662041Z     is valid as built
+2024-03-07T01:54:41.0825871Z     requires a name
+2024-03-07T01:54:41.0992940Z     requires at least one item
+2024-03-07T01:54:41.1165854Z     must belong to an organization
+2024-03-07T01:54:41.3298560Z     requires a unique name
+2024-03-07T01:54:41.3299128Z   Filtering >
+2024-03-07T01:54:41.3357307Z     can filter
+2024-03-07T01:54:41.9050631Z     ->alphabetized retrieves items in alphabetical order
+2024-03-07T01:54:41.9051146Z     ->by_partner_key
+2024-03-07T01:54:42.1448870Z       shows the kits for a particular item
+2024-03-07T01:54:42.1449731Z 
+2024-03-07T01:54:42.1450037Z ApplicationController
+2024-03-07T01:54:42.1451663Z   dashboard_path_from_current_role
+2024-03-07T01:54:42.1452503Z     As a super admin
+2024-03-07T01:54:42.1661961Z       links to the admin dashboard
+2024-03-07T01:54:42.1662619Z     As a user without super admin status
+2024-03-07T01:54:42.1867690Z       links to the general dashboard
+2024-03-07T01:54:42.1868486Z   current_organization
+2024-03-07T01:54:42.1869523Z     As a partner user
+2024-03-07T01:54:42.2035474Z       should return nil
+2024-03-07T01:54:42.2036019Z     As an org user
+2024-03-07T01:54:42.5615592Z       should return the first org role
+2024-03-07T01:54:42.5616441Z       with a changed current role
+2024-03-07T01:54:42.9122962Z         should return the first org role
+2024-03-07T01:54:42.9123603Z   current_partner
+2024-03-07T01:54:42.9124444Z     As a partner user
+2024-03-07T01:54:42.9662324Z       should return the first partner role
+2024-03-07T01:54:42.9662818Z       with a changed current role
+2024-03-07T01:54:43.0217428Z         should return the first partner role
+2024-03-07T01:54:43.0218147Z     As an org user
+2024-03-07T01:54:43.0436664Z       should return nil
+2024-03-07T01:54:43.0437478Z 
+2024-03-07T01:54:43.0437720Z ItemsInQuery
+2024-03-07T01:54:43.0439106Z   items_in
+2024-03-07T01:54:43.3831598Z     does not count transfers going in the negative direction
+2024-03-07T01:54:43.7223934Z     does not count negative adjustments towards in-flow
+2024-03-07T01:54:43.9862653Z     includes donations, purchases, adjustments, transfers among sources
+2024-03-07T01:54:44.2631944Z     returns a collection with the fields name, item_id, quantity
+2024-03-07T01:54:44.2632635Z 
+2024-03-07T01:54:44.2633024Z User
+2024-03-07T01:54:44.2697945Z   has a valid factory
+2024-03-07T01:54:44.2698512Z   Scopes >
+2024-03-07T01:54:44.2699749Z     ->alphabetized
+2024-03-07T01:54:44.2981621Z       retrieves users in the correct order
+2024-03-07T01:54:44.2982299Z   versioning
+2024-03-07T01:54:44.3024357Z     is expected to be versioned
+2024-03-07T01:54:44.3024925Z   omniauth
+2024-03-07T01:54:44.3166953Z     retrieves the user from an omniauth context
+2024-03-07T01:54:44.3167576Z   Scopes >
+2024-03-07T01:54:44.3168301Z     ->alphabetized
+2024-03-07T01:54:44.3585647Z       retrieves users in the correct order
+2024-03-07T01:54:44.3586314Z   Validations >
+2024-03-07T01:54:44.3782737Z     requires an email that is formatted correctly
+2024-03-07T01:54:44.3870634Z     requires a name
+2024-03-07T01:54:44.3871105Z   Methods >
+2024-03-07T01:54:44.3954017Z     #invitation_status
+2024-03-07T01:54:44.4039441Z     #reinvitable?
+2024-03-07T01:54:44.4593316Z     #kind
+2024-03-07T01:54:44.4663182Z     discarded?
+2024-03-07T01:54:44.4664291Z 
+2024-03-07T01:54:44.4664584Z HelpController
+2024-03-07T01:54:44.4666059Z   While signed in as a normal user >
+2024-03-07T01:54:44.4666863Z     GET #show
+2024-03-07T01:54:44.4821290Z       returns http success
+2024-03-07T01:54:44.4888349Z       does not display help page when the user logs out
+2024-03-07T01:54:44.4889097Z 
+2024-03-07T01:54:44.4889604Z DistributionPdf
+2024-03-07T01:54:44.5556982Z   #request_data
+2024-03-07T01:54:44.6168945Z   #non_request_data
+2024-03-07T01:54:44.6169508Z 
+2024-03-07T01:54:44.6169844Z ApplicationHelper
+2024-03-07T01:54:44.6173507Z   active_class
+2024-03-07T01:54:44.6223700Z     Returns the controller name
+2024-03-07T01:54:44.6224397Z   default_title_content
+2024-03-07T01:54:44.6225171Z     Organization does not exist
+2024-03-07T01:54:44.6271710Z       returns a default name
+2024-03-07T01:54:44.6272353Z     Organization exists
+2024-03-07T01:54:44.8082363Z       returns the organization's name
+2024-03-07T01:54:44.8083005Z   can_administrate?
+2024-03-07T01:54:44.8084443Z     User is part of org but not org admin
+2024-03-07T01:54:44.8234441Z       cannot administrate
+2024-03-07T01:54:44.8234955Z     User is org admin and part of org
+2024-03-07T01:54:44.8449813Z       can administrate
+2024-03-07T01:54:44.8450302Z     User is org admin and not part of org
+2024-03-07T01:54:45.0409959Z       cannot administrate
+2024-03-07T01:54:45.0410581Z   flash_class
+2024-03-07T01:54:45.0465562Z     returns appropriate class for alert
+2024-03-07T01:54:45.0513108Z     returns appropriate class for success
+2024-03-07T01:54:45.0559427Z     returns appropriate class for notice
+2024-03-07T01:54:45.0603090Z     returns appropriate class for error
+2024-03-07T01:54:45.0603689Z   step_container_helper
+2024-03-07T01:54:45.0605815Z     active_index is equal to index
+2024-03-07T01:54:45.0647951Z       returns active
+2024-03-07T01:54:45.0648481Z     active_index is greater than index
+2024-03-07T01:54:45.0692016Z       returns done
+2024-03-07T01:54:45.0692530Z     active_index is less than index
+2024-03-07T01:54:45.0736097Z       returns empty string
+2024-03-07T01:54:45.0736806Z   confirm_delete_msg
+2024-03-07T01:54:45.0778502Z     subs in string
+2024-03-07T01:54:45.0779363Z 
+2024-03-07T01:54:45.0780161Z Reports::AdultIncontinenceReportService
+2024-03-07T01:54:45.0781264Z   #report
+2024-03-07T01:54:45.2635846Z     should report zero values
+2024-03-07T01:54:45.2636463Z     with values
+2024-03-07T01:54:45.8793565Z       should handle null distribution quantity
+2024-03-07T01:54:46.5242453Z       should report normal values
+2024-03-07T01:54:46.5243017Z 
+2024-03-07T01:54:46.5243231Z OrganizationUpdateService
+2024-03-07T01:54:46.5244580Z   #update
+2024-03-07T01:54:46.5245757Z     when object is invalid
+2024-03-07T01:54:46.7010391Z       should not update and return false
+2024-03-07T01:54:46.7011129Z     when organization has partners
+2024-03-07T01:54:46.7012166Z       when all of a single partner's request flags will be disabled
+2024-03-07T01:54:46.9253065Z         should NOT change request flags in organization or its partners
+2024-03-07T01:54:47.1373559Z         should add an error message to the organization
+2024-03-07T01:54:47.1374700Z       when all of a single partner's request flags WILL NOT be disabled
+2024-03-07T01:54:47.3613358Z         should allow the disabling of request flags in organization and its partners
+2024-03-07T01:54:47.3613952Z     when object is valid
+2024-03-07T01:54:47.5443066Z       should update and return true
+2024-03-07T01:54:47.5443620Z   #update_partner_flags
+2024-03-07T01:54:47.5444630Z     when request flags haven't changed
+2024-03-07T01:54:47.7606814Z       should not update partners
+2024-03-07T01:54:47.7607483Z     when request flags have changed
+2024-03-07T01:54:47.9935645Z       should NOT update partners' request flags when enabling request flags on the organization
+2024-03-07T01:54:48.2290946Z       should update partners when disabling quantity-based request flags
+2024-03-07T01:54:48.4544086Z       should update partners when disabling child and individual request flags
+2024-03-07T01:54:48.4544825Z 
+2024-03-07T01:54:48.4544989Z BaseItem
+2024-03-07T01:54:48.4547227Z   Associations >
+2024-03-07T01:54:48.4688178Z     keeps count of its associated items
+2024-03-07T01:54:48.4688835Z   Filtering >
+2024-03-07T01:54:48.4689482Z     ->without_kit
+2024-03-07T01:54:48.4744769Z       should not include the Kit BaseItem
+2024-03-07T01:54:48.4745823Z     ->by_partner_key
+2024-03-07T01:54:48.4798497Z       shows the Base Items by partner_key
+2024-03-07T01:54:48.4799098Z   versioning
+2024-03-07T01:54:48.4836206Z     is expected to be versioned
+2024-03-07T01:54:48.4836732Z   Validations >
+2024-03-07T01:54:48.4883120Z     is invalid without a partner key
+2024-03-07T01:54:48.4955921Z     is invalid without a unique name
+2024-03-07T01:54:48.5024430Z     is invalid without a uniqueness key
+2024-03-07T01:54:48.5069287Z     is invalid without a name
+2024-03-07T01:54:48.5070118Z 
+2024-03-07T01:54:48.5070405Z DispersedPastDatesGenerator
+2024-03-07T01:54:48.5071524Z   #next
+2024-03-07T01:54:48.5123130Z     returns equally dispersed dates between all time ranges
+2024-03-07T01:54:48.5124009Z   constants
+2024-03-07T01:54:48.5155746Z     has 4 day ranges for generation of past dates
+2024-03-07T01:54:48.5156443Z 
+2024-03-07T01:54:48.5156644Z Request
+2024-03-07T01:54:48.5158249Z   item data
+2024-03-07T01:54:48.5239597Z     coerces item quantity and id to always be an integer before saving
+2024-03-07T01:54:48.5240451Z   versioning
+2024-03-07T01:54:48.5276518Z     is expected to be versioned
+2024-03-07T01:54:48.5277086Z   total_items
+2024-03-07T01:54:48.5374076Z     adds the quantity of all items in the request
+2024-03-07T01:54:48.5374765Z   Enums >
+2024-03-07T01:54:48.5375138Z     #status
+2024-03-07T01:54:48.5592217Z       scopes
+2024-03-07T01:54:48.5592858Z 
+2024-03-07T01:54:48.5593052Z DistributionReminder
+2024-03-07T01:54:48.5594155Z   conditionally sending the emails
+2024-03-07T01:54:48.5909850Z     sends mail for future distributions
+2024-03-07T01:54:48.6204786Z     does not send mail for future distributions if the partner wants no reminders
+2024-03-07T01:54:48.6500521Z     sends mail for future distributions where the partner wants reminders
+2024-03-07T01:54:48.6798602Z     does not send mail for past distributions
+2024-03-07T01:54:48.6799346Z     when the partner is deactivated
+2024-03-07T01:54:48.7138701Z       does not send mail
+2024-03-07T01:54:48.7139332Z     when the distribution_id does not match any Distribution
+2024-03-07T01:54:48.7191581Z       does not send mail for non existent distributions
+2024-03-07T01:54:48.7192450Z 
+2024-03-07T01:54:48.7192955Z PartnerFetchRequestableItemsService
+2024-03-07T01:54:48.7193651Z   #call
+2024-03-07T01:54:48.7321183Z     raises an error indiciating the partner does not exist with invalid id
+2024-03-07T01:54:48.7322061Z     org with any amount of items
+2024-03-07T01:54:48.7322745Z       when the partner is in a partner group and has no items
+2024-03-07T01:54:48.9405403Z         should return only active and visible items from partner
+2024-03-07T01:54:48.9406342Z       when the partner is in a partner group and has items
+2024-03-07T01:54:49.1668665Z         should return only active and visible items from partner
+2024-03-07T01:54:49.1669769Z     when the partner is not in any partner group
+2024-03-07T01:54:49.1962716Z       is expected to be nil
+2024-03-07T01:54:49.1963289Z       when the organization has items
+2024-03-07T01:54:49.2400332Z         is expected to eq [#<Item id: 4801, name: "Item 1", category: nil, created_at: "2024-03-06 17:54:49.214540845 -0800", u... on_hand_recommended_quantity: nil, visible_to_partners: false, kit_id: nil, item_category_id: nil>]
+2024-03-07T01:54:49.2952320Z         should return only active and visible items
+2024-03-07T01:54:49.2953055Z       when the organization has no items
+2024-03-07T01:54:49.3276275Z         should return no items
+2024-03-07T01:54:49.3277622Z 
+2024-03-07T01:54:49.3277823Z ItemCreateService
+2024-03-07T01:54:49.3278671Z   #call
+2024-03-07T01:54:49.3279705Z     when an issue occurs in transaction
+2024-03-07T01:54:49.3280885Z       because the organization_id does not match any Organization
+2024-03-07T01:54:49.5004077Z         should return a OpenStruct with an ActiveRecord::RecordNotFound error
+2024-03-07T01:54:49.6732766Z       because the item create raised an error
+2024-03-07T01:54:49.6733770Z         should return a OpenStruct with the raised error
+2024-03-07T01:54:49.6735299Z       because a inventory item creation failed and raised an error
+2024-03-07T01:54:49.8555527Z         should return a OpenStruct with the raised error
+2024-03-07T01:54:49.8556130Z     when there are no issues
+2024-03-07T01:54:50.0341711Z       should return an OpenStruct with success? set to true and the item
+2024-03-07T01:54:50.2080713Z       should execute the expected methods
+2024-03-07T01:54:50.2081778Z 
+2024-03-07T01:54:50.2082041Z InventoryAggregate
+2024-03-07T01:54:50.2083791Z   multiple events
+2024-03-07T01:54:50.4775559Z     should handle changing storage location
+2024-03-07T01:54:50.8792047Z     should process multiple events
+2024-03-07T01:54:51.1467906Z     should ignore unusable snapshots
+2024-03-07T01:54:51.4206907Z     should handle timing correctly
+2024-03-07T01:54:51.7357661Z     should handle intervening audits
+2024-03-07T01:54:51.7358342Z   validation
+2024-03-07T01:54:51.7358778Z     subsequent event is incorrect
+2024-03-07T01:54:52.0468121Z       should add the event to the message
+2024-03-07T01:54:52.2994126Z       should handle negative quantities
+2024-03-07T01:54:52.2994776Z     current event is incorrect
+2024-03-07T01:54:52.5310395Z       should raise a bare error
+2024-03-07T01:54:52.5311152Z   individual events
+2024-03-07T01:54:52.8541985Z     should process a transfer destroy event
+2024-03-07T01:54:53.1516277Z     should process a snapshot event
+2024-03-07T01:54:53.4952948Z     should process a distribution destroyed event
+2024-03-07T01:54:53.8925067Z     should process a kit deallocation event
+2024-03-07T01:54:54.1947834Z     should process an audit event
+2024-03-07T01:54:54.5210010Z     should process a purchase destroyed event
+2024-03-07T01:54:54.8324186Z     should process a donation destroyed event
+2024-03-07T01:54:55.1375092Z     should process an adjustment event
+2024-03-07T01:54:55.4437665Z     should process a distribution event
+2024-03-07T01:54:55.7311571Z     should process a transfer event
+2024-03-07T01:54:56.0442593Z     should process a kit allocation event
+2024-03-07T01:54:56.3434441Z     should process a purchase event
+2024-03-07T01:54:56.6298494Z     should process a donation event
+2024-03-07T01:54:56.9210474Z     should process a donation event after a new storage location is created
+2024-03-07T01:54:56.9211213Z 
+2024-03-07T01:54:56.9211342Z ItemCategory
+2024-03-07T01:54:56.9212453Z   versioning
+2024-03-07T01:54:56.9251805Z     is expected to be versioned
+2024-03-07T01:54:56.9252378Z   validations
+2024-03-07T01:54:56.9346220Z     is expected to validate that :organization cannot be empty/falsy
+2024-03-07T01:54:56.9546862Z     is expected to validate that :name is case-sensitively unique within the scope of :organization_id
+2024-03-07T01:54:56.9621535Z     is expected to validate that the length of :description is at most 250
+2024-03-07T01:54:56.9711435Z     is expected to validate that :name cannot be empty/falsy
+2024-03-07T01:54:56.9712180Z   assocations
+2024-03-07T01:54:56.9776909Z     is expected to have and belong to many partner_groups
+2024-03-07T01:54:56.9829276Z     is expected to belong to organization required: true
+2024-03-07T01:54:56.9865004Z     is expected to have many items
+2024-03-07T01:54:56.9865727Z 
+2024-03-07T01:54:56.9866014Z ReminderDeadlineMailer
+2024-03-07T01:54:56.9867041Z   notify deadline
+2024-03-07T01:54:57.0187071Z     renders the body
+2024-03-07T01:54:57.0487554Z     renders the sender email
+2024-03-07T01:54:57.0791005Z     renders the subject
+2024-03-07T01:54:57.1085672Z     renders the receiver email
+2024-03-07T01:54:57.1086282Z 
+2024-03-07T01:54:57.1086506Z Partners::Family
+2024-03-07T01:54:57.1088609Z   associations
+2024-03-07T01:54:57.1131827Z     is expected to have many authorized_family_members dependent => destroy
+2024-03-07T01:54:57.1181917Z     is expected to belong to partner required: true
+2024-03-07T01:54:57.1221791Z     is expected to have many children dependent => destroy
+2024-03-07T01:54:57.1222474Z   #guardian_display_name
+2024-03-07T01:54:57.1276963Z     should return the guardian's first and last name
+2024-03-07T01:54:57.1278123Z   #total_children_count
+2024-03-07T01:54:57.1331138Z     should return the family's total children count
+2024-03-07T01:54:57.1331849Z   #create_authorized
+2024-03-07T01:54:57.1620431Z     should include authorized family members
+2024-03-07T01:54:57.1621122Z   #search_non_archived
+2024-03-07T01:54:57.2496495Z     should return non-archived families if zero is passed in
+2024-03-07T01:54:57.3431205Z     should return all families if one is passed in
+2024-03-07T01:54:57.3431926Z   versioning
+2024-03-07T01:54:57.3468316Z     is expected to be versioned
+2024-03-07T01:54:57.3468889Z   validations
+2024-03-07T01:54:57.3545194Z     is expected to validate that :guardian_zip_code cannot be empty/falsy
+2024-03-07T01:54:57.3617065Z     is expected to validate that :guardian_first_name cannot be empty/falsy
+2024-03-07T01:54:57.3689430Z     is expected to validate that :guardian_last_name cannot be empty/falsy
+2024-03-07T01:54:57.3690148Z 
+2024-03-07T01:54:57.3690408Z Exports::ExportDistributionsCSVService
+2024-03-07T01:54:57.3691043Z   #generate_csv_data
+2024-03-07T01:54:57.5546637Z     should match the expected content for the csv
+2024-03-07T01:54:57.5547355Z     when a new item is added
+2024-03-07T01:54:57.7465064Z       should show up with a 0 quantity if there are none of this item in any distribution
+2024-03-07T01:54:57.9331700Z       should add it to the end of the row
+2024-03-07T01:54:57.9332556Z     when there are no distributions but the report is requested
+2024-03-07T01:54:58.1153465Z       returns a csv with only headers and no rows
+2024-03-07T01:54:58.4066904Z 
+2024-03-07T01:54:58.4068040Z Pending: (Failures listed here are expected and do not affect your suite's status)
+2024-03-07T01:54:58.4068714Z 
+2024-03-07T01:54:58.4069712Z   1) KitAllocation add some examples to (or delete) /home/runner/work/human-essentials/human-essentials/spec/models/kit_allocation_spec.rb
+2024-03-07T01:54:58.4070814Z      # Not yet implemented
+2024-03-07T01:54:58.4071260Z      # ./spec/models/kit_allocation_spec.rb:16
+2024-03-07T01:54:58.4071657Z 
+2024-03-07T01:54:58.4071924Z Finished in 49.13 seconds (files took 8.54 seconds to load)
+2024-03-07T01:54:58.4072526Z 562 examples, 0 failures, 1 pending
+2024-03-07T01:54:58.4072843Z 
+2024-03-07T01:54:58.4073002Z Randomized with seed 61226
+2024-03-07T01:54:58.4073263Z 
+2024-03-07T01:54:58.7101758Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 3799 / 6435 LOC (59.04%) covered.
+2024-03-07T01:54:59.1624719Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 38 / 10705 LOC (0.35%) covered.
+2024-03-07T01:54:59.1950363Z Post job cleanup.
+2024-03-07T01:54:59.2952861Z [command]/usr/bin/git version
+2024-03-07T01:54:59.3003609Z git version 2.43.2
+2024-03-07T01:54:59.3046315Z Temporarily overriding HOME='/home/runner/work/_temp/a451c701-43c0-4afe-8464-75116f1a7442' before making global git config changes
+2024-03-07T01:54:59.3048118Z Adding repository directory to the temporary git global config as a safe directory
+2024-03-07T01:54:59.3053122Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/human-essentials/human-essentials
+2024-03-07T01:54:59.3099997Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-03-07T01:54:59.3141874Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-03-07T01:54:59.3388660Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-03-07T01:54:59.3424589Z http.https://github.com/.extraheader
+2024-03-07T01:54:59.3434752Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-03-07T01:54:59.3476141Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-03-07T01:54:59.3871192Z Print service container logs: c0b5a5dd44b54585bcf2cdde81fe0663_postgres123_da2458
+2024-03-07T01:54:59.3876160Z ##[command]/usr/bin/docker logs --details cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:54:59.4016296Z  The files belonging to this database system will be owned by user "postgres".
+2024-03-07T01:54:59.4017171Z  This user must also own the server process.
+2024-03-07T01:54:59.4018817Z  
+2024-03-07T01:54:59.4021086Z  The database cluster will be initialized with locale "en_US.utf8".
+2024-03-07T01:54:59.4022073Z  The default database encoding has accordingly been set to "UTF8".
+2024-03-07T01:54:59.4024400Z  initdb: warning: enabling "trust" authentication for local connections
+2024-03-07T01:54:59.4025439Z  You can change this by editing pg_hba.conf or using the option -A, or
+2024-03-07T01:54:59.4026442Z  --auth-local and --auth-host, the next time you run initdb.
+2024-03-07T01:54:59.4028078Z  2024-03-07 01:53:14.549 UTC [1] LOG:  starting PostgreSQL 12.3 (Debian 12.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2024-03-07T01:54:59.4029870Z  2024-03-07 01:53:14.549 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2024-03-07T01:54:59.4031019Z  2024-03-07 01:53:14.549 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2024-03-07T01:54:59.4032316Z  2024-03-07 01:53:14.550 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-03-07T01:54:59.4033677Z  2024-03-07 01:53:14.561 UTC [56] LOG:  database system was shut down at 2024-03-07 01:53:14 UTC
+2024-03-07T01:54:59.4034810Z  2024-03-07 01:53:14.566 UTC [1] LOG:  database system is ready to accept connections
+2024-03-07T01:54:59.4035831Z  2024-03-07 01:53:23.743 UTC [70] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4036750Z  2024-03-07 01:53:33.845 UTC [78] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4037739Z  2024-03-07 01:53:42.756 UTC [79] FATAL:  database "diaper_test" does not exist
+2024-03-07T01:54:59.4038754Z  2024-03-07 01:53:43.944 UTC [88] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4039870Z  2024-03-07 01:53:49.732 UTC [89] ERROR:  relation "flipper_gates" does not exist at character 491
+2024-03-07T01:54:59.4041234Z  2024-03-07 01:53:49.732 UTC [89] STATEMENT:  SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+2024-03-07T01:54:59.4042501Z  	       pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod,
+2024-03-07T01:54:59.4043443Z  	       c.collname, col_description(a.attrelid, a.attnum) AS comment,
+2024-03-07T01:54:59.4044145Z  	       attgenerated as attgenerated
+2024-03-07T01:54:59.4044722Z  	  FROM pg_attribute a
+2024-03-07T01:54:59.4045459Z  	  LEFT JOIN pg_attrdef d ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+2024-03-07T01:54:59.4046160Z  	  LEFT JOIN pg_type t ON a.atttypid = t.oid
+2024-03-07T01:54:59.4046742Z  	  LEFT JOIN pg_collation c ON a.attcollation = c.oid AND a.attcollation <> t.typcollation
+2024-03-07T01:54:59.4047350Z  	 WHERE a.attrelid = '"flipper_gates"'::regclass
+2024-03-07T01:54:59.4047763Z  	   AND a.attnum > 0 AND NOT a.attisdropped
+2024-03-07T01:54:59.4048118Z  	 ORDER BY a.attnum
+2024-03-07T01:54:59.4048377Z  	
+2024-03-07T01:54:59.4048718Z  2024-03-07 01:53:54.035 UTC [99] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4049282Z  2024-03-07 01:54:04.110 UTC [107] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4049835Z  2024-03-07 01:54:14.213 UTC [117] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4050389Z  2024-03-07 01:54:24.302 UTC [126] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4050944Z  2024-03-07 01:54:34.394 UTC [134] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4051491Z  2024-03-07 01:54:44.475 UTC [142] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4052032Z  2024-03-07 01:54:54.555 UTC [151] FATAL:  role "root" does not exist
+2024-03-07T01:54:59.4052594Z  The default text search configuration will be set to "english".
+2024-03-07T01:54:59.4053334Z  
+2024-03-07T01:54:59.4053774Z  Data page checksums are disabled.
+2024-03-07T01:54:59.4054093Z  
+2024-03-07T01:54:59.4054453Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2024-03-07T01:54:59.4054952Z  creating subdirectories ... ok
+2024-03-07T01:54:59.4055398Z  selecting dynamic shared memory implementation ... posix
+2024-03-07T01:54:59.4055846Z  selecting default max_connections ... 100
+2024-03-07T01:54:59.4056561Z  selecting default shared_buffers ... 128MB
+2024-03-07T01:54:59.4057097Z  selecting default time zone ... Etc/UTC
+2024-03-07T01:54:59.4057461Z  creating configuration files ... ok
+2024-03-07T01:54:59.4057807Z  running bootstrap script ... ok
+2024-03-07T01:54:59.4058179Z  performing post-bootstrap initialization ... ok
+2024-03-07T01:54:59.4058567Z  syncing data to disk ... ok
+2024-03-07T01:54:59.4058842Z  
+2024-03-07T01:54:59.4059033Z  
+2024-03-07T01:54:59.4059319Z  Success. You can now start the database server using:
+2024-03-07T01:54:59.4059697Z  
+2024-03-07T01:54:59.4059993Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2024-03-07T01:54:59.4060373Z  
+2024-03-07T01:54:59.4061235Z  waiting for server to start....2024-03-07 01:53:14.345 UTC [47] LOG:  starting PostgreSQL 12.3 (Debian 12.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2024-03-07T01:54:59.4062387Z  2024-03-07 01:53:14.347 UTC [47] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-03-07T01:54:59.4063153Z  2024-03-07 01:53:14.358 UTC [48] LOG:  database system was shut down at 2024-03-07 01:53:14 UTC
+2024-03-07T01:54:59.4063861Z  2024-03-07 01:53:14.363 UTC [47] LOG:  database system is ready to accept connections
+2024-03-07T01:54:59.4064347Z   done
+2024-03-07T01:54:59.4064559Z  server started
+2024-03-07T01:54:59.4064789Z  
+2024-03-07T01:54:59.4065187Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2024-03-07T01:54:59.4065682Z  
+2024-03-07T01:54:59.4066013Z  2024-03-07 01:53:14.438 UTC [47] LOG:  received fast shutdown request
+2024-03-07T01:54:59.4066734Z  waiting for server to shut down....2024-03-07 01:53:14.438 UTC [47] LOG:  aborting any active transactions
+2024-03-07T01:54:59.4067688Z  2024-03-07 01:53:14.439 UTC [47] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2024-03-07T01:54:59.4068381Z  2024-03-07 01:53:14.440 UTC [49] LOG:  shutting down
+2024-03-07T01:54:59.4068860Z  2024-03-07 01:53:14.449 UTC [47] LOG:  database system is shut down
+2024-03-07T01:54:59.4069283Z   done
+2024-03-07T01:54:59.4069492Z  server stopped
+2024-03-07T01:54:59.4069721Z  
+2024-03-07T01:54:59.4070015Z  PostgreSQL init process complete; ready for start up.
+2024-03-07T01:54:59.4070393Z  
+2024-03-07T01:54:59.4076436Z Stop and remove container: c0b5a5dd44b54585bcf2cdde81fe0663_postgres123_da2458
+2024-03-07T01:54:59.4082351Z ##[command]/usr/bin/docker rm --force cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:54:59.6440835Z cc4bfbaf63d322b568472d6490355d989c943c07bed6667eef3360829787ac1c
+2024-03-07T01:54:59.6465952Z Remove container network: github_network_68e202c12e2b406c966bb7b149e64062
+2024-03-07T01:54:59.6470879Z ##[command]/usr/bin/docker network rm github_network_68e202c12e2b406c966bb7b149e64062
+2024-03-07T01:54:59.9076901Z github_network_68e202c12e2b406c966bb7b149e64062
+2024-03-07T01:54:59.9247433Z Cleaning up orphan processes

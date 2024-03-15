@@ -1,0 +1,848 @@
+2024-03-04T13:50:51.3731437Z Requested labels: ubuntu-latest
+2024-03-04T13:50:51.3731792Z Job defined at: rubyforgood/human-essentials/.github/workflows/factory-bot-lint.yml@refs/pull/4154/merge
+2024-03-04T13:50:51.3731914Z Waiting for a runner to pick up this job...
+2024-03-04T13:50:52.9163004Z Job is waiting for a hosted runner to come online.
+2024-03-04T13:50:55.3571761Z Job is about to start running on the hosted runner: GitHub Actions 7 (hosted)
+2024-03-04T13:50:58.9769136Z Current runner version: '2.313.0'
+2024-03-04T13:50:58.9792012Z ##[group]Operating System
+2024-03-04T13:50:58.9792621Z Ubuntu
+2024-03-04T13:50:58.9792958Z 22.04.4
+2024-03-04T13:50:58.9793255Z LTS
+2024-03-04T13:50:58.9793674Z ##[endgroup]
+2024-03-04T13:50:58.9794045Z ##[group]Runner Image
+2024-03-04T13:50:58.9794628Z Image: ubuntu-22.04
+2024-03-04T13:50:58.9794990Z Version: 20240225.1.0
+2024-03-04T13:50:58.9796005Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240225.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-03-04T13:50:58.9797501Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240225.1
+2024-03-04T13:50:58.9798319Z ##[endgroup]
+2024-03-04T13:50:58.9798728Z ##[group]Runner Image Provisioner
+2024-03-04T13:50:58.9799293Z 2.0.347.1
+2024-03-04T13:50:58.9799598Z ##[endgroup]
+2024-03-04T13:50:58.9801657Z ##[group]GITHUB_TOKEN Permissions
+2024-03-04T13:50:58.9803305Z Actions: read
+2024-03-04T13:50:58.9803731Z Checks: read
+2024-03-04T13:50:58.9804386Z Contents: read
+2024-03-04T13:50:58.9804863Z Deployments: read
+2024-03-04T13:50:58.9805604Z Discussions: read
+2024-03-04T13:50:58.9806005Z Issues: read
+2024-03-04T13:50:58.9806366Z Metadata: read
+2024-03-04T13:50:58.9806811Z Packages: read
+2024-03-04T13:50:58.9807161Z Pages: read
+2024-03-04T13:50:58.9807515Z PullRequests: read
+2024-03-04T13:50:58.9807986Z RepositoryProjects: read
+2024-03-04T13:50:58.9808406Z SecurityEvents: read
+2024-03-04T13:50:58.9808817Z Statuses: read
+2024-03-04T13:50:58.9809247Z ##[endgroup]
+2024-03-04T13:50:58.9812162Z Secret source: None
+2024-03-04T13:50:58.9812726Z Prepare workflow directory
+2024-03-04T13:50:59.0744743Z Prepare all required actions
+2024-03-04T13:50:59.0901093Z Getting action download info
+2024-03-04T13:50:59.2408988Z Download action repository 'actions/checkout@v2' (SHA:ee0669bd1cc54295c223e0bb666b733df41de1c5)
+2024-03-04T13:50:59.3767531Z Download action repository 'ruby/setup-ruby@v1' (SHA:d4526a55538b775af234ba4af27118ed6f8f6677)
+2024-03-04T13:50:59.6811035Z Complete job name: factory_bot_lint
+2024-03-04T13:50:59.7459162Z ##[group]Checking docker version
+2024-03-04T13:50:59.7473425Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2024-03-04T13:50:59.7954827Z '1.43'
+2024-03-04T13:50:59.7967446Z Docker daemon API version: '1.43'
+2024-03-04T13:50:59.7968367Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2024-03-04T13:50:59.8133165Z '1.43'
+2024-03-04T13:50:59.8144923Z Docker client API version: '1.43'
+2024-03-04T13:50:59.8150274Z ##[endgroup]
+2024-03-04T13:50:59.8153362Z ##[group]Clean up resources from previous jobs
+2024-03-04T13:50:59.8159348Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=f2f10f"
+2024-03-04T13:50:59.8300797Z ##[command]/usr/bin/docker network prune --force --filter "label=f2f10f"
+2024-03-04T13:50:59.8429280Z ##[endgroup]
+2024-03-04T13:50:59.8429898Z ##[group]Create local container network
+2024-03-04T13:50:59.8439615Z ##[command]/usr/bin/docker network create --label f2f10f github_network_6802df63d94b4c5fbaaa165fbf412dc5
+2024-03-04T13:50:59.9303737Z 7b89cdd273a36a3eb73253baffd1598b185e09ea10e5d72992d169e83721b5be
+2024-03-04T13:50:59.9323076Z ##[endgroup]
+2024-03-04T13:50:59.9443168Z ##[group]Starting db service container
+2024-03-04T13:50:59.9467566Z ##[command]/usr/bin/docker pull postgres:12.3
+2024-03-04T13:51:00.4139318Z 12.3: Pulling from library/postgres
+2024-03-04T13:51:00.4695622Z bf5952930446: Pulling fs layer
+2024-03-04T13:51:00.4696350Z 9577476abb00: Pulling fs layer
+2024-03-04T13:51:00.4696920Z 2bd105512d5c: Pulling fs layer
+2024-03-04T13:51:00.4697564Z b1cd21c26e81: Pulling fs layer
+2024-03-04T13:51:00.4698205Z 34a7c86cf8fc: Pulling fs layer
+2024-03-04T13:51:00.4698851Z 274e7b0c38d5: Pulling fs layer
+2024-03-04T13:51:00.4699265Z 3e831b350d37: Pulling fs layer
+2024-03-04T13:51:00.4699667Z 38fa0d496534: Pulling fs layer
+2024-03-04T13:51:00.4700145Z 31a8349609a4: Pulling fs layer
+2024-03-04T13:51:00.4700485Z 14e4c2a4b7b7: Pulling fs layer
+2024-03-04T13:51:00.4700872Z 964acfa02beb: Pulling fs layer
+2024-03-04T13:51:00.4701670Z 31b1f20dffc0: Pulling fs layer
+2024-03-04T13:51:00.4702051Z 14771c2930e9: Pulling fs layer
+2024-03-04T13:51:00.4702454Z 34a7c86cf8fc: Waiting
+2024-03-04T13:51:00.4702890Z 2f30edd0ce8a: Pulling fs layer
+2024-03-04T13:51:00.4703224Z 274e7b0c38d5: Waiting
+2024-03-04T13:51:00.4703568Z 3e831b350d37: Waiting
+2024-03-04T13:51:00.4703952Z 38fa0d496534: Waiting
+2024-03-04T13:51:00.4704238Z 31a8349609a4: Waiting
+2024-03-04T13:51:00.4704569Z 14e4c2a4b7b7: Waiting
+2024-03-04T13:51:00.4704925Z 964acfa02beb: Waiting
+2024-03-04T13:51:00.4705283Z 31b1f20dffc0: Waiting
+2024-03-04T13:51:00.4705598Z 14771c2930e9: Waiting
+2024-03-04T13:51:00.4705947Z 2f30edd0ce8a: Waiting
+2024-03-04T13:51:00.4706292Z b1cd21c26e81: Waiting
+2024-03-04T13:51:00.5214793Z 2bd105512d5c: Download complete
+2024-03-04T13:51:00.5902467Z b1cd21c26e81: Verifying Checksum
+2024-03-04T13:51:00.5903435Z b1cd21c26e81: Download complete
+2024-03-04T13:51:00.6047445Z 9577476abb00: Verifying Checksum
+2024-03-04T13:51:00.6048701Z 9577476abb00: Download complete
+2024-03-04T13:51:00.6624061Z 274e7b0c38d5: Download complete
+2024-03-04T13:51:00.7090159Z 34a7c86cf8fc: Verifying Checksum
+2024-03-04T13:51:00.7091004Z 34a7c86cf8fc: Download complete
+2024-03-04T13:51:00.7221762Z 3e831b350d37: Verifying Checksum
+2024-03-04T13:51:00.7222480Z 3e831b350d37: Download complete
+2024-03-04T13:51:00.7675195Z 38fa0d496534: Download complete
+2024-03-04T13:51:00.8293122Z 14e4c2a4b7b7: Verifying Checksum
+2024-03-04T13:51:00.8295236Z 14e4c2a4b7b7: Download complete
+2024-03-04T13:51:00.8863992Z 964acfa02beb: Verifying Checksum
+2024-03-04T13:51:00.8864742Z 964acfa02beb: Download complete
+2024-03-04T13:51:00.9201525Z bf5952930446: Verifying Checksum
+2024-03-04T13:51:00.9202002Z bf5952930446: Download complete
+2024-03-04T13:51:00.9419279Z 31b1f20dffc0: Download complete
+2024-03-04T13:51:00.9708205Z 14771c2930e9: Verifying Checksum
+2024-03-04T13:51:00.9708971Z 14771c2930e9: Download complete
+2024-03-04T13:51:01.0002736Z 2f30edd0ce8a: Verifying Checksum
+2024-03-04T13:51:01.0004359Z 2f30edd0ce8a: Download complete
+2024-03-04T13:51:01.4011821Z 31a8349609a4: Verifying Checksum
+2024-03-04T13:51:01.4012500Z 31a8349609a4: Download complete
+2024-03-04T13:51:02.0641528Z bf5952930446: Pull complete
+2024-03-04T13:51:02.6731569Z 9577476abb00: Pull complete
+2024-03-04T13:51:02.6913502Z 2bd105512d5c: Pull complete
+2024-03-04T13:51:02.7515406Z b1cd21c26e81: Pull complete
+2024-03-04T13:51:03.1565901Z 34a7c86cf8fc: Pull complete
+2024-03-04T13:51:03.2060358Z 274e7b0c38d5: Pull complete
+2024-03-04T13:51:03.2163691Z 3e831b350d37: Pull complete
+2024-03-04T13:51:03.2292398Z 38fa0d496534: Pull complete
+2024-03-04T13:51:05.6040895Z 31a8349609a4: Pull complete
+2024-03-04T13:51:05.6487242Z 14e4c2a4b7b7: Pull complete
+2024-03-04T13:51:05.6603531Z 964acfa02beb: Pull complete
+2024-03-04T13:51:05.6710235Z 31b1f20dffc0: Pull complete
+2024-03-04T13:51:05.6839891Z 14771c2930e9: Pull complete
+2024-03-04T13:51:05.6954142Z 2f30edd0ce8a: Pull complete
+2024-03-04T13:51:05.7005352Z Digest: sha256:a06e6e6e519b7a329c419f8221edec66cfc45511e8b80e262c12103ba745cf19
+2024-03-04T13:51:05.7021758Z Status: Downloaded newer image for postgres:12.3
+2024-03-04T13:51:05.7034249Z docker.io/library/postgres:12.3
+2024-03-04T13:51:05.7131757Z ##[command]/usr/bin/docker create --name 6fdce754d7b6445484a88c94194aa7e3_postgres123_0cf7a9 --label f2f10f --network github_network_6802df63d94b4c5fbaaa165fbf412dc5 --network-alias db -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_PASSWORD=password" -e GITHUB_ACTIONS=true -e CI=true postgres:12.3
+2024-03-04T13:51:05.7413627Z ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:05.7436619Z ##[command]/usr/bin/docker start ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:06.2958503Z ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:06.2975917Z ##[command]/usr/bin/docker ps --all --filter id=ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2024-03-04T13:51:06.3107737Z ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b Up Less than a second (health: starting)
+2024-03-04T13:51:06.3129757Z ##[command]/usr/bin/docker port ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:06.3265208Z 5432/tcp -> 0.0.0.0:5432
+2024-03-04T13:51:06.3265842Z 5432/tcp -> [::]:5432
+2024-03-04T13:51:06.3341207Z ##[endgroup]
+2024-03-04T13:51:06.3367081Z ##[group]Waiting for all services to be ready
+2024-03-04T13:51:06.3404710Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:06.3545721Z starting
+2024-03-04T13:51:06.3566807Z db service is starting, waiting 2 seconds before checking again.
+2024-03-04T13:51:08.3593859Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:08.3714544Z starting
+2024-03-04T13:51:08.3727096Z db service is starting, waiting 4 seconds before checking again.
+2024-03-04T13:51:12.6532319Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:12.6658493Z starting
+2024-03-04T13:51:12.6673172Z db service is starting, waiting 7 seconds before checking again.
+2024-03-04T13:51:20.6571262Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:51:20.6698873Z healthy
+2024-03-04T13:51:20.6713216Z db service is healthy.
+2024-03-04T13:51:20.6713880Z ##[endgroup]
+2024-03-04T13:51:20.7077672Z ##[group]Run actions/checkout@v2
+2024-03-04T13:51:20.7078259Z with:
+2024-03-04T13:51:20.7078581Z   repository: rubyforgood/human-essentials
+2024-03-04T13:51:20.7079234Z   token: ***
+2024-03-04T13:51:20.7079674Z   ssh-strict: true
+2024-03-04T13:51:20.7079990Z   persist-credentials: true
+2024-03-04T13:51:20.7080364Z   clean: true
+2024-03-04T13:51:20.7080760Z   fetch-depth: 1
+2024-03-04T13:51:20.7081041Z   lfs: false
+2024-03-04T13:51:20.7081361Z   submodules: false
+2024-03-04T13:51:20.7081770Z   set-safe-directory: true
+2024-03-04T13:51:20.7082096Z ##[endgroup]
+2024-03-04T13:51:20.8800264Z Syncing repository: rubyforgood/human-essentials
+2024-03-04T13:51:20.8802076Z ##[group]Getting Git version info
+2024-03-04T13:51:20.8802842Z Working directory is '/home/runner/work/human-essentials/human-essentials'
+2024-03-04T13:51:20.8803985Z [command]/usr/bin/git version
+2024-03-04T13:51:20.8816644Z git version 2.43.2
+2024-03-04T13:51:20.8839174Z ##[endgroup]
+2024-03-04T13:51:20.8854488Z Temporarily overriding HOME='/home/runner/work/_temp/9deaa7c5-ad33-46de-bcc3-565bf5f65e12' before making global git config changes
+2024-03-04T13:51:20.8855546Z Adding repository directory to the temporary git global config as a safe directory
+2024-03-04T13:51:20.8858083Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/human-essentials/human-essentials
+2024-03-04T13:51:20.8900637Z Deleting the contents of '/home/runner/work/human-essentials/human-essentials'
+2024-03-04T13:51:20.8904952Z ##[group]Initializing the repository
+2024-03-04T13:51:20.8908418Z [command]/usr/bin/git init /home/runner/work/human-essentials/human-essentials
+2024-03-04T13:51:20.8973028Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-03-04T13:51:20.8974220Z hint: is subject to change. To configure the initial branch name to use in all
+2024-03-04T13:51:20.8984205Z hint: of your new repositories, which will suppress this warning, call:
+2024-03-04T13:51:20.8985183Z hint: 
+2024-03-04T13:51:20.8986158Z hint: 	git config --global init.defaultBranch <name>
+2024-03-04T13:51:20.8986866Z hint: 
+2024-03-04T13:51:20.8987995Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-03-04T13:51:20.8989418Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-03-04T13:51:20.9004174Z hint: 
+2024-03-04T13:51:20.9004963Z hint: 	git branch -m <name>
+2024-03-04T13:51:20.9006137Z Initialized empty Git repository in /home/runner/work/human-essentials/human-essentials/.git/
+2024-03-04T13:51:20.9007125Z [command]/usr/bin/git remote add origin https://github.com/rubyforgood/human-essentials
+2024-03-04T13:51:20.9037101Z ##[endgroup]
+2024-03-04T13:51:20.9037793Z ##[group]Disabling automatic garbage collection
+2024-03-04T13:51:20.9040536Z [command]/usr/bin/git config --local gc.auto 0
+2024-03-04T13:51:20.9075992Z ##[endgroup]
+2024-03-04T13:51:20.9076817Z ##[group]Setting up auth
+2024-03-04T13:51:20.9082734Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-03-04T13:51:20.9119087Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-03-04T13:51:20.9431462Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-03-04T13:51:20.9467382Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-03-04T13:51:20.9702017Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-03-04T13:51:20.9744068Z ##[endgroup]
+2024-03-04T13:51:20.9744750Z ##[group]Fetching the repository
+2024-03-04T13:51:20.9752568Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +fe047d551b2622ad1d81670b4a50337e085ff944:refs/remotes/pull/4154/merge
+2024-03-04T13:51:21.1503995Z remote: Enumerating objects: 1744, done.        
+2024-03-04T13:51:21.1507739Z remote: Counting objects:   0% (1/1744)        
+2024-03-04T13:51:21.1508527Z remote: Counting objects:   1% (18/1744)        
+2024-03-04T13:51:21.1509292Z remote: Counting objects:   2% (35/1744)        
+2024-03-04T13:51:21.1509839Z remote: Counting objects:   3% (53/1744)        
+2024-03-04T13:51:21.1510342Z remote: Counting objects:   4% (70/1744)        
+2024-03-04T13:51:21.1513970Z remote: Counting objects:   5% (88/1744)        
+2024-03-04T13:51:21.1514536Z remote: Counting objects:   6% (105/1744)        
+2024-03-04T13:51:21.1518319Z remote: Counting objects:   7% (123/1744)        
+2024-03-04T13:51:21.1519203Z remote: Counting objects:   8% (140/1744)        
+2024-03-04T13:51:21.1520582Z remote: Counting objects:   9% (157/1744)        
+2024-03-04T13:51:21.1522113Z remote: Counting objects:  10% (175/1744)        
+2024-03-04T13:51:21.1523060Z remote: Counting objects:  11% (192/1744)        
+2024-03-04T13:51:21.1524235Z remote: Counting objects:  12% (210/1744)        
+2024-03-04T13:51:21.1525486Z remote: Counting objects:  13% (227/1744)        
+2024-03-04T13:51:21.1526501Z remote: Counting objects:  14% (245/1744)        
+2024-03-04T13:51:21.1527572Z remote: Counting objects:  15% (262/1744)        
+2024-03-04T13:51:21.1528479Z remote: Counting objects:  16% (280/1744)        
+2024-03-04T13:51:21.1529275Z remote: Counting objects:  17% (297/1744)        
+2024-03-04T13:51:21.1529992Z remote: Counting objects:  18% (314/1744)        
+2024-03-04T13:51:21.1530988Z remote: Counting objects:  19% (332/1744)        
+2024-03-04T13:51:21.1531792Z remote: Counting objects:  20% (349/1744)        
+2024-03-04T13:51:21.1532510Z remote: Counting objects:  21% (367/1744)        
+2024-03-04T13:51:21.1533391Z remote: Counting objects:  22% (384/1744)        
+2024-03-04T13:51:21.1534163Z remote: Counting objects:  23% (402/1744)        
+2024-03-04T13:51:21.1534894Z remote: Counting objects:  24% (419/1744)        
+2024-03-04T13:51:21.1535877Z remote: Counting objects:  25% (436/1744)        
+2024-03-04T13:51:21.1536968Z remote: Counting objects:  26% (454/1744)        
+2024-03-04T13:51:21.1537690Z remote: Counting objects:  27% (471/1744)        
+2024-03-04T13:51:21.1538575Z remote: Counting objects:  28% (489/1744)        
+2024-03-04T13:51:21.1539333Z remote: Counting objects:  29% (506/1744)        
+2024-03-04T13:51:21.1540045Z remote: Counting objects:  30% (524/1744)        
+2024-03-04T13:51:21.1540904Z remote: Counting objects:  31% (541/1744)        
+2024-03-04T13:51:21.1541687Z remote: Counting objects:  32% (559/1744)        
+2024-03-04T13:51:21.1542420Z remote: Counting objects:  33% (576/1744)        
+2024-03-04T13:51:21.1543254Z remote: Counting objects:  34% (593/1744)        
+2024-03-04T13:51:21.1544017Z remote: Counting objects:  35% (611/1744)        
+2024-03-04T13:51:21.1544872Z remote: Counting objects:  36% (628/1744)        
+2024-03-04T13:51:21.1545593Z remote: Counting objects:  37% (646/1744)        
+2024-03-04T13:51:21.1546359Z remote: Counting objects:  38% (663/1744)        
+2024-03-04T13:51:21.1547217Z remote: Counting objects:  39% (681/1744)        
+2024-03-04T13:51:21.1548047Z remote: Counting objects:  40% (698/1744)        
+2024-03-04T13:51:21.1548802Z remote: Counting objects:  41% (716/1744)        
+2024-03-04T13:51:21.1549667Z remote: Counting objects:  42% (733/1744)        
+2024-03-04T13:51:21.1550380Z remote: Counting objects:  43% (750/1744)        
+2024-03-04T13:51:21.1551183Z remote: Counting objects:  44% (768/1744)        
+2024-03-04T13:51:21.1552018Z remote: Counting objects:  45% (785/1744)        
+2024-03-04T13:51:21.1552732Z remote: Counting objects:  46% (803/1744)        
+2024-03-04T13:51:21.1553508Z remote: Counting objects:  47% (820/1744)        
+2024-03-04T13:51:21.1554337Z remote: Counting objects:  48% (838/1744)        
+2024-03-04T13:51:21.1555051Z remote: Counting objects:  49% (855/1744)        
+2024-03-04T13:51:21.1556168Z remote: Counting objects:  50% (872/1744)        
+2024-03-04T13:51:21.1559877Z remote: Counting objects:  51% (890/1744)        
+2024-03-04T13:51:21.1560698Z remote: Counting objects:  52% (907/1744)        
+2024-03-04T13:51:21.1561429Z remote: Counting objects:  53% (925/1744)        
+2024-03-04T13:51:21.1562395Z remote: Counting objects:  54% (942/1744)        
+2024-03-04T13:51:21.1563166Z remote: Counting objects:  55% (960/1744)        
+2024-03-04T13:51:21.1563883Z remote: Counting objects:  56% (977/1744)        
+2024-03-04T13:51:21.1564761Z remote: Counting objects:  57% (995/1744)        
+2024-03-04T13:51:21.1565704Z remote: Counting objects:  58% (1012/1744)        
+2024-03-04T13:51:21.1566468Z remote: Counting objects:  59% (1029/1744)        
+2024-03-04T13:51:21.1567370Z remote: Counting objects:  60% (1047/1744)        
+2024-03-04T13:51:21.1579806Z remote: Counting objects:  61% (1064/1744)        
+2024-03-04T13:51:21.1585852Z remote: Counting objects:  62% (1082/1744)        
+2024-03-04T13:51:21.1589253Z remote: Counting objects:  63% (1099/1744)        
+2024-03-04T13:51:21.1590087Z remote: Counting objects:  64% (1117/1744)        
+2024-03-04T13:51:21.1591049Z remote: Counting objects:  65% (1134/1744)        
+2024-03-04T13:51:21.1591921Z remote: Counting objects:  66% (1152/1744)        
+2024-03-04T13:51:21.1592714Z remote: Counting objects:  67% (1169/1744)        
+2024-03-04T13:51:21.1593637Z remote: Counting objects:  68% (1186/1744)        
+2024-03-04T13:51:21.1594426Z remote: Counting objects:  69% (1204/1744)        
+2024-03-04T13:51:21.1595179Z remote: Counting objects:  70% (1221/1744)        
+2024-03-04T13:51:21.1596141Z remote: Counting objects:  71% (1239/1744)        
+2024-03-04T13:51:21.1596939Z remote: Counting objects:  72% (1256/1744)        
+2024-03-04T13:51:21.1597758Z remote: Counting objects:  73% (1274/1744)        
+2024-03-04T13:51:21.1598567Z remote: Counting objects:  74% (1291/1744)        
+2024-03-04T13:51:21.1599417Z remote: Counting objects:  75% (1308/1744)        
+2024-03-04T13:51:21.1601080Z remote: Counting objects:  76% (1326/1744)        
+2024-03-04T13:51:21.1601989Z remote: Counting objects:  77% (1343/1744)        
+2024-03-04T13:51:21.1604626Z remote: Counting objects:  78% (1361/1744)        
+2024-03-04T13:51:21.1605611Z remote: Counting objects:  79% (1378/1744)        
+2024-03-04T13:51:21.1606432Z remote: Counting objects:  80% (1396/1744)        
+2024-03-04T13:51:21.1607385Z remote: Counting objects:  81% (1413/1744)        
+2024-03-04T13:51:21.1608182Z remote: Counting objects:  82% (1431/1744)        
+2024-03-04T13:51:21.1609054Z remote: Counting objects:  83% (1448/1744)        
+2024-03-04T13:51:21.1610039Z remote: Counting objects:  84% (1465/1744)        
+2024-03-04T13:51:21.1610891Z remote: Counting objects:  85% (1483/1744)        
+2024-03-04T13:51:21.1611740Z remote: Counting objects:  86% (1500/1744)        
+2024-03-04T13:51:21.1612808Z remote: Counting objects:  87% (1518/1744)        
+2024-03-04T13:51:21.1613754Z remote: Counting objects:  88% (1535/1744)        
+2024-03-04T13:51:21.1614674Z remote: Counting objects:  89% (1553/1744)        
+2024-03-04T13:51:21.1615715Z remote: Counting objects:  90% (1570/1744)        
+2024-03-04T13:51:21.1616667Z remote: Counting objects:  91% (1588/1744)        
+2024-03-04T13:51:21.1617505Z remote: Counting objects:  92% (1605/1744)        
+2024-03-04T13:51:21.1618468Z remote: Counting objects:  93% (1622/1744)        
+2024-03-04T13:51:21.1619377Z remote: Counting objects:  94% (1640/1744)        
+2024-03-04T13:51:21.1620229Z remote: Counting objects:  95% (1657/1744)        
+2024-03-04T13:51:21.1621252Z remote: Counting objects:  96% (1675/1744)        
+2024-03-04T13:51:21.1622159Z remote: Counting objects:  97% (1692/1744)        
+2024-03-04T13:51:21.1622997Z remote: Counting objects:  98% (1710/1744)        
+2024-03-04T13:51:21.1624033Z remote: Counting objects:  99% (1727/1744)        
+2024-03-04T13:51:21.1624924Z remote: Counting objects: 100% (1744/1744)        
+2024-03-04T13:51:21.1626116Z remote: Counting objects: 100% (1744/1744), done.        
+2024-03-04T13:51:21.1627349Z remote: Compressing objects:   0% (1/1560)        
+2024-03-04T13:51:21.1628335Z remote: Compressing objects:   1% (16/1560)        
+2024-03-04T13:51:21.1629249Z remote: Compressing objects:   2% (32/1560)        
+2024-03-04T13:51:21.1630331Z remote: Compressing objects:   3% (47/1560)        
+2024-03-04T13:51:21.1631244Z remote: Compressing objects:   4% (63/1560)        
+2024-03-04T13:51:21.1632156Z remote: Compressing objects:   5% (78/1560)        
+2024-03-04T13:51:21.1633200Z remote: Compressing objects:   6% (94/1560)        
+2024-03-04T13:51:21.1634132Z remote: Compressing objects:   7% (110/1560)        
+2024-03-04T13:51:21.1635066Z remote: Compressing objects:   8% (125/1560)        
+2024-03-04T13:51:21.1636141Z remote: Compressing objects:   9% (141/1560)        
+2024-03-04T13:51:21.1657010Z remote: Compressing objects:  10% (156/1560)        
+2024-03-04T13:51:21.1657599Z remote: Compressing objects:  11% (172/1560)        
+2024-03-04T13:51:21.1660883Z remote: Compressing objects:  12% (188/1560)        
+2024-03-04T13:51:21.1695918Z remote: Compressing objects:  13% (203/1560)        
+2024-03-04T13:51:21.1700437Z remote: Compressing objects:  14% (219/1560)        
+2024-03-04T13:51:21.1704751Z remote: Compressing objects:  15% (234/1560)        
+2024-03-04T13:51:21.1707723Z remote: Compressing objects:  16% (250/1560)        
+2024-03-04T13:51:21.1711192Z remote: Compressing objects:  17% (266/1560)        
+2024-03-04T13:51:21.1716981Z remote: Compressing objects:  18% (281/1560)        
+2024-03-04T13:51:21.1740241Z remote: Compressing objects:  19% (297/1560)        
+2024-03-04T13:51:21.1760250Z remote: Compressing objects:  20% (312/1560)        
+2024-03-04T13:51:21.1800857Z remote: Compressing objects:  21% (328/1560)        
+2024-03-04T13:51:21.1816571Z remote: Compressing objects:  22% (344/1560)        
+2024-03-04T13:51:21.1822185Z remote: Compressing objects:  23% (359/1560)        
+2024-03-04T13:51:21.1836408Z remote: Compressing objects:  24% (375/1560)        
+2024-03-04T13:51:21.1838754Z remote: Compressing objects:  25% (390/1560)        
+2024-03-04T13:51:21.1850039Z remote: Compressing objects:  26% (406/1560)        
+2024-03-04T13:51:21.1860967Z remote: Compressing objects:  27% (422/1560)        
+2024-03-04T13:51:21.1870089Z remote: Compressing objects:  28% (437/1560)        
+2024-03-04T13:51:21.1880104Z remote: Compressing objects:  29% (453/1560)        
+2024-03-04T13:51:21.1899778Z remote: Compressing objects:  30% (468/1560)        
+2024-03-04T13:51:21.1912163Z remote: Compressing objects:  31% (484/1560)        
+2024-03-04T13:51:21.1926126Z remote: Compressing objects:  32% (500/1560)        
+2024-03-04T13:51:21.1938836Z remote: Compressing objects:  33% (515/1560)        
+2024-03-04T13:51:21.1948774Z remote: Compressing objects:  34% (531/1560)        
+2024-03-04T13:51:21.1949748Z remote: Compressing objects:  35% (546/1560)        
+2024-03-04T13:51:21.1953074Z remote: Compressing objects:  36% (562/1560)        
+2024-03-04T13:51:21.1960554Z remote: Compressing objects:  37% (578/1560)        
+2024-03-04T13:51:21.1961252Z remote: Compressing objects:  38% (593/1560)        
+2024-03-04T13:51:21.1966438Z remote: Compressing objects:  39% (609/1560)        
+2024-03-04T13:51:21.1967292Z remote: Compressing objects:  40% (624/1560)        
+2024-03-04T13:51:21.1967949Z remote: Compressing objects:  41% (640/1560)        
+2024-03-04T13:51:21.1972386Z remote: Compressing objects:  42% (656/1560)        
+2024-03-04T13:51:21.1972927Z remote: Compressing objects:  43% (671/1560)        
+2024-03-04T13:51:21.1976860Z remote: Compressing objects:  44% (687/1560)        
+2024-03-04T13:51:21.1979714Z remote: Compressing objects:  45% (702/1560)        
+2024-03-04T13:51:21.1982498Z remote: Compressing objects:  46% (718/1560)        
+2024-03-04T13:51:21.1988067Z remote: Compressing objects:  47% (734/1560)        
+2024-03-04T13:51:21.1988880Z remote: Compressing objects:  48% (749/1560)        
+2024-03-04T13:51:21.1991195Z remote: Compressing objects:  49% (765/1560)        
+2024-03-04T13:51:21.1995440Z remote: Compressing objects:  50% (780/1560)        
+2024-03-04T13:51:21.1999440Z remote: Compressing objects:  51% (796/1560)        
+2024-03-04T13:51:21.2000646Z remote: Compressing objects:  52% (812/1560)        
+2024-03-04T13:51:21.2006054Z remote: Compressing objects:  53% (827/1560)        
+2024-03-04T13:51:21.2007435Z remote: Compressing objects:  54% (843/1560)        
+2024-03-04T13:51:21.2016743Z remote: Compressing objects:  55% (858/1560)        
+2024-03-04T13:51:21.2052668Z remote: Compressing objects:  56% (874/1560)        
+2024-03-04T13:51:21.2080815Z remote: Compressing objects:  57% (890/1560)        
+2024-03-04T13:51:21.2092885Z remote: Compressing objects:  58% (905/1560)        
+2024-03-04T13:51:21.2095571Z remote: Compressing objects:  59% (921/1560)        
+2024-03-04T13:51:21.2100064Z remote: Compressing objects:  60% (936/1560)        
+2024-03-04T13:51:21.2103005Z remote: Compressing objects:  61% (952/1560)        
+2024-03-04T13:51:21.2112785Z remote: Compressing objects:  62% (968/1560)        
+2024-03-04T13:51:21.2129721Z remote: Compressing objects:  63% (983/1560)        
+2024-03-04T13:51:21.2139539Z remote: Compressing objects:  64% (999/1560)        
+2024-03-04T13:51:21.2140316Z remote: Compressing objects:  65% (1014/1560)        
+2024-03-04T13:51:21.2148972Z remote: Compressing objects:  66% (1030/1560)        
+2024-03-04T13:51:21.2149817Z remote: Compressing objects:  67% (1046/1560)        
+2024-03-04T13:51:21.2163042Z remote: Compressing objects:  68% (1061/1560)        
+2024-03-04T13:51:21.2171707Z remote: Compressing objects:  69% (1077/1560)        
+2024-03-04T13:51:21.2172503Z remote: Compressing objects:  70% (1092/1560)        
+2024-03-04T13:51:21.2180979Z remote: Compressing objects:  71% (1108/1560)        
+2024-03-04T13:51:21.2192665Z remote: Compressing objects:  72% (1124/1560)        
+2024-03-04T13:51:21.2210614Z remote: Compressing objects:  73% (1139/1560)        
+2024-03-04T13:51:21.2659625Z remote: Compressing objects:  74% (1155/1560)        
+2024-03-04T13:51:21.2660447Z remote: Compressing objects:  75% (1170/1560)        
+2024-03-04T13:51:21.2661770Z remote: Compressing objects:  76% (1186/1560)        
+2024-03-04T13:51:21.2662477Z remote: Compressing objects:  77% (1202/1560)        
+2024-03-04T13:51:21.2663033Z remote: Compressing objects:  78% (1217/1560)        
+2024-03-04T13:51:21.2663542Z remote: Compressing objects:  79% (1233/1560)        
+2024-03-04T13:51:21.2664183Z remote: Compressing objects:  80% (1248/1560)        
+2024-03-04T13:51:21.2664725Z remote: Compressing objects:  81% (1264/1560)        
+2024-03-04T13:51:21.2665239Z remote: Compressing objects:  82% (1280/1560)        
+2024-03-04T13:51:21.2665852Z remote: Compressing objects:  83% (1295/1560)        
+2024-03-04T13:51:21.2666390Z remote: Compressing objects:  84% (1311/1560)        
+2024-03-04T13:51:21.2666900Z remote: Compressing objects:  85% (1326/1560)        
+2024-03-04T13:51:21.2667518Z remote: Compressing objects:  86% (1342/1560)        
+2024-03-04T13:51:21.2668052Z remote: Compressing objects:  87% (1358/1560)        
+2024-03-04T13:51:21.2668555Z remote: Compressing objects:  88% (1373/1560)        
+2024-03-04T13:51:21.2669158Z remote: Compressing objects:  89% (1389/1560)        
+2024-03-04T13:51:21.2669692Z remote: Compressing objects:  90% (1404/1560)        
+2024-03-04T13:51:21.2670555Z remote: Compressing objects:  91% (1420/1560)        
+2024-03-04T13:51:21.2671517Z remote: Compressing objects:  92% (1436/1560)        
+2024-03-04T13:51:21.2672019Z remote: Compressing objects:  93% (1451/1560)        
+2024-03-04T13:51:21.2672544Z remote: Compressing objects:  94% (1467/1560)        
+2024-03-04T13:51:21.2673120Z remote: Compressing objects:  95% (1482/1560)        
+2024-03-04T13:51:21.2673583Z remote: Compressing objects:  96% (1498/1560)        
+2024-03-04T13:51:21.2674093Z remote: Compressing objects:  97% (1514/1560)        
+2024-03-04T13:51:21.2674649Z remote: Compressing objects:  98% (1529/1560)        
+2024-03-04T13:51:21.2675319Z remote: Compressing objects:  99% (1545/1560)        
+2024-03-04T13:51:21.2675839Z remote: Compressing objects: 100% (1560/1560)        
+2024-03-04T13:51:21.2676468Z remote: Compressing objects: 100% (1560/1560), done.        
+2024-03-04T13:51:21.2693779Z Receiving objects:   0% (1/1744)
+2024-03-04T13:51:21.2696734Z Receiving objects:   1% (18/1744)
+2024-03-04T13:51:21.2707918Z Receiving objects:   2% (35/1744)
+2024-03-04T13:51:21.2870612Z Receiving objects:   3% (53/1744)
+2024-03-04T13:51:21.3355185Z Receiving objects:   4% (70/1744)
+2024-03-04T13:51:21.3357472Z Receiving objects:   5% (88/1744)
+2024-03-04T13:51:21.3361330Z Receiving objects:   6% (105/1744)
+2024-03-04T13:51:21.3366873Z Receiving objects:   7% (123/1744)
+2024-03-04T13:51:21.3370996Z Receiving objects:   8% (140/1744)
+2024-03-04T13:51:21.3374817Z Receiving objects:   9% (157/1744)
+2024-03-04T13:51:21.3378444Z Receiving objects:  10% (175/1744)
+2024-03-04T13:51:21.3381805Z Receiving objects:  11% (192/1744)
+2024-03-04T13:51:21.3385301Z Receiving objects:  12% (210/1744)
+2024-03-04T13:51:21.3395595Z Receiving objects:  13% (227/1744)
+2024-03-04T13:51:21.3399187Z Receiving objects:  14% (245/1744)
+2024-03-04T13:51:21.3402301Z Receiving objects:  15% (262/1744)
+2024-03-04T13:51:21.3405925Z Receiving objects:  16% (280/1744)
+2024-03-04T13:51:21.3411396Z Receiving objects:  17% (297/1744)
+2024-03-04T13:51:21.3416174Z Receiving objects:  18% (314/1744)
+2024-03-04T13:51:21.3421420Z Receiving objects:  19% (332/1744)
+2024-03-04T13:51:21.3425374Z Receiving objects:  20% (349/1744)
+2024-03-04T13:51:21.3428919Z Receiving objects:  21% (367/1744)
+2024-03-04T13:51:21.3432450Z Receiving objects:  22% (384/1744)
+2024-03-04T13:51:21.3435818Z Receiving objects:  23% (402/1744)
+2024-03-04T13:51:21.3439131Z Receiving objects:  24% (419/1744)
+2024-03-04T13:51:21.3443062Z Receiving objects:  25% (436/1744)
+2024-03-04T13:51:21.3444869Z Receiving objects:  26% (454/1744)
+2024-03-04T13:51:21.3447296Z Receiving objects:  27% (471/1744)
+2024-03-04T13:51:21.3450231Z Receiving objects:  28% (489/1744)
+2024-03-04T13:51:21.3452427Z Receiving objects:  29% (506/1744)
+2024-03-04T13:51:21.3454319Z Receiving objects:  30% (524/1744)
+2024-03-04T13:51:21.3458615Z Receiving objects:  31% (541/1744)
+2024-03-04T13:51:21.3460792Z Receiving objects:  32% (559/1744)
+2024-03-04T13:51:21.3463256Z Receiving objects:  33% (576/1744)
+2024-03-04T13:51:21.3465756Z Receiving objects:  34% (593/1744)
+2024-03-04T13:51:21.3466474Z Receiving objects:  35% (611/1744)
+2024-03-04T13:51:21.3471343Z Receiving objects:  36% (628/1744)
+2024-03-04T13:51:21.3474629Z Receiving objects:  37% (646/1744)
+2024-03-04T13:51:21.3476153Z Receiving objects:  38% (663/1744)
+2024-03-04T13:51:21.3479212Z Receiving objects:  39% (681/1744)
+2024-03-04T13:51:21.3481554Z Receiving objects:  40% (698/1744)
+2024-03-04T13:51:21.3485645Z Receiving objects:  41% (716/1744)
+2024-03-04T13:51:21.3488147Z Receiving objects:  42% (733/1744)
+2024-03-04T13:51:21.3490846Z Receiving objects:  43% (750/1744)
+2024-03-04T13:51:21.3494781Z Receiving objects:  44% (768/1744)
+2024-03-04T13:51:21.3495888Z Receiving objects:  45% (785/1744)
+2024-03-04T13:51:21.3498774Z Receiving objects:  46% (803/1744)
+2024-03-04T13:51:21.3501958Z Receiving objects:  47% (820/1744)
+2024-03-04T13:51:21.3504338Z Receiving objects:  48% (838/1744)
+2024-03-04T13:51:21.3506482Z Receiving objects:  49% (855/1744)
+2024-03-04T13:51:21.3508553Z Receiving objects:  50% (872/1744)
+2024-03-04T13:51:21.3510047Z Receiving objects:  51% (890/1744)
+2024-03-04T13:51:21.3513022Z Receiving objects:  52% (907/1744)
+2024-03-04T13:51:21.3517972Z Receiving objects:  53% (925/1744)
+2024-03-04T13:51:21.3521914Z Receiving objects:  54% (942/1744)
+2024-03-04T13:51:21.3529975Z Receiving objects:  55% (960/1744)
+2024-03-04T13:51:21.3531805Z Receiving objects:  56% (977/1744)
+2024-03-04T13:51:21.3533624Z Receiving objects:  57% (995/1744)
+2024-03-04T13:51:21.3535941Z Receiving objects:  58% (1012/1744)
+2024-03-04T13:51:21.3537731Z Receiving objects:  59% (1029/1744)
+2024-03-04T13:51:21.3539436Z Receiving objects:  60% (1047/1744)
+2024-03-04T13:51:21.3541592Z Receiving objects:  61% (1064/1744)
+2024-03-04T13:51:21.3542886Z Receiving objects:  62% (1082/1744)
+2024-03-04T13:51:21.3544698Z Receiving objects:  63% (1099/1744)
+2024-03-04T13:51:21.3545766Z Receiving objects:  64% (1117/1744)
+2024-03-04T13:51:21.3548734Z Receiving objects:  65% (1134/1744)
+2024-03-04T13:51:21.3550704Z Receiving objects:  66% (1152/1744)
+2024-03-04T13:51:21.3551629Z Receiving objects:  67% (1169/1744)
+2024-03-04T13:51:21.3553904Z Receiving objects:  68% (1186/1744)
+2024-03-04T13:51:21.3556852Z Receiving objects:  69% (1204/1744)
+2024-03-04T13:51:21.3557733Z Receiving objects:  70% (1221/1744)
+2024-03-04T13:51:21.3564812Z Receiving objects:  71% (1239/1744)
+2024-03-04T13:51:21.3577804Z Receiving objects:  72% (1256/1744)
+2024-03-04T13:51:21.3580991Z Receiving objects:  73% (1274/1744)
+2024-03-04T13:51:21.3582540Z Receiving objects:  74% (1291/1744)
+2024-03-04T13:51:21.3705426Z Receiving objects:  75% (1308/1744)
+2024-03-04T13:51:21.3831965Z Receiving objects:  76% (1326/1744)
+2024-03-04T13:51:21.3932344Z Receiving objects:  77% (1343/1744)
+2024-03-04T13:51:21.4076891Z Receiving objects:  78% (1361/1744)
+2024-03-04T13:51:21.4198791Z Receiving objects:  79% (1378/1744)
+2024-03-04T13:51:21.4390390Z Receiving objects:  80% (1396/1744)
+2024-03-04T13:51:21.4396623Z Receiving objects:  81% (1413/1744)
+2024-03-04T13:51:21.4399376Z Receiving objects:  82% (1431/1744)
+2024-03-04T13:51:21.4401615Z Receiving objects:  83% (1448/1744)
+2024-03-04T13:51:21.4407814Z Receiving objects:  84% (1465/1744)
+2024-03-04T13:51:21.4411497Z Receiving objects:  85% (1483/1744)
+2024-03-04T13:51:21.4418266Z Receiving objects:  86% (1500/1744)
+2024-03-04T13:51:21.4425009Z Receiving objects:  87% (1518/1744)
+2024-03-04T13:51:21.4428877Z Receiving objects:  88% (1535/1744)
+2024-03-04T13:51:21.4434551Z Receiving objects:  89% (1553/1744)
+2024-03-04T13:51:21.4440713Z Receiving objects:  90% (1570/1744)
+2024-03-04T13:51:21.4446522Z Receiving objects:  91% (1588/1744)
+2024-03-04T13:51:21.4451395Z Receiving objects:  92% (1605/1744)
+2024-03-04T13:51:21.4456113Z Receiving objects:  93% (1622/1744)
+2024-03-04T13:51:21.4460178Z Receiving objects:  94% (1640/1744)
+2024-03-04T13:51:21.4463903Z Receiving objects:  95% (1657/1744)
+2024-03-04T13:51:21.4466352Z Receiving objects:  96% (1675/1744)
+2024-03-04T13:51:21.4475037Z Receiving objects:  97% (1692/1744)
+2024-03-04T13:51:21.4483775Z Receiving objects:  98% (1710/1744)
+2024-03-04T13:51:21.4501226Z Receiving objects:  99% (1727/1744)
+2024-03-04T13:51:21.4502730Z remote: Total 1744 (delta 278), reused 984 (delta 145), pack-reused 0        
+2024-03-04T13:51:21.4512823Z Receiving objects: 100% (1744/1744)
+2024-03-04T13:51:21.4513773Z Receiving objects: 100% (1744/1744), 6.60 MiB | 36.12 MiB/s, done.
+2024-03-04T13:51:21.4520109Z Resolving deltas:   0% (0/278)
+2024-03-04T13:51:21.4521496Z Resolving deltas:   1% (3/278)
+2024-03-04T13:51:21.4524586Z Resolving deltas:   2% (6/278)
+2024-03-04T13:51:21.4526920Z Resolving deltas:   3% (9/278)
+2024-03-04T13:51:21.4527593Z Resolving deltas:   4% (12/278)
+2024-03-04T13:51:21.4528344Z Resolving deltas:   5% (14/278)
+2024-03-04T13:51:21.4529135Z Resolving deltas:   6% (17/278)
+2024-03-04T13:51:21.4529776Z Resolving deltas:   7% (20/278)
+2024-03-04T13:51:21.4530469Z Resolving deltas:   8% (23/278)
+2024-03-04T13:51:21.4531599Z Resolving deltas:   9% (26/278)
+2024-03-04T13:51:21.4535177Z Resolving deltas:  10% (28/278)
+2024-03-04T13:51:21.4536140Z Resolving deltas:  11% (31/278)
+2024-03-04T13:51:21.4537234Z Resolving deltas:  12% (34/278)
+2024-03-04T13:51:21.4537884Z Resolving deltas:  13% (37/278)
+2024-03-04T13:51:21.4538658Z Resolving deltas:  14% (40/278)
+2024-03-04T13:51:21.4548243Z Resolving deltas:  15% (42/278)
+2024-03-04T13:51:21.4548917Z Resolving deltas:  16% (45/278)
+2024-03-04T13:51:21.4550119Z Resolving deltas:  17% (48/278)
+2024-03-04T13:51:21.4550711Z Resolving deltas:  18% (51/278)
+2024-03-04T13:51:21.4551594Z Resolving deltas:  19% (53/278)
+2024-03-04T13:51:21.4552994Z Resolving deltas:  20% (56/278)
+2024-03-04T13:51:21.4553610Z Resolving deltas:  21% (59/278)
+2024-03-04T13:51:21.4554348Z Resolving deltas:  22% (62/278)
+2024-03-04T13:51:21.4554983Z Resolving deltas:  23% (64/278)
+2024-03-04T13:51:21.4555618Z Resolving deltas:  24% (67/278)
+2024-03-04T13:51:21.4556695Z Resolving deltas:  25% (70/278)
+2024-03-04T13:51:21.4557599Z Resolving deltas:  26% (73/278)
+2024-03-04T13:51:21.4560403Z Resolving deltas:  27% (76/278)
+2024-03-04T13:51:21.4562440Z Resolving deltas:  28% (78/278)
+2024-03-04T13:51:21.4563929Z Resolving deltas:  29% (81/278)
+2024-03-04T13:51:21.4564802Z Resolving deltas:  30% (84/278)
+2024-03-04T13:51:21.4565768Z Resolving deltas:  31% (87/278)
+2024-03-04T13:51:21.4566232Z Resolving deltas:  32% (89/278)
+2024-03-04T13:51:21.4566628Z Resolving deltas:  33% (92/278)
+2024-03-04T13:51:21.4567061Z Resolving deltas:  34% (95/278)
+2024-03-04T13:51:21.4567469Z Resolving deltas:  35% (98/278)
+2024-03-04T13:51:21.4567872Z Resolving deltas:  36% (101/278)
+2024-03-04T13:51:21.4568301Z Resolving deltas:  37% (103/278)
+2024-03-04T13:51:21.4568706Z Resolving deltas:  38% (106/278)
+2024-03-04T13:51:21.4571571Z Resolving deltas:  39% (109/278)
+2024-03-04T13:51:21.4572418Z Resolving deltas:  40% (112/278)
+2024-03-04T13:51:21.4574814Z Resolving deltas:  41% (114/278)
+2024-03-04T13:51:21.4575603Z Resolving deltas:  42% (117/278)
+2024-03-04T13:51:21.4576489Z Resolving deltas:  43% (120/278)
+2024-03-04T13:51:21.4577242Z Resolving deltas:  44% (123/278)
+2024-03-04T13:51:21.4577944Z Resolving deltas:  45% (126/278)
+2024-03-04T13:51:21.4579068Z Resolving deltas:  46% (128/278)
+2024-03-04T13:51:21.4579787Z Resolving deltas:  47% (131/278)
+2024-03-04T13:51:21.4580587Z Resolving deltas:  48% (134/278)
+2024-03-04T13:51:21.4581441Z Resolving deltas:  49% (137/278)
+2024-03-04T13:51:21.4582089Z Resolving deltas:  50% (139/278)
+2024-03-04T13:51:21.4583056Z Resolving deltas:  51% (142/278)
+2024-03-04T13:51:21.4584384Z Resolving deltas:  52% (145/278)
+2024-03-04T13:51:21.4589279Z Resolving deltas:  53% (148/278)
+2024-03-04T13:51:21.4589934Z Resolving deltas:  54% (152/278)
+2024-03-04T13:51:21.4590707Z Resolving deltas:  55% (153/278)
+2024-03-04T13:51:21.4591644Z Resolving deltas:  56% (156/278)
+2024-03-04T13:51:21.4592318Z Resolving deltas:  57% (160/278)
+2024-03-04T13:51:21.4593197Z Resolving deltas:  58% (162/278)
+2024-03-04T13:51:21.4593955Z Resolving deltas:  59% (165/278)
+2024-03-04T13:51:21.4594647Z Resolving deltas:  60% (167/278)
+2024-03-04T13:51:21.4595511Z Resolving deltas:  61% (170/278)
+2024-03-04T13:51:21.4596270Z Resolving deltas:  62% (173/278)
+2024-03-04T13:51:21.4596916Z Resolving deltas:  63% (176/278)
+2024-03-04T13:51:21.4597729Z Resolving deltas:  64% (178/278)
+2024-03-04T13:51:21.4598455Z Resolving deltas:  65% (182/278)
+2024-03-04T13:51:21.4599123Z Resolving deltas:  66% (184/278)
+2024-03-04T13:51:21.4600018Z Resolving deltas:  67% (187/278)
+2024-03-04T13:51:21.4600775Z Resolving deltas:  68% (190/278)
+2024-03-04T13:51:21.4601382Z Resolving deltas:  69% (192/278)
+2024-03-04T13:51:21.4602143Z Resolving deltas:  70% (195/278)
+2024-03-04T13:51:21.4602806Z Resolving deltas:  71% (198/278)
+2024-03-04T13:51:21.4603276Z Resolving deltas:  72% (201/278)
+2024-03-04T13:51:21.4604188Z Resolving deltas:  73% (203/278)
+2024-03-04T13:51:21.4604827Z Resolving deltas:  74% (206/278)
+2024-03-04T13:51:21.4605759Z Resolving deltas:  75% (209/278)
+2024-03-04T13:51:21.4606339Z Resolving deltas:  76% (212/278)
+2024-03-04T13:51:21.4607044Z Resolving deltas:  77% (215/278)
+2024-03-04T13:51:21.4607800Z Resolving deltas:  78% (218/278)
+2024-03-04T13:51:21.4608317Z Resolving deltas:  79% (220/278)
+2024-03-04T13:51:21.4608701Z Resolving deltas:  80% (223/278)
+2024-03-04T13:51:21.4609441Z Resolving deltas:  81% (226/278)
+2024-03-04T13:51:21.4610120Z Resolving deltas:  82% (228/278)
+2024-03-04T13:51:21.4610849Z Resolving deltas:  83% (231/278)
+2024-03-04T13:51:21.4611707Z Resolving deltas:  84% (234/278)
+2024-03-04T13:51:21.4612370Z Resolving deltas:  85% (237/278)
+2024-03-04T13:51:21.4613002Z Resolving deltas:  86% (240/278)
+2024-03-04T13:51:21.4618642Z Resolving deltas:  87% (242/278)
+2024-03-04T13:51:21.4619369Z Resolving deltas:  88% (245/278)
+2024-03-04T13:51:21.4620088Z Resolving deltas:  89% (248/278)
+2024-03-04T13:51:21.4620940Z Resolving deltas:  90% (251/278)
+2024-03-04T13:51:21.4621601Z Resolving deltas:  91% (253/278)
+2024-03-04T13:51:21.4623446Z Resolving deltas:  92% (256/278)
+2024-03-04T13:51:21.4626569Z Resolving deltas:  93% (259/278)
+2024-03-04T13:51:21.4627313Z Resolving deltas:  94% (262/278)
+2024-03-04T13:51:21.4628367Z Resolving deltas:  95% (265/278)
+2024-03-04T13:51:21.4630078Z Resolving deltas:  96% (267/278)
+2024-03-04T13:51:21.4630881Z Resolving deltas:  97% (270/278)
+2024-03-04T13:51:21.4633040Z Resolving deltas:  98% (273/278)
+2024-03-04T13:51:21.4634924Z Resolving deltas:  99% (276/278)
+2024-03-04T13:51:21.4636399Z Resolving deltas: 100% (278/278)
+2024-03-04T13:51:21.4637093Z Resolving deltas: 100% (278/278), done.
+2024-03-04T13:51:21.4782722Z From https://github.com/rubyforgood/human-essentials
+2024-03-04T13:51:21.4783897Z  * [new ref]         fe047d551b2622ad1d81670b4a50337e085ff944 -> pull/4154/merge
+2024-03-04T13:51:21.4808146Z ##[endgroup]
+2024-03-04T13:51:21.4808937Z ##[group]Determining the checkout info
+2024-03-04T13:51:21.4809959Z ##[endgroup]
+2024-03-04T13:51:21.4810766Z ##[group]Checking out the ref
+2024-03-04T13:51:21.4814228Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4154/merge
+2024-03-04T13:51:21.6142035Z Note: switching to 'refs/remotes/pull/4154/merge'.
+2024-03-04T13:51:21.6143055Z 
+2024-03-04T13:51:21.6144386Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-03-04T13:51:21.6145773Z changes and commit them, and you can discard any commits you make in this
+2024-03-04T13:51:21.6147090Z state without impacting any branches by switching back to a branch.
+2024-03-04T13:51:21.6147811Z 
+2024-03-04T13:51:21.6148545Z If you want to create a new branch to retain commits you create, you may
+2024-03-04T13:51:21.6150051Z do so (now or later) by using -c with the switch command. Example:
+2024-03-04T13:51:21.6150766Z 
+2024-03-04T13:51:21.6151162Z   git switch -c <new-branch-name>
+2024-03-04T13:51:21.6152199Z 
+2024-03-04T13:51:21.6152587Z Or undo this operation with:
+2024-03-04T13:51:21.6153001Z 
+2024-03-04T13:51:21.6153253Z   git switch -
+2024-03-04T13:51:21.6153553Z 
+2024-03-04T13:51:21.6154092Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-03-04T13:51:21.6154936Z 
+2024-03-04T13:51:21.6155878Z HEAD is now at fe047d5 Merge 407e5ad3f85715a8e0a57d1070bfce4f3b3d7e77 into fd551b69a4b1da26c5615193889b9dd889543965
+2024-03-04T13:51:21.6158131Z ##[endgroup]
+2024-03-04T13:51:21.6202915Z [command]/usr/bin/git log -1 --format='%H'
+2024-03-04T13:51:21.6235699Z 'fe047d551b2622ad1d81670b4a50337e085ff944'
+2024-03-04T13:51:21.6537107Z ##[group]Run ruby/setup-ruby@v1
+2024-03-04T13:51:21.6537563Z with:
+2024-03-04T13:51:21.6537841Z   bundler-cache: true
+2024-03-04T13:51:21.6538310Z   ruby-version: default
+2024-03-04T13:51:21.6538634Z ##[endgroup]
+2024-03-04T13:51:21.8300530Z Using 3.2.2 as input from file .ruby-version
+2024-03-04T13:51:21.8325942Z ##[group]Modifying PATH
+2024-03-04T13:51:21.8326908Z Entries added to PATH to use selected Ruby:
+2024-03-04T13:51:21.8327703Z   /opt/hostedtoolcache/Ruby/3.2.2/x64/bin
+2024-03-04T13:51:21.8329008Z ##[endgroup]
+2024-03-04T13:51:21.8346033Z ##[group]Downloading Ruby
+2024-03-04T13:51:21.8349003Z https://github.com/ruby/ruby-builder/releases/download/toolcache/ruby-3.2.2-ubuntu-22.04.tar.gz
+2024-03-04T13:51:22.1693664Z Took   0.33 seconds
+2024-03-04T13:51:22.1695036Z ##[endgroup]
+2024-03-04T13:51:22.1696121Z ##[group]Extracting  Ruby
+2024-03-04T13:51:22.1726362Z [command]/usr/bin/tar -xz -C /opt/hostedtoolcache/Ruby/3.2.2 -f /home/runner/work/_temp/f87c2a39-0f49-4425-9327-99bc134db528
+2024-03-04T13:51:22.5458569Z Took   0.38 seconds
+2024-03-04T13:51:22.5459959Z ##[endgroup]
+2024-03-04T13:51:22.5460955Z ##[group]Print Ruby version
+2024-03-04T13:51:22.5477152Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/ruby --version
+2024-03-04T13:51:22.5717134Z ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux]
+2024-03-04T13:51:22.5737355Z Took   0.03 seconds
+2024-03-04T13:51:22.5738803Z ##[endgroup]
+2024-03-04T13:51:22.5739698Z ##[group]Installing Bundler
+2024-03-04T13:51:22.5746283Z Using Bundler 2.5.6 from Gemfile.lock BUNDLED WITH 2.5.6
+2024-03-04T13:51:22.5751758Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/gem install bundler -v 2.5.6
+2024-03-04T13:51:23.0270957Z Successfully installed bundler-2.5.6
+2024-03-04T13:51:23.0272235Z 1 gem installed
+2024-03-04T13:51:23.0330495Z Took   0.46 seconds
+2024-03-04T13:51:23.0331685Z ##[endgroup]
+2024-03-04T13:51:23.0332001Z > bundle install
+2024-03-04T13:51:23.0344678Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle config --local path /home/runner/work/human-essentials/human-essentials/vendor/bundle
+2024-03-04T13:51:23.1844504Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle config --local deployment true
+2024-03-04T13:51:23.3312922Z Cache key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.2.2-wd-/home/runner/work/human-essentials/human-essentials-with--without--only--Gemfile.lock-a665c1d51acbc41112dfedf379a58bb19861431851fb486c3e81bb220e02ae59
+2024-03-04T13:51:24.4151406Z Received 206509761 of 214898369 (96.1%), 196.9 MBs/sec
+2024-03-04T13:51:25.4161942Z Received 206509761 of 214898369 (96.1%), 98.4 MBs/sec
+2024-03-04T13:51:26.4168190Z Received 206509761 of 214898369 (96.1%), 65.6 MBs/sec
+2024-03-04T13:51:27.4175630Z Received 206509761 of 214898369 (96.1%), 49.2 MBs/sec
+2024-03-04T13:51:28.4173893Z Received 206509761 of 214898369 (96.1%), 39.4 MBs/sec
+2024-03-04T13:51:28.5430508Z Cache Size: ~205 MB (214898369 B)
+2024-03-04T13:51:28.5462396Z [command]/usr/bin/tar -xf /home/runner/work/_temp/291df079-f79e-47ea-a105-32bfb1a517a9/cache.tzst -P -C /home/runner/work/human-essentials/human-essentials --use-compress-program unzstd
+2024-03-04T13:51:29.4177134Z Received 214898369 of 214898369 (100.0%), 34.1 MBs/sec
+2024-03-04T13:51:30.2303387Z Cache restored successfully
+2024-03-04T13:51:30.2725652Z Found cache for key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.2.2-wd-/home/runner/work/human-essentials/human-essentials-with--without--only--Gemfile.lock-a665c1d51acbc41112dfedf379a58bb19861431851fb486c3e81bb220e02ae59
+2024-03-04T13:51:30.2734810Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle install --jobs 4
+2024-03-04T13:51:30.6769400Z Bundle complete! 85 Gemfile dependencies, 246 gems now installed.
+2024-03-04T13:51:30.6771031Z Bundled gems are installed into `./vendor/bundle`
+2024-03-04T13:51:30.6819130Z Took   7.65 seconds
+2024-03-04T13:51:30.7043555Z ##[group]Run sudo apt-get -yqq install libpq-dev
+2024-03-04T13:51:30.7044214Z [36;1msudo apt-get -yqq install libpq-dev[0m
+2024-03-04T13:51:30.7090799Z shell: /usr/bin/bash -e {0}
+2024-03-04T13:51:30.7091399Z ##[endgroup]
+2024-03-04T13:51:31.9839733Z ##[group]Run bundle exec rake db:create
+2024-03-04T13:51:31.9840285Z [36;1mbundle exec rake db:create[0m
+2024-03-04T13:51:31.9840742Z [36;1mbundle exec rake db:schema:load[0m
+2024-03-04T13:51:31.9869221Z shell: /usr/bin/bash -e {0}
+2024-03-04T13:51:31.9869772Z env:
+2024-03-04T13:51:31.9870119Z   POSTGRES_HOST: localhost
+2024-03-04T13:51:31.9870509Z   DATABASE_HOST: localhost
+2024-03-04T13:51:31.9870963Z   PG_USERNAME: postgres
+2024-03-04T13:51:31.9871299Z   PG_PASSWORD: password
+2024-03-04T13:51:31.9871679Z   POSTGRES_HOST_AUTH_METHOD: trust
+2024-03-04T13:51:31.9872162Z   POSTGRES_PORT: 5432
+2024-03-04T13:51:31.9872506Z ##[endgroup]
+2024-03-04T13:51:38.7864399Z We could not find your database: diaper_dev. Which can be found in the database configuration file located at config/database.yml.
+2024-03-04T13:51:38.7865957Z 
+2024-03-04T13:51:38.7866161Z To resolve this issue:
+2024-03-04T13:51:38.7866386Z 
+2024-03-04T13:51:38.7867195Z - Did you create the database for this app, or delete it? You may need to create your database.
+2024-03-04T13:51:38.7868353Z - Has the database name changed? Check your database.yml config has the correct database name.
+2024-03-04T13:51:38.7868933Z 
+2024-03-04T13:51:38.7869075Z To create your database, run:
+2024-03-04T13:51:38.7869325Z 
+2024-03-04T13:51:38.7869567Z         bin/rails db:create
+2024-03-04T13:51:38.7870166Z . You likely need to run `rails g flipper:active_record` and/or `rails db:migrate`.
+2024-03-04T13:51:38.9386279Z Created database 'diaper_dev'
+2024-03-04T13:51:38.9848730Z Created database 'diaper_test'
+2024-03-04T13:51:45.4496851Z PG::UndefinedTable: ERROR:  relation "flipper_gates" does not exist
+2024-03-04T13:51:45.4498020Z LINE 9:  WHERE a.attrelid = '"flipper_gates"'::regclass
+2024-03-04T13:51:45.4500020Z                             ^
+2024-03-04T13:51:45.4501162Z . You likely need to run `rails g flipper:active_record` and/or `rails db:migrate`.
+2024-03-04T13:51:46.8614464Z ##[group]Run bundle exec rake factory_bot:lint
+2024-03-04T13:51:46.8615117Z [36;1mbundle exec rake factory_bot:lint[0m
+2024-03-04T13:51:46.8643295Z shell: /usr/bin/bash -e {0}
+2024-03-04T13:51:46.8643644Z env:
+2024-03-04T13:51:46.8644082Z   POSTGRES_HOST: localhost
+2024-03-04T13:51:46.8644427Z   DATABASE_HOST: localhost
+2024-03-04T13:51:46.8644824Z   PG_USERNAME: postgres
+2024-03-04T13:51:46.8645540Z   PG_PASSWORD: password
+2024-03-04T13:51:46.8646130Z   POSTGRES_HOST_AUTH_METHOD: trust
+2024-03-04T13:51:46.8646770Z   POSTGRES_PORT: 5432
+2024-03-04T13:51:46.8647335Z   PGHOST: localhost
+2024-03-04T13:51:46.8647832Z   PGUSER: postgres
+2024-03-04T13:51:46.8648344Z   RAILS_ENV: test
+2024-03-04T13:51:46.8648907Z ##[endgroup]
+2024-03-04T13:52:15.7273516Z rake aborted!
+2024-03-04T13:52:15.7274959Z FactoryBot::InvalidFactoryError: The following factories are invalid: (FactoryBot::InvalidFactoryError)
+2024-03-04T13:52:15.7275956Z 
+2024-03-04T13:52:15.7278135Z * donation_site - Validation failed: Contact name can't be blank, Email can't be blank, Email is invalid, Phone can't be blank, Phone must be a valid phone number (ActiveRecord::RecordInvalid)
+2024-03-04T13:52:15.7281635Z * donation_site_donation - Validation failed: Contact name can't be blank, Email can't be blank, Email is invalid, Phone can't be blank, Phone must be a valid phone number (ActiveRecord::RecordInvalid)
+2024-03-04T13:52:15.7284879Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/factory_bot-6.4.5/lib/factory_bot/linter.rb:13:in `lint!'
+2024-03-04T13:52:15.7287670Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/factory_bot-6.4.5/lib/factory_bot.rb:70:in `lint'
+2024-03-04T13:52:15.7290114Z /home/runner/work/human-essentials/human-essentials/lib/tasks/factory_bot_lint.rake:13:in `block (3 levels) in <top (required)>'
+2024-03-04T13:52:15.7292702Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/database_cleaner-core-2.0.1/lib/database_cleaner/strategy.rb:30:in `cleaning'
+2024-03-04T13:52:15.7295735Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:34:in `block (2 levels) in cleaning'
+2024-03-04T13:52:15.7298864Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/database_cleaner-core-2.0.1/lib/database_cleaner/cleaners.rb:35:in `cleaning'
+2024-03-04T13:52:15.7301407Z /home/runner/work/human-essentials/human-essentials/lib/tasks/factory_bot_lint.rake:8:in `block (2 levels) in <top (required)>'
+2024-03-04T13:52:15.7303856Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/bugsnag-6.26.3/lib/bugsnag/integrations/rake.rb:20:in `execute'
+2024-03-04T13:52:15.7311178Z /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rake-13.1.0/exe/rake:27:in `<top (required)>'
+2024-03-04T13:52:15.7312773Z /opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle:25:in `load'
+2024-03-04T13:52:15.7313929Z /opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle:25:in `<main>'
+2024-03-04T13:52:15.7314779Z Tasks: TOP => factory_bot:lint
+2024-03-04T13:52:15.7315509Z (See full trace by running task with --trace)
+2024-03-04T13:52:16.1602415Z Stopped processing SimpleCov as a previous error not related to SimpleCov has been detected
+2024-03-04T13:52:16.1604617Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 1219 / 9502 LOC (12.83%) covered.
+2024-03-04T13:52:16.2031179Z ##[error]Process completed with exit code 1.
+2024-03-04T13:52:16.2121623Z Post job cleanup.
+2024-03-04T13:52:16.3133871Z [command]/usr/bin/git version
+2024-03-04T13:52:16.3180562Z git version 2.43.2
+2024-03-04T13:52:16.3225668Z Temporarily overriding HOME='/home/runner/work/_temp/b6efdd42-57fa-45d1-9aa6-a84383c05f7b' before making global git config changes
+2024-03-04T13:52:16.3227632Z Adding repository directory to the temporary git global config as a safe directory
+2024-03-04T13:52:16.3232467Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/human-essentials/human-essentials
+2024-03-04T13:52:16.3280233Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-03-04T13:52:16.3320223Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-03-04T13:52:16.3567773Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-03-04T13:52:16.3599287Z http.https://github.com/.extraheader
+2024-03-04T13:52:16.3610537Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-03-04T13:52:16.3651608Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-03-04T13:52:16.4049844Z Print service container logs: 6fdce754d7b6445484a88c94194aa7e3_postgres123_0cf7a9
+2024-03-04T13:52:16.4055017Z ##[command]/usr/bin/docker logs --details ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:52:16.4174344Z  The files belonging to this database system will be owned by user "postgres".
+2024-03-04T13:52:16.4176798Z  initdb: warning: enabling "trust" authentication for local connections
+2024-03-04T13:52:16.4177868Z  This user must also own the server process.
+2024-03-04T13:52:16.4179040Z  You can change this by editing pg_hba.conf or using the option -A, or
+2024-03-04T13:52:16.4180116Z  --auth-local and --auth-host, the next time you run initdb.
+2024-03-04T13:52:16.4181809Z  2024-03-04 13:51:07.151 UTC [1] LOG:  starting PostgreSQL 12.3 (Debian 12.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2024-03-04T13:52:16.4183859Z  2024-03-04 13:51:07.151 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2024-03-04T13:52:16.4184632Z  2024-03-04 13:51:07.151 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2024-03-04T13:52:16.4185521Z  2024-03-04 13:51:07.154 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-03-04T13:52:16.4186405Z  2024-03-04 13:51:07.165 UTC [56] LOG:  database system was shut down at 2024-03-04 13:51:07 UTC
+2024-03-04T13:52:16.4187221Z  2024-03-04 13:51:07.170 UTC [1] LOG:  database system is ready to accept connections
+2024-03-04T13:52:16.4188008Z  2024-03-04 13:51:16.366 UTC [70] FATAL:  role "root" does not exist
+2024-03-04T13:52:16.4188642Z  2024-03-04 13:51:26.445 UTC [78] FATAL:  role "root" does not exist
+2024-03-04T13:52:16.4189275Z  2024-03-04 13:51:36.529 UTC [86] FATAL:  role "root" does not exist
+2024-03-04T13:52:16.4190030Z  2024-03-04 13:51:38.785 UTC [87] FATAL:  database "diaper_dev" does not exist
+2024-03-04T13:52:16.4190821Z  2024-03-04 13:51:45.447 UTC [90] ERROR:  relation "flipper_gates" does not exist at character 491
+2024-03-04T13:52:16.4192090Z  2024-03-04 13:51:45.447 UTC [90] STATEMENT:  SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+2024-03-04T13:52:16.4194017Z  	       pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod,
+2024-03-04T13:52:16.4195290Z  	       c.collname, col_description(a.attrelid, a.attnum) AS comment,
+2024-03-04T13:52:16.4196209Z  	       attgenerated as attgenerated
+2024-03-04T13:52:16.4196999Z  	  FROM pg_attribute a
+2024-03-04T13:52:16.4197868Z  	  LEFT JOIN pg_attrdef d ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+2024-03-04T13:52:16.4198731Z  	  LEFT JOIN pg_type t ON a.atttypid = t.oid
+2024-03-04T13:52:16.4199383Z  	  LEFT JOIN pg_collation c ON a.attcollation = c.oid AND a.attcollation <> t.typcollation
+2024-03-04T13:52:16.4200077Z  	 WHERE a.attrelid = '"flipper_gates"'::regclass
+2024-03-04T13:52:16.4200662Z  	   AND a.attnum > 0 AND NOT a.attisdropped
+2024-03-04T13:52:16.4201106Z  	 ORDER BY a.attnum
+2024-03-04T13:52:16.4201455Z  	
+2024-03-04T13:52:16.4201966Z  2024-03-04 13:51:46.626 UTC [101] FATAL:  role "root" does not exist
+2024-03-04T13:52:16.4202622Z  2024-03-04 13:51:56.700 UTC [110] FATAL:  role "root" does not exist
+2024-03-04T13:52:16.4203342Z  2024-03-04 13:52:06.789 UTC [118] FATAL:  role "root" does not exist
+2024-03-04T13:52:16.4203824Z  
+2024-03-04T13:52:16.4204265Z  The database cluster will be initialized with locale "en_US.utf8".
+2024-03-04T13:52:16.4205020Z  The default database encoding has accordingly been set to "UTF8".
+2024-03-04T13:52:16.4206014Z  The default text search configuration will be set to "english".
+2024-03-04T13:52:16.4206546Z  
+2024-03-04T13:52:16.4206948Z  Data page checksums are disabled.
+2024-03-04T13:52:16.4207348Z  
+2024-03-04T13:52:16.4207788Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2024-03-04T13:52:16.4208452Z  creating subdirectories ... ok
+2024-03-04T13:52:16.4208965Z  selecting dynamic shared memory implementation ... posix
+2024-03-04T13:52:16.4209503Z  selecting default max_connections ... 100
+2024-03-04T13:52:16.4210309Z  selecting default shared_buffers ... 128MB
+2024-03-04T13:52:16.4210835Z  selecting default time zone ... Etc/UTC
+2024-03-04T13:52:16.4211363Z  creating configuration files ... ok
+2024-03-04T13:52:16.4211790Z  running bootstrap script ... ok
+2024-03-04T13:52:16.4212257Z  performing post-bootstrap initialization ... ok
+2024-03-04T13:52:16.4212960Z  syncing data to disk ... ok
+2024-03-04T13:52:16.4213344Z  
+2024-03-04T13:52:16.4213639Z  
+2024-03-04T13:52:16.4214115Z  Success. You can now start the database server using:
+2024-03-04T13:52:16.4214591Z  
+2024-03-04T13:52:16.4214932Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2024-03-04T13:52:16.4215493Z  
+2024-03-04T13:52:16.4216418Z  waiting for server to start....2024-03-04 13:51:06.948 UTC [47] LOG:  starting PostgreSQL 12.3 (Debian 12.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2024-03-04T13:52:16.4217686Z  2024-03-04 13:51:06.949 UTC [47] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-03-04T13:52:16.4218603Z  2024-03-04 13:51:06.961 UTC [48] LOG:  database system was shut down at 2024-03-04 13:51:06 UTC
+2024-03-04T13:52:16.4219405Z  2024-03-04 13:51:06.965 UTC [47] LOG:  database system is ready to accept connections
+2024-03-04T13:52:16.4220066Z   done
+2024-03-04T13:52:16.4220387Z  server started
+2024-03-04T13:52:16.4220677Z  
+2024-03-04T13:52:16.4221263Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2024-03-04T13:52:16.4221857Z  
+2024-03-04T13:52:16.4222294Z  2024-03-04 13:51:07.040 UTC [47] LOG:  received fast shutdown request
+2024-03-04T13:52:16.4223165Z  waiting for server to shut down....2024-03-04 13:51:07.041 UTC [47] LOG:  aborting any active transactions
+2024-03-04T13:52:16.4224174Z  2024-03-04 13:51:07.042 UTC [47] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2024-03-04T13:52:16.4224972Z  2024-03-04 13:51:07.042 UTC [49] LOG:  shutting down
+2024-03-04T13:52:16.4225616Z  2024-03-04 13:51:07.049 UTC [47] LOG:  database system is shut down
+2024-03-04T13:52:16.4226093Z   done
+2024-03-04T13:52:16.4226413Z  server stopped
+2024-03-04T13:52:16.4226797Z  
+2024-03-04T13:52:16.4227210Z  PostgreSQL init process complete; ready for start up.
+2024-03-04T13:52:16.4227740Z  
+2024-03-04T13:52:16.4233490Z Stop and remove container: 6fdce754d7b6445484a88c94194aa7e3_postgres123_0cf7a9
+2024-03-04T13:52:16.4238814Z ##[command]/usr/bin/docker rm --force ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:52:16.6392097Z ef62a45b6700fca16b39a616c5a3df4e3459ad8a63e3ed9f78b861bbf2ab547b
+2024-03-04T13:52:16.6417786Z Remove container network: github_network_6802df63d94b4c5fbaaa165fbf412dc5
+2024-03-04T13:52:16.6423096Z ##[command]/usr/bin/docker network rm github_network_6802df63d94b4c5fbaaa165fbf412dc5
+2024-03-04T13:52:16.9182226Z github_network_6802df63d94b4c5fbaaa165fbf412dc5
+2024-03-04T13:52:16.9351364Z Cleaning up orphan processes

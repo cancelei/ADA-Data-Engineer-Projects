@@ -1,0 +1,110 @@
+2024-03-11T15:12:11.6634937Z ##[group]Checking docker version
+2024-03-11T15:12:11.6648849Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2024-03-11T15:12:11.7057502Z '1.43'
+2024-03-11T15:12:11.7070311Z Docker daemon API version: '1.43'
+2024-03-11T15:12:11.7071187Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2024-03-11T15:12:11.7238631Z '1.43'
+2024-03-11T15:12:11.7252057Z Docker client API version: '1.43'
+2024-03-11T15:12:11.7257934Z ##[endgroup]
+2024-03-11T15:12:11.7262391Z ##[group]Clean up resources from previous jobs
+2024-03-11T15:12:11.7270167Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=9f4570"
+2024-03-11T15:12:11.7423322Z ##[command]/usr/bin/docker network prune --force --filter "label=9f4570"
+2024-03-11T15:12:11.7563352Z ##[endgroup]
+2024-03-11T15:12:11.7563875Z ##[group]Create local container network
+2024-03-11T15:12:11.7574699Z ##[command]/usr/bin/docker network create --label 9f4570 github_network_f061a301b22c4cd9b95fdd177441680b
+2024-03-11T15:12:11.8275730Z 53282bc00576f9341427ba1a0ba6c9881f8978492cc3dba70ef671dec6e43d3e
+2024-03-11T15:12:11.8295249Z ##[endgroup]
+2024-03-11T15:12:11.8410440Z ##[group]Starting db service container
+2024-03-11T15:12:11.8460419Z ##[command]/usr/bin/docker pull postgres:12.3
+2024-03-11T15:12:12.0325485Z 12.3: Pulling from library/postgres
+2024-03-11T15:12:12.0789126Z bf5952930446: Pulling fs layer
+2024-03-11T15:12:12.0789899Z 9577476abb00: Pulling fs layer
+2024-03-11T15:12:12.0790577Z 2bd105512d5c: Pulling fs layer
+2024-03-11T15:12:12.0791064Z b1cd21c26e81: Pulling fs layer
+2024-03-11T15:12:12.0791535Z 34a7c86cf8fc: Pulling fs layer
+2024-03-11T15:12:12.0792100Z 274e7b0c38d5: Pulling fs layer
+2024-03-11T15:12:12.0792532Z 3e831b350d37: Pulling fs layer
+2024-03-11T15:12:12.0792995Z 38fa0d496534: Pulling fs layer
+2024-03-11T15:12:12.0793534Z 31a8349609a4: Pulling fs layer
+2024-03-11T15:12:12.0794296Z 14e4c2a4b7b7: Pulling fs layer
+2024-03-11T15:12:12.0794800Z 964acfa02beb: Pulling fs layer
+2024-03-11T15:12:12.0795363Z 31b1f20dffc0: Pulling fs layer
+2024-03-11T15:12:12.0795799Z 34a7c86cf8fc: Waiting
+2024-03-11T15:12:12.0796245Z 14771c2930e9: Pulling fs layer
+2024-03-11T15:12:12.0796752Z 274e7b0c38d5: Waiting
+2024-03-11T15:12:12.0797130Z 2f30edd0ce8a: Pulling fs layer
+2024-03-11T15:12:12.0797591Z 3e831b350d37: Waiting
+2024-03-11T15:12:12.0798042Z 31b1f20dffc0: Waiting
+2024-03-11T15:12:12.0798392Z 38fa0d496534: Waiting
+2024-03-11T15:12:12.0798782Z 31a8349609a4: Waiting
+2024-03-11T15:12:12.0799221Z 14e4c2a4b7b7: Waiting
+2024-03-11T15:12:12.0799571Z 964acfa02beb: Waiting
+2024-03-11T15:12:12.0799988Z 2f30edd0ce8a: Waiting
+2024-03-11T15:12:12.0800454Z b1cd21c26e81: Waiting
+2024-03-11T15:12:12.1559284Z 2bd105512d5c: Download complete
+2024-03-11T15:12:12.2318704Z 9577476abb00: Verifying Checksum
+2024-03-11T15:12:12.2319758Z 9577476abb00: Download complete
+2024-03-11T15:12:12.2836083Z b1cd21c26e81: Download complete
+2024-03-11T15:12:12.3566374Z 274e7b0c38d5: Verifying Checksum
+2024-03-11T15:12:12.3567422Z 274e7b0c38d5: Download complete
+2024-03-11T15:12:12.3807839Z 34a7c86cf8fc: Verifying Checksum
+2024-03-11T15:12:12.3808924Z 34a7c86cf8fc: Download complete
+2024-03-11T15:12:12.3834059Z bf5952930446: Verifying Checksum
+2024-03-11T15:12:12.3835124Z bf5952930446: Download complete
+2024-03-11T15:12:12.4516052Z 38fa0d496534: Verifying Checksum
+2024-03-11T15:12:12.4521367Z 38fa0d496534: Download complete
+2024-03-11T15:12:12.5094081Z 14e4c2a4b7b7: Verifying Checksum
+2024-03-11T15:12:12.5094837Z 14e4c2a4b7b7: Download complete
+2024-03-11T15:12:12.5532751Z 3e831b350d37: Verifying Checksum
+2024-03-11T15:12:12.5533572Z 3e831b350d37: Download complete
+2024-03-11T15:12:12.5714439Z 964acfa02beb: Verifying Checksum
+2024-03-11T15:12:12.5715405Z 964acfa02beb: Download complete
+2024-03-11T15:12:12.6122948Z 31b1f20dffc0: Verifying Checksum
+2024-03-11T15:12:12.6123744Z 31b1f20dffc0: Download complete
+2024-03-11T15:12:12.6637377Z 14771c2930e9: Verifying Checksum
+2024-03-11T15:12:12.6638157Z 14771c2930e9: Download complete
+2024-03-11T15:12:12.6769915Z 2f30edd0ce8a: Verifying Checksum
+2024-03-11T15:12:12.6771338Z 2f30edd0ce8a: Download complete
+2024-03-11T15:12:13.1979007Z 31a8349609a4: Verifying Checksum
+2024-03-11T15:12:13.1980068Z 31a8349609a4: Download complete
+2024-03-11T15:12:13.5755150Z bf5952930446: Pull complete
+2024-03-11T15:12:14.1891780Z 9577476abb00: Pull complete
+2024-03-11T15:12:14.3006884Z 2bd105512d5c: Pull complete
+2024-03-11T15:12:14.3574364Z b1cd21c26e81: Pull complete
+2024-03-11T15:12:14.7576465Z 34a7c86cf8fc: Pull complete
+2024-03-11T15:12:14.8027075Z 274e7b0c38d5: Pull complete
+2024-03-11T15:12:14.8113824Z 3e831b350d37: Pull complete
+2024-03-11T15:12:14.8192052Z 38fa0d496534: Pull complete
+2024-03-11T15:12:17.3806058Z 31a8349609a4: Pull complete
+2024-03-11T15:12:17.3917540Z 14e4c2a4b7b7: Pull complete
+2024-03-11T15:12:17.4017669Z 964acfa02beb: Pull complete
+2024-03-11T15:12:17.4315533Z 31b1f20dffc0: Pull complete
+2024-03-11T15:12:17.4411646Z 14771c2930e9: Pull complete
+2024-03-11T15:12:17.4483126Z 2f30edd0ce8a: Pull complete
+2024-03-11T15:12:17.4518422Z Digest: sha256:a06e6e6e519b7a329c419f8221edec66cfc45511e8b80e262c12103ba745cf19
+2024-03-11T15:12:17.4529448Z Status: Downloaded newer image for postgres:12.3
+2024-03-11T15:12:17.4538432Z docker.io/library/postgres:12.3
+2024-03-11T15:12:17.4635029Z ##[command]/usr/bin/docker create --name 745f31d1b81f4411960befa710fe3c7b_postgres123_2da2e7 --label 9f4570 --network github_network_f061a301b22c4cd9b95fdd177441680b --network-alias db -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_PASSWORD=password" -e GITHUB_ACTIONS=true -e CI=true postgres:12.3
+2024-03-11T15:12:17.4874330Z 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:17.4896910Z ##[command]/usr/bin/docker start 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:17.7149319Z 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:17.7173777Z ##[command]/usr/bin/docker ps --all --filter id=9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2024-03-11T15:12:17.7316898Z 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1 Up Less than a second (health: starting)
+2024-03-11T15:12:17.7339162Z ##[command]/usr/bin/docker port 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:17.7469445Z 5432/tcp -> 0.0.0.0:5432
+2024-03-11T15:12:17.7470501Z 5432/tcp -> [::]:5432
+2024-03-11T15:12:17.7552133Z ##[endgroup]
+2024-03-11T15:12:17.7578888Z ##[group]Waiting for all services to be ready
+2024-03-11T15:12:17.7620886Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:17.7756870Z starting
+2024-03-11T15:12:17.7780877Z db service is starting, waiting 2 seconds before checking again.
+2024-03-11T15:12:19.7764830Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:19.7889837Z starting
+2024-03-11T15:12:19.7903245Z db service is starting, waiting 4 seconds before checking again.
+2024-03-11T15:12:23.9919608Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:24.0037961Z starting
+2024-03-11T15:12:24.0049849Z db service is starting, waiting 7 seconds before checking again.
+2024-03-11T15:12:31.3380328Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 9e2d52fb0b66ead51b49615edc87929e18574482851c2e7e3973ffe2c72709f1
+2024-03-11T15:12:31.3503431Z healthy
+2024-03-11T15:12:31.3519231Z db service is healthy.
+2024-03-11T15:12:31.3519775Z ##[endgroup]

@@ -1,0 +1,1557 @@
+2024-03-07T01:46:51.8956212Z Requested labels: ubuntu-latest
+2024-03-07T01:46:51.8956686Z Job defined at: rubyforgood/human-essentials/.github/workflows/rspec-system-events.yml@refs/pull/4011/merge
+2024-03-07T01:46:51.8956857Z Waiting for a runner to pick up this job...
+2024-03-07T01:48:53.1576032Z Job is waiting for a hosted runner to come online.
+2024-03-07T01:48:55.4944198Z Job is about to start running on the hosted runner: GitHub Actions 12 (hosted)
+2024-03-07T01:48:57.6488431Z Current runner version: '2.314.1'
+2024-03-07T01:48:57.6511467Z ##[group]Operating System
+2024-03-07T01:48:57.6512091Z Ubuntu
+2024-03-07T01:48:57.6512432Z 22.04.4
+2024-03-07T01:48:57.6512828Z LTS
+2024-03-07T01:48:57.6513163Z ##[endgroup]
+2024-03-07T01:48:57.6513543Z ##[group]Runner Image
+2024-03-07T01:48:57.6514059Z Image: ubuntu-22.04
+2024-03-07T01:48:57.6514423Z Version: 20240304.1.0
+2024-03-07T01:48:57.6515421Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240304.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-03-07T01:48:57.6516932Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240304.1
+2024-03-07T01:48:57.6517785Z ##[endgroup]
+2024-03-07T01:48:57.6518185Z ##[group]Runner Image Provisioner
+2024-03-07T01:48:57.6518737Z 2.0.359.1
+2024-03-07T01:48:57.6519080Z ##[endgroup]
+2024-03-07T01:48:57.6521294Z ##[group]GITHUB_TOKEN Permissions
+2024-03-07T01:48:57.6522887Z Actions: write
+2024-03-07T01:48:57.6523325Z Checks: write
+2024-03-07T01:48:57.6523943Z Contents: write
+2024-03-07T01:48:57.6524419Z Deployments: write
+2024-03-07T01:48:57.6524942Z Discussions: write
+2024-03-07T01:48:57.6525333Z Issues: write
+2024-03-07T01:48:57.6525700Z Metadata: read
+2024-03-07T01:48:57.6526139Z Packages: write
+2024-03-07T01:48:57.6526523Z Pages: write
+2024-03-07T01:48:57.6526855Z PullRequests: write
+2024-03-07T01:48:57.6527332Z RepositoryProjects: write
+2024-03-07T01:48:57.6527803Z SecurityEvents: write
+2024-03-07T01:48:57.6528173Z Statuses: write
+2024-03-07T01:48:57.6528608Z ##[endgroup]
+2024-03-07T01:48:57.6531572Z Secret source: Actions
+2024-03-07T01:48:57.6532264Z Prepare workflow directory
+2024-03-07T01:48:57.7398354Z Prepare all required actions
+2024-03-07T01:48:57.7554309Z Getting action download info
+2024-03-07T01:48:57.9750107Z Download action repository 'actions/checkout@v2' (SHA:ee0669bd1cc54295c223e0bb666b733df41de1c5)
+2024-03-07T01:48:58.7803248Z Download action repository 'ruby/setup-ruby@v1' (SHA:d4526a55538b775af234ba4af27118ed6f8f6677)
+2024-03-07T01:48:59.1340086Z Download action repository 'actions/upload-artifact@v2' (SHA:82c141cc518b40d92cc801eee768e7aafc9c2fa2)
+2024-03-07T01:48:59.3240188Z Complete job name: rspec-system-events (6, 4)
+2024-03-07T01:48:59.3880746Z ##[group]Checking docker version
+2024-03-07T01:48:59.3894955Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2024-03-07T01:49:01.0024933Z '1.43'
+2024-03-07T01:49:01.0040526Z Docker daemon API version: '1.43'
+2024-03-07T01:49:01.0041236Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2024-03-07T01:49:01.0202369Z '1.43'
+2024-03-07T01:49:01.0213754Z Docker client API version: '1.43'
+2024-03-07T01:49:01.0219011Z ##[endgroup]
+2024-03-07T01:49:01.0222365Z ##[group]Clean up resources from previous jobs
+2024-03-07T01:49:01.0228509Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=4e1cef"
+2024-03-07T01:49:01.0368490Z ##[command]/usr/bin/docker network prune --force --filter "label=4e1cef"
+2024-03-07T01:49:01.0496645Z ##[endgroup]
+2024-03-07T01:49:01.0497230Z ##[group]Create local container network
+2024-03-07T01:49:01.0507200Z ##[command]/usr/bin/docker network create --label 4e1cef github_network_ac40b68ab7e442239738f4ed4a368ba7
+2024-03-07T01:49:01.1150911Z 5cb3f3946f2cc0c343a31a1e57bf15aaee85fe61d4548d32b4536bea34cb7013
+2024-03-07T01:49:01.1167734Z ##[endgroup]
+2024-03-07T01:49:01.1244407Z ##[group]Starting db service container
+2024-03-07T01:49:01.1293481Z ##[command]/usr/bin/docker pull postgres:12.3
+2024-03-07T01:49:01.7153302Z 12.3: Pulling from library/postgres
+2024-03-07T01:49:01.8677221Z bf5952930446: Pulling fs layer
+2024-03-07T01:49:01.8678356Z 9577476abb00: Pulling fs layer
+2024-03-07T01:49:01.8679419Z 2bd105512d5c: Pulling fs layer
+2024-03-07T01:49:01.8679983Z b1cd21c26e81: Pulling fs layer
+2024-03-07T01:49:01.8680518Z 34a7c86cf8fc: Pulling fs layer
+2024-03-07T01:49:01.8681087Z 274e7b0c38d5: Pulling fs layer
+2024-03-07T01:49:01.8681510Z 3e831b350d37: Pulling fs layer
+2024-03-07T01:49:01.8681929Z 38fa0d496534: Pulling fs layer
+2024-03-07T01:49:01.8682749Z 31a8349609a4: Pulling fs layer
+2024-03-07T01:49:01.8683119Z 14e4c2a4b7b7: Pulling fs layer
+2024-03-07T01:49:01.8683553Z 964acfa02beb: Pulling fs layer
+2024-03-07T01:49:01.8684037Z 31b1f20dffc0: Pulling fs layer
+2024-03-07T01:49:01.8684389Z 14771c2930e9: Pulling fs layer
+2024-03-07T01:49:01.8684791Z 2f30edd0ce8a: Pulling fs layer
+2024-03-07T01:49:01.8685232Z 34a7c86cf8fc: Waiting
+2024-03-07T01:49:01.8685581Z 274e7b0c38d5: Waiting
+2024-03-07T01:49:01.8685904Z 3e831b350d37: Waiting
+2024-03-07T01:49:01.8686298Z 38fa0d496534: Waiting
+2024-03-07T01:49:01.8686657Z 31a8349609a4: Waiting
+2024-03-07T01:49:01.8687048Z 14e4c2a4b7b7: Waiting
+2024-03-07T01:49:01.8687355Z 964acfa02beb: Waiting
+2024-03-07T01:49:01.8687706Z 31b1f20dffc0: Waiting
+2024-03-07T01:49:01.8688112Z 14771c2930e9: Waiting
+2024-03-07T01:49:01.8688415Z 2f30edd0ce8a: Waiting
+2024-03-07T01:49:02.0142802Z 2bd105512d5c: Verifying Checksum
+2024-03-07T01:49:02.0144000Z 2bd105512d5c: Download complete
+2024-03-07T01:49:02.0560477Z 9577476abb00: Verifying Checksum
+2024-03-07T01:49:02.0561645Z 9577476abb00: Download complete
+2024-03-07T01:49:02.1556370Z b1cd21c26e81: Verifying Checksum
+2024-03-07T01:49:02.1557443Z b1cd21c26e81: Download complete
+2024-03-07T01:49:02.2487166Z bf5952930446: Verifying Checksum
+2024-03-07T01:49:02.2488087Z bf5952930446: Download complete
+2024-03-07T01:49:02.2900393Z 274e7b0c38d5: Verifying Checksum
+2024-03-07T01:49:02.2901267Z 274e7b0c38d5: Download complete
+2024-03-07T01:49:02.3014697Z 34a7c86cf8fc: Verifying Checksum
+2024-03-07T01:49:02.3018119Z 34a7c86cf8fc: Download complete
+2024-03-07T01:49:02.3721579Z 3e831b350d37: Download complete
+2024-03-07T01:49:02.4225928Z 38fa0d496534: Verifying Checksum
+2024-03-07T01:49:02.4226646Z 38fa0d496534: Download complete
+2024-03-07T01:49:02.5103321Z 14e4c2a4b7b7: Verifying Checksum
+2024-03-07T01:49:02.5104366Z 14e4c2a4b7b7: Download complete
+2024-03-07T01:49:02.5436813Z 964acfa02beb: Verifying Checksum
+2024-03-07T01:49:02.5437553Z 964acfa02beb: Download complete
+2024-03-07T01:49:02.6651452Z 31b1f20dffc0: Download complete
+2024-03-07T01:49:02.6897657Z 14771c2930e9: Verifying Checksum
+2024-03-07T01:49:02.6898476Z 14771c2930e9: Download complete
+2024-03-07T01:49:02.8011324Z 2f30edd0ce8a: Verifying Checksum
+2024-03-07T01:49:02.8012376Z 2f30edd0ce8a: Download complete
+2024-03-07T01:49:03.0260499Z 31a8349609a4: Verifying Checksum
+2024-03-07T01:49:03.0261315Z 31a8349609a4: Download complete
+2024-03-07T01:49:03.4612322Z bf5952930446: Pull complete
+2024-03-07T01:49:03.6698408Z 9577476abb00: Pull complete
+2024-03-07T01:49:04.7302375Z 2bd105512d5c: Pull complete
+2024-03-07T01:49:05.2068261Z b1cd21c26e81: Pull complete
+2024-03-07T01:49:06.1143351Z 34a7c86cf8fc: Pull complete
+2024-03-07T01:49:06.1896233Z 274e7b0c38d5: Pull complete
+2024-03-07T01:49:06.2057058Z 3e831b350d37: Pull complete
+2024-03-07T01:49:06.2190400Z 38fa0d496534: Pull complete
+2024-03-07T01:49:08.2556109Z 31a8349609a4: Pull complete
+2024-03-07T01:49:08.5366073Z 14e4c2a4b7b7: Pull complete
+2024-03-07T01:49:08.5466719Z 964acfa02beb: Pull complete
+2024-03-07T01:49:08.5555542Z 31b1f20dffc0: Pull complete
+2024-03-07T01:49:08.5643003Z 14771c2930e9: Pull complete
+2024-03-07T01:49:08.5721560Z 2f30edd0ce8a: Pull complete
+2024-03-07T01:49:08.5765866Z Digest: sha256:a06e6e6e519b7a329c419f8221edec66cfc45511e8b80e262c12103ba745cf19
+2024-03-07T01:49:08.5779863Z Status: Downloaded newer image for postgres:12.3
+2024-03-07T01:49:08.5791225Z docker.io/library/postgres:12.3
+2024-03-07T01:49:08.5891180Z ##[command]/usr/bin/docker create --name 12d8c6aedbde4e5cbc1eb297c6a5879e_postgres123_b38f81 --label 4e1cef --network github_network_ac40b68ab7e442239738f4ed4a368ba7 --network-alias db -p 5432:5432 --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5 -e "POSTGRES_PASSWORD=password" -e GITHUB_ACTIONS=true -e CI=true postgres:12.3
+2024-03-07T01:49:08.6289739Z c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:08.6314049Z ##[command]/usr/bin/docker start c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:09.8539597Z c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:09.8558704Z ##[command]/usr/bin/docker ps --all --filter id=c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2024-03-07T01:49:09.8691301Z c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63 Up Less than a second (health: starting)
+2024-03-07T01:49:09.8718531Z ##[command]/usr/bin/docker port c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:09.8857240Z 5432/tcp -> 0.0.0.0:5432
+2024-03-07T01:49:09.8857943Z 5432/tcp -> [::]:5432
+2024-03-07T01:49:09.8935419Z ##[endgroup]
+2024-03-07T01:49:09.8961482Z ##[group]Waiting for all services to be ready
+2024-03-07T01:49:09.8997733Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:09.9132671Z starting
+2024-03-07T01:49:09.9155165Z db service is starting, waiting 2 seconds before checking again.
+2024-03-07T01:49:11.9131813Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:11.9247682Z starting
+2024-03-07T01:49:11.9261297Z db service is starting, waiting 3 seconds before checking again.
+2024-03-07T01:49:15.6156112Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:15.6289788Z starting
+2024-03-07T01:49:15.6303440Z db service is starting, waiting 8 seconds before checking again.
+2024-03-07T01:49:23.8040360Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:49:23.8173247Z healthy
+2024-03-07T01:49:23.8189691Z db service is healthy.
+2024-03-07T01:49:23.8190188Z ##[endgroup]
+2024-03-07T01:49:23.8559418Z ##[group]Run actions/checkout@v2
+2024-03-07T01:49:23.8559846Z with:
+2024-03-07T01:49:23.8560336Z   repository: rubyforgood/human-essentials
+2024-03-07T01:49:23.8561024Z   token: ***
+2024-03-07T01:49:23.8561448Z   ssh-strict: true
+2024-03-07T01:49:23.8561774Z   persist-credentials: true
+2024-03-07T01:49:23.8562199Z   clean: true
+2024-03-07T01:49:23.8562581Z   fetch-depth: 1
+2024-03-07T01:49:23.8562869Z   lfs: false
+2024-03-07T01:49:23.8563197Z   submodules: false
+2024-03-07T01:49:23.8563602Z   set-safe-directory: true
+2024-03-07T01:49:23.8563980Z ##[endgroup]
+2024-03-07T01:49:25.9406729Z Syncing repository: rubyforgood/human-essentials
+2024-03-07T01:49:25.9474653Z ##[group]Getting Git version info
+2024-03-07T01:49:25.9475834Z Working directory is '/home/runner/work/human-essentials/human-essentials'
+2024-03-07T01:49:25.9512689Z [command]/usr/bin/git version
+2024-03-07T01:49:26.1512778Z git version 2.43.2
+2024-03-07T01:49:26.1538306Z ##[endgroup]
+2024-03-07T01:49:26.1557386Z Temporarily overriding HOME='/home/runner/work/_temp/617f8310-3ead-4961-9e56-332fa791da37' before making global git config changes
+2024-03-07T01:49:26.1559382Z Adding repository directory to the temporary git global config as a safe directory
+2024-03-07T01:49:26.1563130Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/human-essentials/human-essentials
+2024-03-07T01:49:26.1611812Z Deleting the contents of '/home/runner/work/human-essentials/human-essentials'
+2024-03-07T01:49:26.1616453Z ##[group]Initializing the repository
+2024-03-07T01:49:26.1620006Z [command]/usr/bin/git init /home/runner/work/human-essentials/human-essentials
+2024-03-07T01:49:26.2584156Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-03-07T01:49:26.2586349Z hint: is subject to change. To configure the initial branch name to use in all
+2024-03-07T01:49:26.2588736Z hint: of your new repositories, which will suppress this warning, call:
+2024-03-07T01:49:26.2590717Z hint: 
+2024-03-07T01:49:26.2591994Z hint: 	git config --global init.defaultBranch <name>
+2024-03-07T01:49:26.2593340Z hint: 
+2024-03-07T01:49:26.2594765Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-03-07T01:49:26.2597221Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-03-07T01:49:26.2598553Z hint: 
+2024-03-07T01:49:26.2599158Z hint: 	git branch -m <name>
+2024-03-07T01:49:26.2675112Z Initialized empty Git repository in /home/runner/work/human-essentials/human-essentials/.git/
+2024-03-07T01:49:26.2686259Z [command]/usr/bin/git remote add origin https://github.com/rubyforgood/human-essentials
+2024-03-07T01:49:26.2821680Z ##[endgroup]
+2024-03-07T01:49:26.2823632Z ##[group]Disabling automatic garbage collection
+2024-03-07T01:49:26.2828397Z [command]/usr/bin/git config --local gc.auto 0
+2024-03-07T01:49:26.2873319Z ##[endgroup]
+2024-03-07T01:49:26.2874538Z ##[group]Setting up auth
+2024-03-07T01:49:26.2881733Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-03-07T01:49:26.2924349Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-03-07T01:49:26.5149472Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-03-07T01:49:26.5190321Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-03-07T01:49:26.5432754Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-03-07T01:49:26.5479207Z ##[endgroup]
+2024-03-07T01:49:26.5479951Z ##[group]Fetching the repository
+2024-03-07T01:49:26.5490948Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +498220090972cd4cfcddde54a1d797340abc9368:refs/remotes/pull/4011/merge
+2024-03-07T01:49:27.0041837Z remote: Enumerating objects: 1748, done.        
+2024-03-07T01:49:27.0043426Z remote: Counting objects:   0% (1/1748)        
+2024-03-07T01:49:27.0044485Z remote: Counting objects:   1% (18/1748)        
+2024-03-07T01:49:27.0045595Z remote: Counting objects:   2% (35/1748)        
+2024-03-07T01:49:27.0046930Z remote: Counting objects:   3% (53/1748)        
+2024-03-07T01:49:27.0048062Z remote: Counting objects:   4% (70/1748)        
+2024-03-07T01:49:27.0049263Z remote: Counting objects:   5% (88/1748)        
+2024-03-07T01:49:27.0050623Z remote: Counting objects:   6% (105/1748)        
+2024-03-07T01:49:27.0051886Z remote: Counting objects:   7% (123/1748)        
+2024-03-07T01:49:27.0052864Z remote: Counting objects:   8% (140/1748)        
+2024-03-07T01:49:27.0053655Z remote: Counting objects:   9% (158/1748)        
+2024-03-07T01:49:27.0054406Z remote: Counting objects:  10% (175/1748)        
+2024-03-07T01:49:27.0055296Z remote: Counting objects:  11% (193/1748)        
+2024-03-07T01:49:27.0056133Z remote: Counting objects:  12% (210/1748)        
+2024-03-07T01:49:27.0057052Z remote: Counting objects:  13% (228/1748)        
+2024-03-07T01:49:27.0057822Z remote: Counting objects:  14% (245/1748)        
+2024-03-07T01:49:27.0058546Z remote: Counting objects:  15% (263/1748)        
+2024-03-07T01:49:27.0059238Z remote: Counting objects:  16% (280/1748)        
+2024-03-07T01:49:27.0059738Z remote: Counting objects:  17% (298/1748)        
+2024-03-07T01:49:27.0060229Z remote: Counting objects:  18% (315/1748)        
+2024-03-07T01:49:27.0060756Z remote: Counting objects:  19% (333/1748)        
+2024-03-07T01:49:27.0061248Z remote: Counting objects:  20% (350/1748)        
+2024-03-07T01:49:27.0061745Z remote: Counting objects:  21% (368/1748)        
+2024-03-07T01:49:27.0062286Z remote: Counting objects:  22% (385/1748)        
+2024-03-07T01:49:27.0063069Z remote: Counting objects:  23% (403/1748)        
+2024-03-07T01:49:27.0063572Z remote: Counting objects:  24% (420/1748)        
+2024-03-07T01:49:27.0064115Z remote: Counting objects:  25% (437/1748)        
+2024-03-07T01:49:27.0064600Z remote: Counting objects:  26% (455/1748)        
+2024-03-07T01:49:27.0065029Z remote: Counting objects:  27% (472/1748)        
+2024-03-07T01:49:27.0065909Z remote: Counting objects:  28% (490/1748)        
+2024-03-07T01:49:27.0066585Z remote: Counting objects:  29% (507/1748)        
+2024-03-07T01:49:27.0067515Z remote: Counting objects:  30% (525/1748)        
+2024-03-07T01:49:27.0068340Z remote: Counting objects:  31% (542/1748)        
+2024-03-07T01:49:27.0069162Z remote: Counting objects:  32% (560/1748)        
+2024-03-07T01:49:27.0070073Z remote: Counting objects:  33% (577/1748)        
+2024-03-07T01:49:27.0070843Z remote: Counting objects:  34% (595/1748)        
+2024-03-07T01:49:27.0071623Z remote: Counting objects:  35% (612/1748)        
+2024-03-07T01:49:27.0072530Z remote: Counting objects:  36% (630/1748)        
+2024-03-07T01:49:27.0073334Z remote: Counting objects:  37% (647/1748)        
+2024-03-07T01:49:27.0074108Z remote: Counting objects:  38% (665/1748)        
+2024-03-07T01:49:27.0074908Z remote: Counting objects:  39% (682/1748)        
+2024-03-07T01:49:27.0075579Z remote: Counting objects:  40% (700/1748)        
+2024-03-07T01:49:27.0076196Z remote: Counting objects:  41% (717/1748)        
+2024-03-07T01:49:27.0076890Z remote: Counting objects:  42% (735/1748)        
+2024-03-07T01:49:27.0077344Z remote: Counting objects:  43% (752/1748)        
+2024-03-07T01:49:27.0077822Z remote: Counting objects:  44% (770/1748)        
+2024-03-07T01:49:27.0078359Z remote: Counting objects:  45% (787/1748)        
+2024-03-07T01:49:27.0078837Z remote: Counting objects:  46% (805/1748)        
+2024-03-07T01:49:27.0079270Z remote: Counting objects:  47% (822/1748)        
+2024-03-07T01:49:27.0079826Z remote: Counting objects:  48% (840/1748)        
+2024-03-07T01:49:27.0080305Z remote: Counting objects:  49% (857/1748)        
+2024-03-07T01:49:27.0081058Z remote: Counting objects:  50% (874/1748)        
+2024-03-07T01:49:27.0081535Z remote: Counting objects:  51% (892/1748)        
+2024-03-07T01:49:27.0082037Z remote: Counting objects:  52% (909/1748)        
+2024-03-07T01:49:27.0082608Z remote: Counting objects:  53% (927/1748)        
+2024-03-07T01:49:27.0083154Z remote: Counting objects:  54% (944/1748)        
+2024-03-07T01:49:27.0083727Z remote: Counting objects:  55% (962/1748)        
+2024-03-07T01:49:27.0084526Z remote: Counting objects:  56% (979/1748)        
+2024-03-07T01:49:27.0085003Z remote: Counting objects:  57% (997/1748)        
+2024-03-07T01:49:27.0085440Z remote: Counting objects:  58% (1014/1748)        
+2024-03-07T01:49:27.0086016Z remote: Counting objects:  59% (1032/1748)        
+2024-03-07T01:49:27.0086510Z remote: Counting objects:  60% (1049/1748)        
+2024-03-07T01:49:27.0087000Z remote: Counting objects:  61% (1067/1748)        
+2024-03-07T01:49:27.0087534Z remote: Counting objects:  62% (1084/1748)        
+2024-03-07T01:49:27.0088038Z remote: Counting objects:  63% (1102/1748)        
+2024-03-07T01:49:27.0088606Z remote: Counting objects:  64% (1119/1748)        
+2024-03-07T01:49:27.0089158Z remote: Counting objects:  65% (1137/1748)        
+2024-03-07T01:49:27.0089636Z remote: Counting objects:  66% (1154/1748)        
+2024-03-07T01:49:27.0090098Z remote: Counting objects:  67% (1172/1748)        
+2024-03-07T01:49:27.0090642Z remote: Counting objects:  68% (1189/1748)        
+2024-03-07T01:49:27.0091119Z remote: Counting objects:  69% (1207/1748)        
+2024-03-07T01:49:27.0091619Z remote: Counting objects:  70% (1224/1748)        
+2024-03-07T01:49:27.0092268Z remote: Counting objects:  71% (1242/1748)        
+2024-03-07T01:49:27.0092911Z remote: Counting objects:  72% (1259/1748)        
+2024-03-07T01:49:27.0093514Z remote: Counting objects:  73% (1277/1748)        
+2024-03-07T01:49:27.0094082Z remote: Counting objects:  74% (1294/1748)        
+2024-03-07T01:49:27.0094745Z remote: Counting objects:  75% (1311/1748)        
+2024-03-07T01:49:27.0095226Z remote: Counting objects:  76% (1329/1748)        
+2024-03-07T01:49:27.0095792Z remote: Counting objects:  77% (1346/1748)        
+2024-03-07T01:49:27.0096298Z remote: Counting objects:  78% (1364/1748)        
+2024-03-07T01:49:27.0096838Z remote: Counting objects:  79% (1381/1748)        
+2024-03-07T01:49:27.0097293Z remote: Counting objects:  80% (1399/1748)        
+2024-03-07T01:49:27.0097770Z remote: Counting objects:  81% (1416/1748)        
+2024-03-07T01:49:27.0098314Z remote: Counting objects:  82% (1434/1748)        
+2024-03-07T01:49:27.0098804Z remote: Counting objects:  83% (1451/1748)        
+2024-03-07T01:49:27.0099245Z remote: Counting objects:  84% (1469/1748)        
+2024-03-07T01:49:27.0099780Z remote: Counting objects:  85% (1486/1748)        
+2024-03-07T01:49:27.0100278Z remote: Counting objects:  86% (1504/1748)        
+2024-03-07T01:49:27.0100751Z remote: Counting objects:  87% (1521/1748)        
+2024-03-07T01:49:27.0101281Z remote: Counting objects:  88% (1539/1748)        
+2024-03-07T01:49:27.0101771Z remote: Counting objects:  89% (1556/1748)        
+2024-03-07T01:49:27.0102241Z remote: Counting objects:  90% (1574/1748)        
+2024-03-07T01:49:27.0102792Z remote: Counting objects:  91% (1591/1748)        
+2024-03-07T01:49:27.0103232Z remote: Counting objects:  92% (1609/1748)        
+2024-03-07T01:49:27.0103701Z remote: Counting objects:  93% (1626/1748)        
+2024-03-07T01:49:27.0104253Z remote: Counting objects:  94% (1644/1748)        
+2024-03-07T01:49:27.0104693Z remote: Counting objects:  95% (1661/1748)        
+2024-03-07T01:49:27.0105165Z remote: Counting objects:  96% (1679/1748)        
+2024-03-07T01:49:27.0106009Z remote: Counting objects:  97% (1696/1748)        
+2024-03-07T01:49:27.0106494Z remote: Counting objects:  98% (1714/1748)        
+2024-03-07T01:49:27.0106935Z remote: Counting objects:  99% (1731/1748)        
+2024-03-07T01:49:27.0107502Z remote: Counting objects: 100% (1748/1748)        
+2024-03-07T01:49:27.0108199Z remote: Counting objects: 100% (1748/1748), done.        
+2024-03-07T01:49:27.0108754Z remote: Compressing objects:   0% (1/1566)        
+2024-03-07T01:49:27.0109290Z remote: Compressing objects:   1% (16/1566)        
+2024-03-07T01:49:27.0109793Z remote: Compressing objects:   2% (32/1566)        
+2024-03-07T01:49:27.0110306Z remote: Compressing objects:   3% (47/1566)        
+2024-03-07T01:49:27.0110868Z remote: Compressing objects:   4% (63/1566)        
+2024-03-07T01:49:27.0111338Z remote: Compressing objects:   5% (79/1566)        
+2024-03-07T01:49:27.0111846Z remote: Compressing objects:   6% (94/1566)        
+2024-03-07T01:49:27.0196517Z remote: Compressing objects:   7% (110/1566)        
+2024-03-07T01:49:27.0197203Z remote: Compressing objects:   8% (126/1566)        
+2024-03-07T01:49:27.0197968Z remote: Compressing objects:   9% (141/1566)        
+2024-03-07T01:49:27.0199946Z remote: Compressing objects:  10% (157/1566)        
+2024-03-07T01:49:27.0200914Z remote: Compressing objects:  11% (173/1566)        
+2024-03-07T01:49:27.0202662Z remote: Compressing objects:  12% (188/1566)        
+2024-03-07T01:49:27.0238609Z remote: Compressing objects:  13% (204/1566)        
+2024-03-07T01:49:27.0247372Z remote: Compressing objects:  14% (220/1566)        
+2024-03-07T01:49:27.0250397Z remote: Compressing objects:  15% (235/1566)        
+2024-03-07T01:49:27.0255181Z remote: Compressing objects:  16% (251/1566)        
+2024-03-07T01:49:27.0256126Z remote: Compressing objects:  17% (267/1566)        
+2024-03-07T01:49:27.0262236Z remote: Compressing objects:  18% (282/1566)        
+2024-03-07T01:49:27.0280740Z remote: Compressing objects:  19% (298/1566)        
+2024-03-07T01:49:27.0295914Z remote: Compressing objects:  20% (314/1566)        
+2024-03-07T01:49:27.0342213Z remote: Compressing objects:  21% (329/1566)        
+2024-03-07T01:49:27.0359668Z remote: Compressing objects:  22% (345/1566)        
+2024-03-07T01:49:27.0369585Z remote: Compressing objects:  23% (361/1566)        
+2024-03-07T01:49:27.0377160Z remote: Compressing objects:  24% (376/1566)        
+2024-03-07T01:49:27.0384079Z remote: Compressing objects:  25% (392/1566)        
+2024-03-07T01:49:27.0391203Z remote: Compressing objects:  26% (408/1566)        
+2024-03-07T01:49:27.0408105Z remote: Compressing objects:  27% (423/1566)        
+2024-03-07T01:49:27.0415895Z remote: Compressing objects:  28% (439/1566)        
+2024-03-07T01:49:27.0429632Z remote: Compressing objects:  29% (455/1566)        
+2024-03-07T01:49:27.0433882Z remote: Compressing objects:  30% (470/1566)        
+2024-03-07T01:49:27.0458558Z remote: Compressing objects:  31% (486/1566)        
+2024-03-07T01:49:27.0477424Z remote: Compressing objects:  32% (502/1566)        
+2024-03-07T01:49:27.0478301Z remote: Compressing objects:  33% (517/1566)        
+2024-03-07T01:49:27.0479141Z remote: Compressing objects:  34% (533/1566)        
+2024-03-07T01:49:27.0485564Z remote: Compressing objects:  35% (549/1566)        
+2024-03-07T01:49:27.0492971Z remote: Compressing objects:  36% (564/1566)        
+2024-03-07T01:49:27.0499828Z remote: Compressing objects:  37% (580/1566)        
+2024-03-07T01:49:27.0502294Z remote: Compressing objects:  38% (596/1566)        
+2024-03-07T01:49:27.0503155Z remote: Compressing objects:  39% (611/1566)        
+2024-03-07T01:49:27.0504051Z remote: Compressing objects:  40% (627/1566)        
+2024-03-07T01:49:27.0507336Z remote: Compressing objects:  41% (643/1566)        
+2024-03-07T01:49:27.0509692Z remote: Compressing objects:  42% (658/1566)        
+2024-03-07T01:49:27.0513066Z remote: Compressing objects:  43% (674/1566)        
+2024-03-07T01:49:27.0515515Z remote: Compressing objects:  44% (690/1566)        
+2024-03-07T01:49:27.0523418Z remote: Compressing objects:  45% (705/1566)        
+2024-03-07T01:49:27.0527036Z remote: Compressing objects:  46% (721/1566)        
+2024-03-07T01:49:27.0528859Z remote: Compressing objects:  47% (737/1566)        
+2024-03-07T01:49:27.0531926Z remote: Compressing objects:  48% (752/1566)        
+2024-03-07T01:49:27.0535226Z remote: Compressing objects:  49% (768/1566)        
+2024-03-07T01:49:27.0540588Z remote: Compressing objects:  50% (783/1566)        
+2024-03-07T01:49:27.0543964Z remote: Compressing objects:  51% (799/1566)        
+2024-03-07T01:49:27.0545156Z remote: Compressing objects:  52% (815/1566)        
+2024-03-07T01:49:27.0548865Z remote: Compressing objects:  53% (830/1566)        
+2024-03-07T01:49:27.0552336Z remote: Compressing objects:  54% (846/1566)        
+2024-03-07T01:49:27.0563850Z remote: Compressing objects:  55% (862/1566)        
+2024-03-07T01:49:27.0597699Z remote: Compressing objects:  56% (877/1566)        
+2024-03-07T01:49:27.0623255Z remote: Compressing objects:  57% (893/1566)        
+2024-03-07T01:49:27.0637065Z remote: Compressing objects:  58% (909/1566)        
+2024-03-07T01:49:27.0641283Z remote: Compressing objects:  59% (924/1566)        
+2024-03-07T01:49:27.0645613Z remote: Compressing objects:  60% (940/1566)        
+2024-03-07T01:49:27.0648961Z remote: Compressing objects:  61% (956/1566)        
+2024-03-07T01:49:27.0652744Z remote: Compressing objects:  62% (971/1566)        
+2024-03-07T01:49:27.0664937Z remote: Compressing objects:  63% (987/1566)        
+2024-03-07T01:49:27.0668386Z remote: Compressing objects:  64% (1003/1566)        
+2024-03-07T01:49:27.0670959Z remote: Compressing objects:  65% (1018/1566)        
+2024-03-07T01:49:27.0678643Z remote: Compressing objects:  66% (1034/1566)        
+2024-03-07T01:49:27.0691960Z remote: Compressing objects:  67% (1050/1566)        
+2024-03-07T01:49:27.0694697Z remote: Compressing objects:  68% (1065/1566)        
+2024-03-07T01:49:27.0701210Z remote: Compressing objects:  69% (1081/1566)        
+2024-03-07T01:49:27.0704794Z remote: Compressing objects:  70% (1097/1566)        
+2024-03-07T01:49:27.0711221Z remote: Compressing objects:  71% (1112/1566)        
+2024-03-07T01:49:27.0723705Z remote: Compressing objects:  72% (1128/1566)        
+2024-03-07T01:49:27.0735825Z remote: Compressing objects:  73% (1144/1566)        
+2024-03-07T01:49:27.0740114Z remote: Compressing objects:  74% (1159/1566)        
+2024-03-07T01:49:27.0755881Z remote: Compressing objects:  75% (1175/1566)        
+2024-03-07T01:49:27.0815407Z remote: Compressing objects:  76% (1191/1566)        
+2024-03-07T01:49:27.0839540Z remote: Compressing objects:  77% (1206/1566)        
+2024-03-07T01:49:27.0851822Z remote: Compressing objects:  78% (1222/1566)        
+2024-03-07T01:49:27.0872319Z remote: Compressing objects:  79% (1238/1566)        
+2024-03-07T01:49:27.0899104Z remote: Compressing objects:  80% (1253/1566)        
+2024-03-07T01:49:27.0945763Z remote: Compressing objects:  81% (1269/1566)        
+2024-03-07T01:49:27.0974811Z remote: Compressing objects:  82% (1285/1566)        
+2024-03-07T01:49:27.1018066Z remote: Compressing objects:  83% (1300/1566)        
+2024-03-07T01:49:27.1032718Z remote: Compressing objects:  84% (1316/1566)        
+2024-03-07T01:49:27.1079235Z remote: Compressing objects:  85% (1332/1566)        
+2024-03-07T01:49:27.1119851Z remote: Compressing objects:  86% (1347/1566)        
+2024-03-07T01:49:27.1141869Z remote: Compressing objects:  87% (1363/1566)        
+2024-03-07T01:49:27.1149457Z remote: Compressing objects:  88% (1379/1566)        
+2024-03-07T01:49:27.1151924Z remote: Compressing objects:  89% (1394/1566)        
+2024-03-07T01:49:27.1154041Z remote: Compressing objects:  90% (1410/1566)        
+2024-03-07T01:49:27.1156010Z remote: Compressing objects:  91% (1426/1566)        
+2024-03-07T01:49:27.1165590Z remote: Compressing objects:  92% (1441/1566)        
+2024-03-07T01:49:27.1166709Z remote: Compressing objects:  93% (1457/1566)        
+2024-03-07T01:49:27.1167415Z remote: Compressing objects:  94% (1473/1566)        
+2024-03-07T01:49:27.1172635Z remote: Compressing objects:  95% (1488/1566)        
+2024-03-07T01:49:27.1173953Z remote: Compressing objects:  96% (1504/1566)        
+2024-03-07T01:49:27.1174967Z remote: Compressing objects:  97% (1520/1566)        
+2024-03-07T01:49:27.1175711Z remote: Compressing objects:  98% (1535/1566)        
+2024-03-07T01:49:27.1177410Z remote: Compressing objects:  99% (1551/1566)        
+2024-03-07T01:49:27.1178122Z remote: Compressing objects: 100% (1566/1566)        
+2024-03-07T01:49:27.1178917Z remote: Compressing objects: 100% (1566/1566), done.        
+2024-03-07T01:49:27.1345763Z Receiving objects:   0% (1/1748)
+2024-03-07T01:49:27.1348702Z Receiving objects:   1% (18/1748)
+2024-03-07T01:49:27.1360057Z Receiving objects:   2% (35/1748)
+2024-03-07T01:49:27.1540548Z Receiving objects:   3% (53/1748)
+2024-03-07T01:49:27.2110538Z Receiving objects:   4% (70/1748)
+2024-03-07T01:49:27.2112554Z Receiving objects:   5% (88/1748)
+2024-03-07T01:49:27.2116225Z Receiving objects:   6% (105/1748)
+2024-03-07T01:49:27.2120990Z Receiving objects:   7% (123/1748)
+2024-03-07T01:49:27.2126194Z Receiving objects:   8% (140/1748)
+2024-03-07T01:49:27.2130021Z Receiving objects:   9% (158/1748)
+2024-03-07T01:49:27.2134064Z Receiving objects:  10% (175/1748)
+2024-03-07T01:49:27.2136601Z Receiving objects:  11% (193/1748)
+2024-03-07T01:49:27.2140318Z Receiving objects:  12% (210/1748)
+2024-03-07T01:49:27.2150673Z Receiving objects:  13% (228/1748)
+2024-03-07T01:49:27.2154668Z Receiving objects:  14% (245/1748)
+2024-03-07T01:49:27.2158068Z Receiving objects:  15% (263/1748)
+2024-03-07T01:49:27.2161845Z Receiving objects:  16% (280/1748)
+2024-03-07T01:49:27.2168752Z Receiving objects:  17% (298/1748)
+2024-03-07T01:49:27.2173836Z Receiving objects:  18% (315/1748)
+2024-03-07T01:49:27.2179272Z Receiving objects:  19% (333/1748)
+2024-03-07T01:49:27.2183149Z Receiving objects:  20% (350/1748)
+2024-03-07T01:49:27.2186801Z Receiving objects:  21% (368/1748)
+2024-03-07T01:49:27.2191297Z Receiving objects:  22% (385/1748)
+2024-03-07T01:49:27.2194171Z Receiving objects:  23% (403/1748)
+2024-03-07T01:49:27.2197051Z Receiving objects:  24% (420/1748)
+2024-03-07T01:49:27.2201351Z Receiving objects:  25% (437/1748)
+2024-03-07T01:49:27.2202694Z Receiving objects:  26% (455/1748)
+2024-03-07T01:49:27.2206181Z Receiving objects:  27% (472/1748)
+2024-03-07T01:49:27.2208165Z Receiving objects:  28% (490/1748)
+2024-03-07T01:49:27.2211165Z Receiving objects:  29% (507/1748)
+2024-03-07T01:49:27.2213806Z Receiving objects:  30% (525/1748)
+2024-03-07T01:49:27.2217498Z Receiving objects:  31% (542/1748)
+2024-03-07T01:49:27.2219714Z Receiving objects:  32% (560/1748)
+2024-03-07T01:49:27.2222310Z Receiving objects:  33% (577/1748)
+2024-03-07T01:49:27.2224240Z Receiving objects:  34% (595/1748)
+2024-03-07T01:49:27.2226263Z Receiving objects:  35% (612/1748)
+2024-03-07T01:49:27.2230076Z Receiving objects:  36% (630/1748)
+2024-03-07T01:49:27.2234012Z Receiving objects:  37% (647/1748)
+2024-03-07T01:49:27.2234688Z Receiving objects:  38% (665/1748)
+2024-03-07T01:49:27.2238297Z Receiving objects:  39% (682/1748)
+2024-03-07T01:49:27.2241018Z Receiving objects:  40% (700/1748)
+2024-03-07T01:49:27.2244088Z Receiving objects:  41% (717/1748)
+2024-03-07T01:49:27.2247707Z Receiving objects:  42% (735/1748)
+2024-03-07T01:49:27.2252134Z Receiving objects:  43% (752/1748)
+2024-03-07T01:49:27.2254996Z Receiving objects:  44% (770/1748)
+2024-03-07T01:49:27.2258803Z Receiving objects:  45% (787/1748)
+2024-03-07T01:49:27.2260560Z Receiving objects:  46% (805/1748)
+2024-03-07T01:49:27.2263053Z Receiving objects:  47% (822/1748)
+2024-03-07T01:49:27.2266505Z Receiving objects:  48% (840/1748)
+2024-03-07T01:49:27.2268748Z Receiving objects:  49% (857/1748)
+2024-03-07T01:49:27.2270503Z Receiving objects:  50% (874/1748)
+2024-03-07T01:49:27.2271414Z Receiving objects:  51% (892/1748)
+2024-03-07T01:49:27.2274225Z Receiving objects:  52% (909/1748)
+2024-03-07T01:49:27.2279752Z Receiving objects:  53% (927/1748)
+2024-03-07T01:49:27.2284334Z Receiving objects:  54% (944/1748)
+2024-03-07T01:49:27.2290970Z Receiving objects:  55% (962/1748)
+2024-03-07T01:49:27.2295275Z Receiving objects:  56% (979/1748)
+2024-03-07T01:49:27.2297274Z Receiving objects:  57% (997/1748)
+2024-03-07T01:49:27.2299058Z Receiving objects:  58% (1014/1748)
+2024-03-07T01:49:27.2300984Z Receiving objects:  59% (1032/1748)
+2024-03-07T01:49:27.2303076Z Receiving objects:  60% (1049/1748)
+2024-03-07T01:49:27.2304006Z Receiving objects:  61% (1067/1748)
+2024-03-07T01:49:27.2306017Z Receiving objects:  62% (1084/1748)
+2024-03-07T01:49:27.2307906Z Receiving objects:  63% (1102/1748)
+2024-03-07T01:49:27.2309645Z Receiving objects:  64% (1119/1748)
+2024-03-07T01:49:27.2312397Z Receiving objects:  65% (1137/1748)
+2024-03-07T01:49:27.2313993Z Receiving objects:  66% (1154/1748)
+2024-03-07T01:49:27.2316462Z Receiving objects:  67% (1172/1748)
+2024-03-07T01:49:27.2317895Z Receiving objects:  68% (1189/1748)
+2024-03-07T01:49:27.2320506Z Receiving objects:  69% (1207/1748)
+2024-03-07T01:49:27.2321770Z Receiving objects:  70% (1224/1748)
+2024-03-07T01:49:27.2328321Z Receiving objects:  71% (1242/1748)
+2024-03-07T01:49:27.2341117Z Receiving objects:  72% (1259/1748)
+2024-03-07T01:49:27.2343866Z Receiving objects:  73% (1277/1748)
+2024-03-07T01:49:27.2346391Z Receiving objects:  74% (1294/1748)
+2024-03-07T01:49:27.2404671Z Receiving objects:  75% (1311/1748)
+2024-03-07T01:49:27.2569865Z Receiving objects:  76% (1329/1748)
+2024-03-07T01:49:27.2677507Z Receiving objects:  77% (1346/1748)
+2024-03-07T01:49:27.2838868Z Receiving objects:  78% (1364/1748)
+2024-03-07T01:49:27.2890582Z Receiving objects:  79% (1381/1748)
+2024-03-07T01:49:27.3172331Z Receiving objects:  80% (1399/1748)
+2024-03-07T01:49:27.3176884Z Receiving objects:  81% (1416/1748)
+2024-03-07T01:49:27.3179295Z Receiving objects:  82% (1434/1748)
+2024-03-07T01:49:27.3182184Z Receiving objects:  83% (1451/1748)
+2024-03-07T01:49:27.3187749Z Receiving objects:  84% (1469/1748)
+2024-03-07T01:49:27.3191567Z Receiving objects:  85% (1486/1748)
+2024-03-07T01:49:27.3198017Z Receiving objects:  86% (1504/1748)
+2024-03-07T01:49:27.3204488Z Receiving objects:  87% (1521/1748)
+2024-03-07T01:49:27.3209364Z Receiving objects:  88% (1539/1748)
+2024-03-07T01:49:27.3215935Z Receiving objects:  89% (1556/1748)
+2024-03-07T01:49:27.3221371Z Receiving objects:  90% (1574/1748)
+2024-03-07T01:49:27.3228444Z Receiving objects:  91% (1591/1748)
+2024-03-07T01:49:27.3233282Z Receiving objects:  92% (1609/1748)
+2024-03-07T01:49:27.3238556Z Receiving objects:  93% (1626/1748)
+2024-03-07T01:49:27.3242759Z Receiving objects:  94% (1644/1748)
+2024-03-07T01:49:27.3246784Z Receiving objects:  95% (1661/1748)
+2024-03-07T01:49:27.3250067Z Receiving objects:  96% (1679/1748)
+2024-03-07T01:49:27.3259154Z Receiving objects:  97% (1696/1748)
+2024-03-07T01:49:27.3268311Z Receiving objects:  98% (1714/1748)
+2024-03-07T01:49:27.3287156Z Receiving objects:  99% (1731/1748)
+2024-03-07T01:49:27.3288455Z remote: Total 1748 (delta 280), reused 982 (delta 143), pack-reused 0        
+2024-03-07T01:49:27.3297417Z Receiving objects: 100% (1748/1748)
+2024-03-07T01:49:27.3298633Z Receiving objects: 100% (1748/1748), 6.60 MiB | 32.63 MiB/s, done.
+2024-03-07T01:49:27.3311256Z Resolving deltas:   0% (0/280)
+2024-03-07T01:49:27.3313187Z Resolving deltas:   1% (3/280)
+2024-03-07T01:49:27.3315618Z Resolving deltas:   2% (6/280)
+2024-03-07T01:49:27.3316361Z Resolving deltas:   3% (9/280)
+2024-03-07T01:49:27.3317057Z Resolving deltas:   4% (12/280)
+2024-03-07T01:49:27.3317857Z Resolving deltas:   5% (14/280)
+2024-03-07T01:49:27.3318514Z Resolving deltas:   6% (18/280)
+2024-03-07T01:49:27.3319081Z Resolving deltas:   7% (20/280)
+2024-03-07T01:49:27.3319786Z Resolving deltas:   8% (23/280)
+2024-03-07T01:49:27.3320414Z Resolving deltas:   9% (26/280)
+2024-03-07T01:49:27.3321014Z Resolving deltas:  10% (28/280)
+2024-03-07T01:49:27.3321680Z Resolving deltas:  11% (31/280)
+2024-03-07T01:49:27.3323991Z Resolving deltas:  12% (34/280)
+2024-03-07T01:49:27.3344472Z Resolving deltas:  13% (37/280)
+2024-03-07T01:49:27.3344981Z Resolving deltas:  14% (40/280)
+2024-03-07T01:49:27.3345363Z Resolving deltas:  15% (42/280)
+2024-03-07T01:49:27.3346150Z Resolving deltas:  16% (45/280)
+2024-03-07T01:49:27.3346577Z Resolving deltas:  17% (48/280)
+2024-03-07T01:49:27.3346968Z Resolving deltas:  18% (51/280)
+2024-03-07T01:49:27.3347421Z Resolving deltas:  19% (54/280)
+2024-03-07T01:49:27.3348076Z Resolving deltas:  20% (56/280)
+2024-03-07T01:49:27.3348483Z Resolving deltas:  21% (59/280)
+2024-03-07T01:49:27.3348926Z Resolving deltas:  22% (62/280)
+2024-03-07T01:49:27.3349317Z Resolving deltas:  23% (65/280)
+2024-03-07T01:49:27.3349908Z Resolving deltas:  24% (68/280)
+2024-03-07T01:49:27.3350689Z Resolving deltas:  25% (70/280)
+2024-03-07T01:49:27.3351078Z Resolving deltas:  26% (73/280)
+2024-03-07T01:49:27.3351489Z Resolving deltas:  27% (76/280)
+2024-03-07T01:49:27.3352239Z Resolving deltas:  28% (79/280)
+2024-03-07T01:49:27.3352663Z Resolving deltas:  29% (82/280)
+2024-03-07T01:49:27.3353037Z Resolving deltas:  30% (84/280)
+2024-03-07T01:49:27.3353737Z Resolving deltas:  31% (87/280)
+2024-03-07T01:49:27.3354430Z Resolving deltas:  32% (90/280)
+2024-03-07T01:49:27.3355116Z Resolving deltas:  33% (93/280)
+2024-03-07T01:49:27.3355841Z Resolving deltas:  34% (96/280)
+2024-03-07T01:49:27.3356479Z Resolving deltas:  35% (98/280)
+2024-03-07T01:49:27.3357020Z Resolving deltas:  36% (101/280)
+2024-03-07T01:49:27.3357551Z Resolving deltas:  37% (104/280)
+2024-03-07T01:49:27.3358119Z Resolving deltas:  38% (107/280)
+2024-03-07T01:49:27.3358796Z Resolving deltas:  39% (110/280)
+2024-03-07T01:49:27.3359621Z Resolving deltas:  40% (112/280)
+2024-03-07T01:49:27.3360544Z Resolving deltas:  41% (115/280)
+2024-03-07T01:49:27.3361663Z Resolving deltas:  42% (118/280)
+2024-03-07T01:49:27.3362533Z Resolving deltas:  43% (121/280)
+2024-03-07T01:49:27.3363262Z Resolving deltas:  44% (124/280)
+2024-03-07T01:49:27.3364639Z Resolving deltas:  45% (126/280)
+2024-03-07T01:49:27.3365595Z Resolving deltas:  46% (129/280)
+2024-03-07T01:49:27.3366504Z Resolving deltas:  47% (132/280)
+2024-03-07T01:49:27.3367354Z Resolving deltas:  48% (135/280)
+2024-03-07T01:49:27.3368063Z Resolving deltas:  49% (139/280)
+2024-03-07T01:49:27.3368660Z Resolving deltas:  50% (140/280)
+2024-03-07T01:49:27.3369455Z Resolving deltas:  51% (143/280)
+2024-03-07T01:49:27.3370460Z Resolving deltas:  52% (146/280)
+2024-03-07T01:49:27.3371134Z Resolving deltas:  53% (149/280)
+2024-03-07T01:49:27.3371877Z Resolving deltas:  54% (152/280)
+2024-03-07T01:49:27.3372552Z Resolving deltas:  55% (154/280)
+2024-03-07T01:49:27.3373426Z Resolving deltas:  56% (157/280)
+2024-03-07T01:49:27.3374646Z Resolving deltas:  57% (160/280)
+2024-03-07T01:49:27.3375356Z Resolving deltas:  58% (163/280)
+2024-03-07T01:49:27.3375995Z Resolving deltas:  59% (166/280)
+2024-03-07T01:49:27.3376970Z Resolving deltas:  60% (168/280)
+2024-03-07T01:49:27.3378361Z Resolving deltas:  61% (171/280)
+2024-03-07T01:49:27.3379020Z Resolving deltas:  62% (174/280)
+2024-03-07T01:49:27.3381585Z Resolving deltas:  63% (177/280)
+2024-03-07T01:49:27.3382707Z Resolving deltas:  64% (180/280)
+2024-03-07T01:49:27.3383456Z Resolving deltas:  65% (182/280)
+2024-03-07T01:49:27.3384279Z Resolving deltas:  66% (185/280)
+2024-03-07T01:49:27.3384966Z Resolving deltas:  67% (188/280)
+2024-03-07T01:49:27.3385725Z Resolving deltas:  68% (191/280)
+2024-03-07T01:49:27.3388015Z Resolving deltas:  69% (194/280)
+2024-03-07T01:49:27.3388713Z Resolving deltas:  70% (196/280)
+2024-03-07T01:49:27.3389611Z Resolving deltas:  71% (199/280)
+2024-03-07T01:49:27.3391593Z Resolving deltas:  72% (202/280)
+2024-03-07T01:49:27.3392280Z Resolving deltas:  73% (205/280)
+2024-03-07T01:49:27.3393064Z Resolving deltas:  74% (208/280)
+2024-03-07T01:49:27.3393689Z Resolving deltas:  75% (210/280)
+2024-03-07T01:49:27.3394249Z Resolving deltas:  76% (213/280)
+2024-03-07T01:49:27.3395010Z Resolving deltas:  77% (216/280)
+2024-03-07T01:49:27.3395622Z Resolving deltas:  78% (219/280)
+2024-03-07T01:49:27.3396274Z Resolving deltas:  79% (222/280)
+2024-03-07T01:49:27.3398371Z Resolving deltas:  80% (224/280)
+2024-03-07T01:49:27.3399032Z Resolving deltas:  81% (227/280)
+2024-03-07T01:49:27.3399667Z Resolving deltas:  82% (230/280)
+2024-03-07T01:49:27.3401048Z Resolving deltas:  83% (233/280)
+2024-03-07T01:49:27.3401641Z Resolving deltas:  84% (236/280)
+2024-03-07T01:49:27.3409661Z Resolving deltas:  85% (238/280)
+2024-03-07T01:49:27.3410722Z Resolving deltas:  86% (241/280)
+2024-03-07T01:49:27.3413315Z Resolving deltas:  87% (244/280)
+2024-03-07T01:49:27.3418328Z Resolving deltas:  88% (247/280)
+2024-03-07T01:49:27.3420072Z Resolving deltas:  89% (250/280)
+2024-03-07T01:49:27.3420758Z Resolving deltas:  90% (253/280)
+2024-03-07T01:49:27.3423395Z Resolving deltas:  91% (255/280)
+2024-03-07T01:49:27.3425053Z Resolving deltas:  92% (258/280)
+2024-03-07T01:49:27.3425857Z Resolving deltas:  93% (261/280)
+2024-03-07T01:49:27.3426541Z Resolving deltas:  94% (264/280)
+2024-03-07T01:49:27.3427311Z Resolving deltas:  95% (266/280)
+2024-03-07T01:49:27.3427928Z Resolving deltas:  96% (269/280)
+2024-03-07T01:49:27.3428589Z Resolving deltas:  97% (272/280)
+2024-03-07T01:49:27.3429419Z Resolving deltas:  98% (275/280)
+2024-03-07T01:49:27.3439495Z Resolving deltas:  99% (278/280)
+2024-03-07T01:49:27.3440159Z Resolving deltas: 100% (280/280)
+2024-03-07T01:49:27.3440841Z Resolving deltas: 100% (280/280), done.
+2024-03-07T01:49:27.3774979Z From https://github.com/rubyforgood/human-essentials
+2024-03-07T01:49:27.3775977Z  * [new ref]         498220090972cd4cfcddde54a1d797340abc9368 -> pull/4011/merge
+2024-03-07T01:49:27.3878378Z ##[endgroup]
+2024-03-07T01:49:27.3879453Z ##[group]Determining the checkout info
+2024-03-07T01:49:27.3880772Z ##[endgroup]
+2024-03-07T01:49:27.3881818Z ##[group]Checking out the ref
+2024-03-07T01:49:27.3885637Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/4011/merge
+2024-03-07T01:49:27.5276229Z Note: switching to 'refs/remotes/pull/4011/merge'.
+2024-03-07T01:49:27.5276884Z 
+2024-03-07T01:49:27.5277745Z You are in 'detached HEAD' state. You can look around, make experimental
+2024-03-07T01:49:27.5279014Z changes and commit them, and you can discard any commits you make in this
+2024-03-07T01:49:27.5280182Z state without impacting any branches by switching back to a branch.
+2024-03-07T01:49:27.5280890Z 
+2024-03-07T01:49:27.5281466Z If you want to create a new branch to retain commits you create, you may
+2024-03-07T01:49:27.5282678Z do so (now or later) by using -c with the switch command. Example:
+2024-03-07T01:49:27.5283113Z 
+2024-03-07T01:49:27.5283303Z   git switch -c <new-branch-name>
+2024-03-07T01:49:27.5283582Z 
+2024-03-07T01:49:27.5283847Z Or undo this operation with:
+2024-03-07T01:49:27.5284088Z 
+2024-03-07T01:49:27.5284210Z   git switch -
+2024-03-07T01:49:27.5284420Z 
+2024-03-07T01:49:27.5284733Z Turn off this advice by setting config variable advice.detachedHead to false
+2024-03-07T01:49:27.5285295Z 
+2024-03-07T01:49:27.5285780Z HEAD is now at 4982200 Merge 4c1a0e0486dcc14eacd2ace78daabecb7936d79b into 7f9f88342ef6b65a71dc55d4f4cd2a4e751bcdbc
+2024-03-07T01:49:27.5287535Z ##[endgroup]
+2024-03-07T01:49:27.5335566Z [command]/usr/bin/git log -1 --format='%H'
+2024-03-07T01:49:27.5369322Z '498220090972cd4cfcddde54a1d797340abc9368'
+2024-03-07T01:49:27.5666893Z ##[group]Run ruby/setup-ruby@v1
+2024-03-07T01:49:27.5667334Z with:
+2024-03-07T01:49:27.5667791Z   bundler-cache: true
+2024-03-07T01:49:27.5668176Z   ruby-version: default
+2024-03-07T01:49:27.5668534Z ##[endgroup]
+2024-03-07T01:49:30.2058238Z Using 3.2.2 as input from file .ruby-version
+2024-03-07T01:49:30.2189166Z ##[group]Modifying PATH
+2024-03-07T01:49:30.2190162Z Entries added to PATH to use selected Ruby:
+2024-03-07T01:49:30.2191375Z   /opt/hostedtoolcache/Ruby/3.2.2/x64/bin
+2024-03-07T01:49:30.2192863Z ##[endgroup]
+2024-03-07T01:49:30.2212621Z ##[group]Downloading Ruby
+2024-03-07T01:49:30.2215812Z https://github.com/ruby/ruby-builder/releases/download/toolcache/ruby-3.2.2-ubuntu-22.04.tar.gz
+2024-03-07T01:49:30.8593627Z Took   0.64 seconds
+2024-03-07T01:49:30.8596487Z ##[endgroup]
+2024-03-07T01:49:30.8597524Z ##[group]Extracting  Ruby
+2024-03-07T01:49:30.8627220Z [command]/usr/bin/tar -xz -C /opt/hostedtoolcache/Ruby/3.2.2 -f /home/runner/work/_temp/b546f346-22b2-4721-84ef-4b9dac5079b7
+2024-03-07T01:49:31.2845545Z Took   0.42 seconds
+2024-03-07T01:49:31.2846977Z ##[endgroup]
+2024-03-07T01:49:31.2848112Z ##[group]Print Ruby version
+2024-03-07T01:49:31.2861882Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/ruby --version
+2024-03-07T01:49:31.3071036Z ruby 3.2.2 (2023-03-30 revision e51014f9c0) [x86_64-linux]
+2024-03-07T01:49:31.3088155Z Took   0.02 seconds
+2024-03-07T01:49:31.3089508Z ##[endgroup]
+2024-03-07T01:49:31.3090664Z ##[group]Installing Bundler
+2024-03-07T01:49:31.3097142Z Using Bundler 2.5.6 from Gemfile.lock BUNDLED WITH 2.5.6
+2024-03-07T01:49:31.3102434Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/gem install bundler -v 2.5.6
+2024-03-07T01:49:31.9439015Z Successfully installed bundler-2.5.6
+2024-03-07T01:49:31.9440006Z 1 gem installed
+2024-03-07T01:49:31.9493594Z Took   0.64 seconds
+2024-03-07T01:49:31.9494737Z ##[endgroup]
+2024-03-07T01:49:31.9495539Z > bundle install
+2024-03-07T01:49:31.9513362Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle config --local path /home/runner/work/human-essentials/human-essentials/vendor/bundle
+2024-03-07T01:49:32.1010211Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle config --local deployment true
+2024-03-07T01:49:32.2517352Z Cache key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.2.2-wd-/home/runner/work/human-essentials/human-essentials-with--without--only--Gemfile.lock-4d33c700f7ba6b276ff29199ee0ad50f50eaee1ebc70333043a17640f6a66093
+2024-03-07T01:49:33.4974142Z Received 171966464 of 215052876 (80.0%), 163.8 MBs/sec
+2024-03-07T01:49:33.6606416Z Cache Size: ~205 MB (215052876 B)
+2024-03-07T01:49:33.6725262Z [command]/usr/bin/tar -xf /home/runner/work/_temp/cee6d606-6146-4b40-b13b-b91aae01d9bf/cache.tzst -P -C /home/runner/work/human-essentials/human-essentials --use-compress-program unzstd
+2024-03-07T01:49:34.4981824Z Received 215052876 of 215052876 (100.0%), 102.5 MBs/sec
+2024-03-07T01:49:35.4452957Z Cache restored successfully
+2024-03-07T01:49:35.4874428Z Found cache for key: setup-ruby-bundler-cache-v6-ubuntu-22.04-x64-ruby-3.2.2-wd-/home/runner/work/human-essentials/human-essentials-with--without--only--Gemfile.lock-4d33c700f7ba6b276ff29199ee0ad50f50eaee1ebc70333043a17640f6a66093
+2024-03-07T01:49:35.4883102Z [command]/opt/hostedtoolcache/Ruby/3.2.2/x64/bin/bundle install --jobs 4
+2024-03-07T01:49:35.8787516Z Bundle complete! 85 Gemfile dependencies, 246 gems now installed.
+2024-03-07T01:49:35.8789073Z Bundled gems are installed into `./vendor/bundle`
+2024-03-07T01:49:35.8834705Z Took   3.93 seconds
+2024-03-07T01:49:35.9001081Z ##[group]Run sudo apt-get -yqq install libpq-dev
+2024-03-07T01:49:35.9001833Z [36;1msudo apt-get -yqq install libpq-dev[0m
+2024-03-07T01:49:35.9067734Z shell: /usr/bin/bash -e {0}
+2024-03-07T01:49:35.9068182Z ##[endgroup]
+2024-03-07T01:49:44.6295447Z ##[group]Run bundle exec rake db:create
+2024-03-07T01:49:44.6296094Z [36;1mbundle exec rake db:create[0m
+2024-03-07T01:49:44.6296546Z [36;1mbundle exec rake db:schema:load[0m
+2024-03-07T01:49:44.6297048Z [36;1mbundle exec rails assets:precompile[0m
+2024-03-07T01:49:44.6347160Z shell: /usr/bin/bash -e {0}
+2024-03-07T01:49:44.6347696Z env:
+2024-03-07T01:49:44.6348036Z   POSTGRES_HOST: localhost
+2024-03-07T01:49:44.6348425Z   DATABASE_HOST: localhost
+2024-03-07T01:49:44.6348879Z   PG_USERNAME: postgres
+2024-03-07T01:49:44.6349253Z   PG_PASSWORD: password
+2024-03-07T01:49:44.6349595Z   POSTGRES_HOST_AUTH_METHOD: trust
+2024-03-07T01:49:44.6350081Z   POSTGRES_PORT: 5432
+2024-03-07T01:49:44.6350426Z   RAILS_ENV: test
+2024-03-07T01:49:44.6350839Z ##[endgroup]
+2024-03-07T01:49:51.4851880Z We could not find your database: diaper_test. Which can be found in the database configuration file located at config/database.yml.
+2024-03-07T01:49:51.4854045Z 
+2024-03-07T01:49:51.4854546Z To resolve this issue:
+2024-03-07T01:49:51.4855037Z 
+2024-03-07T01:49:51.4856397Z - Did you create the database for this app, or delete it? You may need to create your database.
+2024-03-07T01:49:51.4859259Z - Has the database name changed? Check your database.yml config has the correct database name.
+2024-03-07T01:49:51.4860644Z 
+2024-03-07T01:49:51.4860936Z To create your database, run:
+2024-03-07T01:49:51.4861374Z 
+2024-03-07T01:49:51.4861593Z         bin/rails db:create
+2024-03-07T01:49:51.4862748Z . You likely need to run `rails g flipper:active_record` and/or `rails db:migrate`.
+2024-03-07T01:49:51.6613900Z Created database 'diaper_test'
+2024-03-07T01:49:51.9663133Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 442 / 9942 LOC (4.45%) covered.
+2024-03-07T01:49:58.3522072Z PG::UndefinedTable: ERROR:  relation "flipper_gates" does not exist
+2024-03-07T01:49:58.3523638Z LINE 9:  WHERE a.attrelid = '"flipper_gates"'::regclass
+2024-03-07T01:49:58.3524683Z                             ^
+2024-03-07T01:49:58.3529524Z . You likely need to run `rails g flipper:active_record` and/or `rails db:migrate`.
+2024-03-07T01:49:59.1763222Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 442 / 9942 LOC (4.45%) covered.
+2024-03-07T01:50:33.6231531Z W, [2024-03-06T17:50:33.622745 #2434]  WARN -- : Removed sourceMappingURL comment for missing asset 'adminlte.js.map' from /home/runner/work/human-essentials/human-essentials/app/javascript/adminlte.js
+2024-03-07T01:50:33.6858166Z I, [2024-03-06T17:50:33.685302 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/manifest-90aab26ade71e747f745b1227b433fd7d580a54f279ee2be6e1a67bb326bf03a.js
+2024-03-07T01:50:33.6861543Z I, [2024-03-06T17:50:33.685472 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/manifest-90aab26ade71e747f745b1227b433fd7d580a54f279ee2be6e1a67bb326bf03a.js.gz
+2024-03-07T01:50:33.6866385Z I, [2024-03-06T17:50:33.685741 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/filterrific/filterrific-spinner-415824b210964b6cdb1db0bd9508be8644b9fde094b392f73055b20d369885b6.gif
+2024-03-07T01:50:33.6869940Z I, [2024-03-06T17:50:33.686101 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/bootstrap.min-67c48d88a8e0be178058aacb338b084191ed6d65c8fef751c50248202cf1488a.js
+2024-03-07T01:50:33.6873700Z I, [2024-03-06T17:50:33.686275 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/bootstrap.min-67c48d88a8e0be178058aacb338b084191ed6d65c8fef751c50248202cf1488a.js.gz
+2024-03-07T01:50:33.6877733Z I, [2024-03-06T17:50:33.686401 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/DiaperBase-Logo-f18172876cab49a451ca9c3178b578ab2019e03f111a6b6f3ba0c1b40b3d7c0c.png
+2024-03-07T01:50:33.6881192Z I, [2024-03-06T17:50:33.686648 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/Just-Diaper-05bf6a1b70ccad149eb4eca7b5f9fcca1f9c37bab1f8e5edb6798d66c903ba53.svg
+2024-03-07T01:50:33.6884769Z I, [2024-03-06T17:50:33.687256 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/Just-Diaper-05bf6a1b70ccad149eb4eca7b5f9fcca1f9c37bab1f8e5edb6798d66c903ba53.svg.gz
+2024-03-07T01:50:33.6888390Z I, [2024-03-06T17:50:33.687377 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/barcode-932aed25f5c148b36882be3bfb6696ecdd362ba0a709ff0674a10477f2aad8f3.svg
+2024-03-07T01:50:33.6891984Z I, [2024-03-06T17:50:33.687492 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/barcode-932aed25f5c148b36882be3bfb6696ecdd362ba0a709ff0674a10477f2aad8f3.svg.gz
+2024-03-07T01:50:33.6895026Z I, [2024-03-06T17:50:33.687603 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/bars-db7a0aaf1cd735270b170cba53dca71c75473940ab48639c609a72964eb92f4d.svg
+2024-03-07T01:50:33.6898041Z I, [2024-03-06T17:50:33.687701 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/bars-db7a0aaf1cd735270b170cba53dca71c75473940ab48639c609a72964eb92f4d.svg.gz
+2024-03-07T01:50:33.6901478Z I, [2024-03-06T17:50:33.688159 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/blue@2x-709ca6c252f762af1e5efb0ef1e7444a712cb0ec010fee01749b67a595a7c0c6.png
+2024-03-07T01:50:33.6905141Z I, [2024-03-06T17:50:33.688906 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/boxed-bg-6c60c3f8655fa4062631bbe1434face4fe3d70392159e976ec09ca6ad9330e7d.jpg
+2024-03-07T01:50:33.6908789Z I, [2024-03-06T17:50:33.690104 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/boxed-bg-eb7b1fa0c09f5ef599fc5138e33168827f2ec4e1f796cf8a78570d8a73a58190.png
+2024-03-07T01:50:33.6913685Z I, [2024-03-06T17:50:33.690535 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/dashboard-image-3db42e909886dffccb680715feccab83cc867b4581b0009558e746364e2ec332.svg
+2024-03-07T01:50:33.6917685Z I, [2024-03-06T17:50:33.690679 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/dashboard-image-3db42e909886dffccb680715feccab83cc867b4581b0009558e746364e2ec332.svg.gz
+2024-03-07T01:50:33.6922108Z I, [2024-03-06T17:50:33.690780 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/forecasting-32dffccc42e6c09203d36acbc2243b4bc746dc2f1198c1ff43def4bb48e335b2.svg
+2024-03-07T01:50:33.6926058Z I, [2024-03-06T17:50:33.690879 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/forecasting-32dffccc42e6c09203d36acbc2243b4bc746dc2f1198c1ff43def4bb48e335b2.svg.gz
+2024-03-07T01:50:33.6929479Z I, [2024-03-06T17:50:33.690975 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/hero-image-0ba273def6de748beb2a64206e115d8e4a109ad51ef255512f4c6522e5b9225b.svg
+2024-03-07T01:50:33.6933213Z I, [2024-03-06T17:50:33.691189 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/hero-image-0ba273def6de748beb2a64206e115d8e4a109ad51ef255512f4c6522e5b9225b.svg.gz
+2024-03-07T01:50:33.6937092Z I, [2024-03-06T17:50:33.691287 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/inventory-image-3d91fc8087e13632114d9d129a680b992e02aae297b2bf180089cd55792249b2.svg
+2024-03-07T01:50:33.6942636Z I, [2024-03-06T17:50:33.691385 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/inventory-image-3d91fc8087e13632114d9d129a680b992e02aae297b2bf180089cd55792249b2.svg.gz
+2024-03-07T01:50:33.6947082Z I, [2024-03-06T17:50:33.691484 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/partner-management-c2cd4a940d1cf59f66928bc5097b4d4528b6de95abcc66421edf341c59311d40.svg
+2024-03-07T01:50:33.6950881Z I, [2024-03-06T17:50:33.691597 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/partner-management-c2cd4a940d1cf59f66928bc5097b4d4528b6de95abcc66421edf341c59311d40.svg.gz
+2024-03-07T01:50:33.6954526Z I, [2024-03-06T17:50:33.692825 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/quote-e4395f28913ad7b7785c522f0b6f2363a960720cf3bc26705438f6efb55edb7d.svg
+2024-03-07T01:50:33.6957896Z I, [2024-03-06T17:50:33.692991 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/quote-e4395f28913ad7b7785c522f0b6f2363a960720cf3bc26705438f6efb55edb7d.svg.gz
+2024-03-07T01:50:33.6961349Z I, [2024-03-06T17:50:33.693103 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/report-image-a9fc71739eca5457d288f1c234a0d84237ba8eef8bd20a9935bd45d84d03ae6b.svg
+2024-03-07T01:50:33.6965066Z I, [2024-03-06T17:50:33.693219 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/report-image-a9fc71739eca5457d288f1c234a0d84237ba8eef8bd20a9935bd45d84d03ae6b.svg.gz
+2024-03-07T01:50:33.6968454Z I, [2024-03-06T17:50:33.693324 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/test-only-background-c4843e992a593298a8c43815c8950b766061a96fd7d3e92838354914c41d7243.jpg
+2024-03-07T01:50:33.6971657Z I, [2024-03-06T17:50:33.693470 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/AdminLTE-9d75f9bf2ec81bc0a0de450227ed6268dad2cd66401439503c18d3241dfb241d.css
+2024-03-07T01:50:33.6974831Z I, [2024-03-06T17:50:33.693553 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/AdminLTE-9d75f9bf2ec81bc0a0de450227ed6268dad2cd66401439503c18d3241dfb241d.css.gz
+2024-03-07T01:50:33.6978288Z I, [2024-03-06T17:50:33.693656 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/_colors-04024382391bb910584145d8113cf35ef376b55d125bb4516cebeb14ce788597.css
+2024-03-07T01:50:33.6981810Z I, [2024-03-06T17:50:33.694319 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/_colors-04024382391bb910584145d8113cf35ef376b55d125bb4516cebeb14ce788597.css.gz
+2024-03-07T01:50:33.6985052Z I, [2024-03-06T17:50:33.694435 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/application-c21613708cb0f40361dc08d066cb68c559e4b3982f802956f4439959cad9af23.css
+2024-03-07T01:50:33.6988937Z I, [2024-03-06T17:50:33.694507 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/application-c21613708cb0f40361dc08d066cb68c559e4b3982f802956f4439959cad9af23.css.gz
+2024-03-07T01:50:33.6992483Z I, [2024-03-06T17:50:33.694622 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/test-only-background-c4843e992a593298a8c43815c8950b766061a96fd7d3e92838354914c41d7243.jpg
+2024-03-07T01:50:33.6995842Z I, [2024-03-06T17:50:33.694773 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/audits-83372b845d8a4887e7e4d2315cf3c85ea60ef94ca0ec4774dfbcd3cf569c616c.css
+2024-03-07T01:50:33.6999209Z I, [2024-03-06T17:50:33.694940 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/audits-83372b845d8a4887e7e4d2315cf3c85ea60ef94ca0ec4774dfbcd3cf569c616c.css.gz
+2024-03-07T01:50:33.7002821Z I, [2024-03-06T17:50:33.695032 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/barcode_reader-3799c29218802c1dbba4c700f3863ec24505a9e3e7b54d36282fff667d7c94ca.css
+2024-03-07T01:50:33.7006356Z I, [2024-03-06T17:50:33.695098 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/barcode_reader-3799c29218802c1dbba4c700f3863ec24505a9e3e7b54d36282fff667d7c94ca.css.gz
+2024-03-07T01:50:33.7010044Z I, [2024-03-06T17:50:33.695191 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/custom-4ac26623bf6f4d95aa1164e1ad4d6cbb2bb8dda4af8e4a2f1b4368bc92491085.css
+2024-03-07T01:50:33.7013549Z I, [2024-03-06T17:50:33.695252 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/custom-4ac26623bf6f4d95aa1164e1ad4d6cbb2bb8dda4af8e4a2f1b4368bc92491085.css.gz
+2024-03-07T01:50:33.7017381Z I, [2024-03-06T17:50:33.695333 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/test-only-background-c4843e992a593298a8c43815c8950b766061a96fd7d3e92838354914c41d7243.jpg
+2024-03-07T01:50:33.7021083Z I, [2024-03-06T17:50:33.695469 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/expandable_table-cca1600cf25c44c6bea2733167509ffe9133f344e9defe984ad96bd427b29a19.css
+2024-03-07T01:50:33.7024793Z I, [2024-03-06T17:50:33.695541 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/expandable_table-cca1600cf25c44c6bea2733167509ffe9133f344e9defe984ad96bd427b29a19.css.gz
+2024-03-07T01:50:33.7028711Z I, [2024-03-06T17:50:33.695630 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/landing_page-4fe5dfcfea8b5bbd7722658652ff4ee86132a41b8aff92e9ef8b1216cb7259fa.css
+2024-03-07T01:50:33.7032263Z I, [2024-03-06T17:50:33.695693 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/landing_page-4fe5dfcfea8b5bbd7722658652ff4ee86132a41b8aff92e9ef8b1216cb7259fa.css.gz
+2024-03-07T01:50:33.7036069Z I, [2024-03-06T17:50:33.695781 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/modal-dialog-9d7ae8bb43b60ac4c7d9910700392b20618ae2db4d5db33453b157171d5e0f7d.css
+2024-03-07T01:50:33.7039713Z I, [2024-03-06T17:50:33.695846 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/modal-dialog-9d7ae8bb43b60ac4c7d9910700392b20618ae2db4d5db33453b157171d5e0f7d.css.gz
+2024-03-07T01:50:33.7043408Z I, [2024-03-06T17:50:33.695932 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/progress_stepper-7f8ef0dc05a9a00a300e56f6f3e4ccfdde4af8e392407ccc6601d60019067ccb.css
+2024-03-07T01:50:33.7047185Z I, [2024-03-06T17:50:33.695998 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/progress_stepper-7f8ef0dc05a9a00a300e56f6f3e4ccfdde4af8e392407ccc6601d60019067ccb.css.gz
+2024-03-07T01:50:33.7050649Z I, [2024-03-06T17:50:33.696084 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/transfers-c9ab43ff53dab5dc13681712afc9b6fb31d7865d5ac8c657220deff9f138fa8c.css
+2024-03-07T01:50:33.7054381Z I, [2024-03-06T17:50:33.696146 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/transfers-c9ab43ff53dab5dc13681712afc9b6fb31d7865d5ac8c657220deff9f138fa8c.css.gz
+2024-03-07T01:50:33.7058092Z I, [2024-03-06T17:50:33.696233 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/adminlte-886a0b559685ec92cd8dd4dbf957899292f9c0bd344c90c304d28973363a8eaf.js
+2024-03-07T01:50:33.7061612Z I, [2024-03-06T17:50:33.696294 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/adminlte-886a0b559685ec92cd8dd4dbf957899292f9c0bd344c90c304d28973363a8eaf.js.gz
+2024-03-07T01:50:33.7065786Z I, [2024-03-06T17:50:33.696781 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/application-f9d5a0970e6dc2d1d44ca8dfd6129e9fed2dccf1b460a6bba6eab9dd7aa61c92.js
+2024-03-07T01:50:33.7069500Z I, [2024-03-06T17:50:33.697333 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/application-f9d5a0970e6dc2d1d44ca8dfd6129e9fed2dccf1b460a6bba6eab9dd7aa61c92.js.gz
+2024-03-07T01:50:33.7073491Z I, [2024-03-06T17:50:33.697739 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/cocoon-js-vanilla-cc8e46e9b16a6217f3c14c60ca346454c9c01d8d41e5c073ae14f85fac052e96.js
+2024-03-07T01:50:33.7077448Z I, [2024-03-06T17:50:33.699021 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/cocoon-js-vanilla-cc8e46e9b16a6217f3c14c60ca346454c9c01d8d41e5c073ae14f85fac052e96.js.gz
+2024-03-07T01:50:33.7081244Z I, [2024-03-06T17:50:33.699151 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/application-368d98631bccbf2349e0d4f8269afb3fe9625118341966de054759d96ea86c7e.js
+2024-03-07T01:50:33.7085170Z I, [2024-03-06T17:50:33.699227 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/application-368d98631bccbf2349e0d4f8269afb3fe9625118341966de054759d96ea86c7e.js.gz
+2024-03-07T01:50:33.7089315Z I, [2024-03-06T17:50:33.699327 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/area_served_controller-c8c048ef9ee2d145ba8408cda63546aff8ce9170e9cafb34075ebb01b43c6c34.js
+2024-03-07T01:50:33.7093376Z I, [2024-03-06T17:50:33.699397 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/area_served_controller-c8c048ef9ee2d145ba8408cda63546aff8ce9170e9cafb34075ebb01b43c6c34.js.gz
+2024-03-07T01:50:33.7097649Z I, [2024-03-06T17:50:33.699496 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/checkbox_with_nested_element_controller-1645dd2a3a857d546354c90b0c415a9d1dd4de6974048fd41bfc1d6f45ccb3eb.js
+2024-03-07T01:50:33.7101997Z I, [2024-03-06T17:50:33.703984 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/checkbox_with_nested_element_controller-1645dd2a3a857d546354c90b0c415a9d1dd4de6974048fd41bfc1d6f45ccb3eb.js.gz
+2024-03-07T01:50:33.7106463Z I, [2024-03-06T17:50:33.704120 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/distribution_delivery_controller-89fc613f734c2b1538c1e9948abeb353ea73d22678fc08597d48fa36a70c5c51.js
+2024-03-07T01:50:33.7110727Z I, [2024-03-06T17:50:33.704208 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/distribution_delivery_controller-89fc613f734c2b1538c1e9948abeb353ea73d22678fc08597d48fa36a70c5c51.js.gz
+2024-03-07T01:50:33.7114905Z I, [2024-03-06T17:50:33.704317 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/double_select_controller-bb2e4a65f2c66cacc8ec4dd491c2233b0aac53187ebe1fbaaffedfbaf7db9099.js
+2024-03-07T01:50:33.7119186Z I, [2024-03-06T17:50:33.704384 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/double_select_controller-bb2e4a65f2c66cacc8ec4dd491c2233b0aac53187ebe1fbaaffedfbaf7db9099.js.gz
+2024-03-07T01:50:33.7123325Z I, [2024-03-06T17:50:33.704475 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/highchart_controller-7640167d6e3481659a5ead23f046e3c6852c08e30ce8aa6f09aa5cce0f7ea02d.js
+2024-03-07T01:50:33.7127251Z I, [2024-03-06T17:50:33.704752 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/highchart_controller-7640167d6e3481659a5ead23f046e3c6852c08e30ce8aa6f09aa5cce0f7ea02d.js.gz
+2024-03-07T01:50:33.7147513Z I, [2024-03-06T17:50:33.705025 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/index-2db729dddcc5b979110e98de4b6720f83f91a123172e87281d5a58410fc43806.js
+2024-03-07T01:50:33.7151211Z I, [2024-03-06T17:50:33.713136 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/index-2db729dddcc5b979110e98de4b6720f83f91a123172e87281d5a58410fc43806.js.gz
+2024-03-07T01:50:33.7155038Z I, [2024-03-06T17:50:33.713249 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/request_item_controller-4ab1cb48f0cc30bba40f5311b6588189ddf5daf19bdf36b462cdeab0a663399b.js
+2024-03-07T01:50:33.7158742Z I, [2024-03-06T17:50:33.713318 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/request_item_controller-4ab1cb48f0cc30bba40f5311b6588189ddf5daf19bdf36b462cdeab0a663399b.js.gz
+2024-03-07T01:50:33.7162328Z I, [2024-03-06T17:50:33.713409 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/select2_controller-13c15fa4f8996b06b43552325b12e3a14e158db06264b83cfff2e521a16fceeb.js
+2024-03-07T01:50:33.7166073Z I, [2024-03-06T17:50:33.713471 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/select2_controller-13c15fa4f8996b06b43552325b12e3a14e158db06264b83cfff2e521a16fceeb.js.gz
+2024-03-07T01:50:33.7170155Z I, [2024-03-06T17:50:33.713558 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/served_area_controller-37738489813fc06349f3fb1bc7abc5d5493318ce553f1bebbfa1f8fe06ebfb4a.js
+2024-03-07T01:50:33.7174161Z I, [2024-03-06T17:50:33.713620 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/served_area_controller-37738489813fc06349f3fb1bc7abc5d5493318ce553f1bebbfa1f8fe06ebfb4a.js.gz
+2024-03-07T01:50:33.7177960Z I, [2024-03-06T17:50:33.713706 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/turbo_controller-7ee3a9437b4fb003ac4ea4ca0f3425fd197ce4538a1eeb606e5e5447aa948b54.js
+2024-03-07T01:50:33.7181580Z I, [2024-03-06T17:50:33.713767 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/controllers/turbo_controller-7ee3a9437b4fb003ac4ea4ca0f3425fd197ce4538a1eeb606e5e5447aa948b54.js.gz
+2024-03-07T01:50:33.7185255Z I, [2024-03-06T17:50:33.713858 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/startup-bf111fcbf368bc988dfcb050d057ec73e21f190d7921e15689dd5ebf674e6d00.js
+2024-03-07T01:50:33.7188912Z I, [2024-03-06T17:50:33.713922 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/startup-bf111fcbf368bc988dfcb050d057ec73e21f190d7921e15689dd5ebf674e6d00.js.gz
+2024-03-07T01:50:33.7254797Z I, [2024-03-06T17:50:33.714009 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/barcode_items-ee1050c4d1ade4569ef6cfc83d5f4792f67daabaca0ae24f75455737fea0a72b.js
+2024-03-07T01:50:33.7268388Z I, [2024-03-06T17:50:33.714069 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/barcode_items-ee1050c4d1ade4569ef6cfc83d5f4792f67daabaca0ae24f75455737fea0a72b.js.gz
+2024-03-07T01:50:33.7272199Z I, [2024-03-06T17:50:33.714154 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/barcode_scan-757b66b6921154f49e7cc4c5dc2f146f91f1648beffaa8ef106d94585a273ba9.js
+2024-03-07T01:50:33.7276159Z I, [2024-03-06T17:50:33.714222 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/barcode_scan-757b66b6921154f49e7cc4c5dc2f146f91f1648beffaa8ef106d94585a273ba9.js.gz
+2024-03-07T01:50:33.7280000Z I, [2024-03-06T17:50:33.714308 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/deadline_day_pickers-b0b264db9e3c8107c161cc4571e71cf901bcc511175271d218a553c4e1889065.js
+2024-03-07T01:50:33.7284169Z I, [2024-03-06T17:50:33.726681 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/deadline_day_pickers-b0b264db9e3c8107c161cc4571e71cf901bcc511175271d218a553c4e1889065.js.gz
+2024-03-07T01:50:33.7288315Z I, [2024-03-06T17:50:33.726815 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/distributions_and_transfers-1f9709e9a8df250acfe3e7a79f1501b2696b1f36d5adcf083a61a1b005cce3d2.js
+2024-03-07T01:50:33.7292616Z I, [2024-03-06T17:50:33.726896 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/distributions_and_transfers-1f9709e9a8df250acfe3e7a79f1501b2696b1f36d5adcf083a61a1b005cce3d2.js.gz
+2024-03-07T01:50:33.7296733Z I, [2024-03-06T17:50:33.727004 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/donations-1c3e9a15fc370afd2c3836ccf8dde6013c35412a8d83cf6c1e31bec95ef72b26.js
+2024-03-07T01:50:33.7300516Z I, [2024-03-06T17:50:33.727073 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/donations-1c3e9a15fc370afd2c3836ccf8dde6013c35412a8d83cf6c1e31bec95ef72b26.js.gz
+2024-03-07T01:50:33.7304236Z I, [2024-03-06T17:50:33.727161 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/purchases-5c814ba098feaa8a7b4abff24267c1da909f3e52e12c97660f8a0b8c1ff4aea1.js
+2024-03-07T01:50:33.7310237Z I, [2024-03-06T17:50:33.727223 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/utils/purchases-5c814ba098feaa8a7b4abff24267c1da909f3e52e12c97660f8a0b8c1ff4aea1.js.gz
+2024-03-07T01:50:33.7320559Z I, [2024-03-06T17:50:33.727324 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/filterrific-f3a290db250e05344fd62c216b903689f73eff5e270ef021e425551006092e08.js
+2024-03-07T01:50:33.7327995Z I, [2024-03-06T17:50:33.727393 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/filterrific-f3a290db250e05344fd62c216b903689f73eff5e270ef021e425551006092e08.js.gz
+2024-03-07T01:50:33.7333174Z I, [2024-03-06T17:50:33.727500 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulusloading-1fc59770fb1654500044afd3f5f6d7d00800e5be36746d55b94a2963a7a228aa.js
+2024-03-07T01:50:33.7339932Z I, [2024-03-06T17:50:33.727569 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulusloading-1fc59770fb1654500044afd3f5f6d7d00800e5be36746d55b94a2963a7a228aa.js.gz
+2024-03-07T01:50:33.7346632Z I, [2024-03-06T17:50:33.727665 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/turbo-4851a9a0b1d947e810dfd0448a72aef261d455183ebea681f4f28a73640a9ece.js
+2024-03-07T01:50:33.7352747Z I, [2024-03-06T17:50:33.727732 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/turbo-4851a9a0b1d947e810dfd0448a72aef261d455183ebea681f4f28a73640a9ece.js.gz
+2024-03-07T01:50:33.7358859Z I, [2024-03-06T17:50:33.727828 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/turbo.min-f309baafa3ae5ad6ccee3e7362118b87678d792db8e8ab466c4fa284dd3a4700.js
+2024-03-07T01:50:33.7365157Z I, [2024-03-06T17:50:33.727898 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/turbo.min-f309baafa3ae5ad6ccee3e7362118b87678d792db8e8ab466c4fa284dd3a4700.js.gz
+2024-03-07T01:50:33.7371338Z I, [2024-03-06T17:50:33.727993 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/turbo.min.js-8bc8f4a58d1c106d58dec8bef6c638ff12ff4d078f19d8ebd8c4277f4c9bc85a.map
+2024-03-07T01:50:33.7377617Z I, [2024-03-06T17:50:33.728071 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/turbo.min.js-8bc8f4a58d1c106d58dec8bef6c638ff12ff4d078f19d8ebd8c4277f4c9bc85a.map.gz
+2024-03-07T01:50:33.7383870Z I, [2024-03-06T17:50:33.728170 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-loading-3576ce92b149ad5d6959438c6f291e2426c86df3b874c525b30faad51b0d96b3.js
+2024-03-07T01:50:33.7400804Z I, [2024-03-06T17:50:33.728241 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-loading-3576ce92b149ad5d6959438c6f291e2426c86df3b874c525b30faad51b0d96b3.js.gz
+2024-03-07T01:50:33.7404737Z I, [2024-03-06T17:50:33.728412 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/popper-003a40d80fd205e1fa00da117d5bdc19720ba330706eaa17f9ba9513fa502304.js
+2024-03-07T01:50:33.7408406Z I, [2024-03-06T17:50:33.728484 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/popper-003a40d80fd205e1fa00da117d5bdc19720ba330706eaa17f9ba9513fa502304.js.gz
+2024-03-07T01:50:33.7412194Z I, [2024-03-06T17:50:33.728573 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/actiontext-28c61f5197c204db043317a8f8826a87ab31495b741f854d307ca36122deefce.js
+2024-03-07T01:50:33.7415881Z I, [2024-03-06T17:50:33.728649 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/actiontext-28c61f5197c204db043317a8f8826a87ab31495b741f854d307ca36122deefce.js.gz
+2024-03-07T01:50:33.7419449Z I, [2024-03-06T17:50:33.728746 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/trix-1563ff9c10f74e143b3ded40a8458497eaf2f87a648a5cbbfebdb7dec3447a5e.js
+2024-03-07T01:50:33.7423195Z I, [2024-03-06T17:50:33.728813 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/trix-1563ff9c10f74e143b3ded40a8458497eaf2f87a648a5cbbfebdb7dec3447a5e.js.gz
+2024-03-07T01:50:33.7426865Z I, [2024-03-06T17:50:33.728909 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/trix-b0398dade8e5ac249fe98f2e850f45adbcdfecd8a11c46b3eb67bdedb87b1b04.css
+2024-03-07T01:50:33.7430453Z I, [2024-03-06T17:50:33.728977 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/trix-b0398dade8e5ac249fe98f2e850f45adbcdfecd8a11c46b3eb67bdedb87b1b04.css.gz
+2024-03-07T01:50:33.7438023Z I, [2024-03-06T17:50:33.729079 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-f75215805563870a61ee9dc5a207ce46d4675c7e667558a54344fd1e7baa697f.js
+2024-03-07T01:50:33.7442079Z I, [2024-03-06T17:50:33.729149 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-f75215805563870a61ee9dc5a207ce46d4675c7e667558a54344fd1e7baa697f.js.gz
+2024-03-07T01:50:33.7449301Z I, [2024-03-06T17:50:33.729246 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-autoloader-c584942b568ba74879da31c7c3d51366737bacaf6fbae659383c0a5653685693.js
+2024-03-07T01:50:33.7453666Z I, [2024-03-06T17:50:33.729325 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-autoloader-c584942b568ba74879da31c7c3d51366737bacaf6fbae659383c0a5653685693.js.gz
+2024-03-07T01:50:33.7461190Z I, [2024-03-06T17:50:33.729423 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-importmap-autoloader-db2076c783bf2dbee1226e2add52fef290b5d31b5bcd1edd999ac8a6dd31c44a.js
+2024-03-07T01:50:33.7466256Z I, [2024-03-06T17:50:33.729494 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-importmap-autoloader-db2076c783bf2dbee1226e2add52fef290b5d31b5bcd1edd999ac8a6dd31c44a.js.gz
+2024-03-07T01:50:33.7473714Z I, [2024-03-06T17:50:33.729584 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-loading-3576ce92b149ad5d6959438c6f291e2426c86df3b874c525b30faad51b0d96b3.js
+2024-03-07T01:50:33.7478127Z I, [2024-03-06T17:50:33.729643 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-loading-3576ce92b149ad5d6959438c6f291e2426c86df3b874c525b30faad51b0d96b3.js.gz
+2024-03-07T01:50:33.7482642Z I, [2024-03-06T17:50:33.729743 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus.min-dd364f16ec9504dfb72672295637a1c8838773b01c0b441bd41008124c407894.js
+2024-03-07T01:50:33.7486738Z I, [2024-03-06T17:50:33.729812 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus.min-dd364f16ec9504dfb72672295637a1c8838773b01c0b441bd41008124c407894.js.gz
+2024-03-07T01:50:33.7490569Z I, [2024-03-06T17:50:33.729901 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-autoloader-c584942b568ba74879da31c7c3d51366737bacaf6fbae659383c0a5653685693.js
+2024-03-07T01:50:33.7494186Z I, [2024-03-06T17:50:33.729963 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-autoloader-c584942b568ba74879da31c7c3d51366737bacaf6fbae659383c0a5653685693.js.gz
+2024-03-07T01:50:33.7497854Z I, [2024-03-06T17:50:33.730045 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-importmap-autoloader-db2076c783bf2dbee1226e2add52fef290b5d31b5bcd1edd999ac8a6dd31c44a.js
+2024-03-07T01:50:33.7501565Z I, [2024-03-06T17:50:33.730110 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-importmap-autoloader-db2076c783bf2dbee1226e2add52fef290b5d31b5bcd1edd999ac8a6dd31c44a.js.gz
+2024-03-07T01:50:33.7505142Z I, [2024-03-06T17:50:33.730195 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-loading-3576ce92b149ad5d6959438c6f291e2426c86df3b874c525b30faad51b0d96b3.js
+2024-03-07T01:50:33.7508813Z I, [2024-03-06T17:50:33.730257 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus-loading-3576ce92b149ad5d6959438c6f291e2426c86df3b874c525b30faad51b0d96b3.js.gz
+2024-03-07T01:50:33.7512150Z I, [2024-03-06T17:50:33.730364 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus.min.js-2cc63625fa177963b45da974806e7aee846cbf1d4930815733d0fdf3fb232325.map
+2024-03-07T01:50:33.7515499Z I, [2024-03-06T17:50:33.730438 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/stimulus.min.js-2cc63625fa177963b45da974806e7aee846cbf1d4930815733d0fdf3fb232325.map.gz
+2024-03-07T01:50:33.7518887Z I, [2024-03-06T17:50:33.730530 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/activestorage-3ab61e47dd4ee2d79db525ade1dca2ede0ea2b7371fe587e408ee37b7ade265d.js
+2024-03-07T01:50:33.7522201Z I, [2024-03-06T17:50:33.730648 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/activestorage-3ab61e47dd4ee2d79db525ade1dca2ede0ea2b7371fe587e408ee37b7ade265d.js.gz
+2024-03-07T01:50:33.7525675Z I, [2024-03-06T17:50:33.730755 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/activestorage.esm-01f58a45d77495cdfbdfcc872902a430426c4391634ec9c3da5f69fbf8418492.js
+2024-03-07T01:50:33.7529026Z I, [2024-03-06T17:50:33.731667 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/activestorage.esm-01f58a45d77495cdfbdfcc872902a430426c4391634ec9c3da5f69fbf8418492.js.gz
+2024-03-07T01:50:33.7532268Z I, [2024-03-06T17:50:33.731809 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/actioncable-5433453f9b6619a9de91aaab2d7fc7ff183e5260c0107cbc9a1aa0c838d9a74e.js
+2024-03-07T01:50:33.7535703Z I, [2024-03-06T17:50:33.733703 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/actioncable-5433453f9b6619a9de91aaab2d7fc7ff183e5260c0107cbc9a1aa0c838d9a74e.js.gz
+2024-03-07T01:50:33.7538938Z I, [2024-03-06T17:50:33.733822 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/actioncable.esm-e01089c3ec4fe7817fa9abcad06cab6bdc387f95f0ca6aab4bf7ba7537f70690.js
+2024-03-07T01:50:33.7542482Z I, [2024-03-06T17:50:33.733899 #2434]  INFO -- : Writing /home/runner/work/human-essentials/human-essentials/public/assets/actioncable.esm-e01089c3ec4fe7817fa9abcad06cab6bdc387f95f0ca6aab4bf7ba7537f70690.js.gz
+2024-03-07T01:50:34.2358835Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 442 / 9942 LOC (4.45%) covered.
+2024-03-07T01:50:34.3068565Z ##[group]Run RUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec
+2024-03-07T01:50:34.3069691Z [36;1mRUBYOPT='-W:no-deprecated -W:no-experimental' bin/knapsack_pro_rspec[0m
+2024-03-07T01:50:34.3119735Z shell: /usr/bin/bash -e {0}
+2024-03-07T01:50:34.3120126Z env:
+2024-03-07T01:50:34.3120465Z   POSTGRES_HOST: localhost
+2024-03-07T01:50:34.3120934Z   DATABASE_HOST: localhost
+2024-03-07T01:50:34.3121328Z   PG_USERNAME: postgres
+2024-03-07T01:50:34.3121660Z   PG_PASSWORD: password
+2024-03-07T01:50:34.3122135Z   POSTGRES_HOST_AUTH_METHOD: trust
+2024-03-07T01:50:34.3122561Z   POSTGRES_PORT: 5432
+2024-03-07T01:50:34.3122980Z   PGHOST: localhost
+2024-03-07T01:50:34.3123339Z   PGUSER: postgres
+2024-03-07T01:50:34.3123672Z   RAILS_ENV: test
+2024-03-07T01:50:34.3124542Z   KNAPSACK_PRO_TEST_SUITE_TOKEN_RSPEC: ***
+2024-03-07T01:50:34.3125051Z   KNAPSACK_PRO_CI_NODE_TOTAL: 6
+2024-03-07T01:50:34.3125424Z   KNAPSACK_PRO_CI_NODE_INDEX: 4
+2024-03-07T01:50:34.3126084Z   KNAPSACK_PRO_RSPEC_SPLIT_BY_TEST_EXAMPLES: true
+2024-03-07T01:50:34.3126565Z   KNAPSACK_PRO_LOG_LEVEL: info
+2024-03-07T01:50:34.3127289Z   KNAPSACK_PRO_TEST_FILE_PATTERN: {spec/system/**{,/*/**}/*_spec.rb,spec/requests/**{,/*/**}/*_spec.rb}
+2024-03-07T01:50:34.3127948Z   EVENTS_READ: true
+2024-03-07T01:50:34.3128288Z ##[endgroup]
+2024-03-07T01:50:40.5674192Z I, [2024-03-07T01:50:40.566912 #2538]  INFO -- : [knapsack_pro] Generating RSpec test examples JSON report for slow test files to prepare it to be split by test examples (by individual test cases). Thanks to that, a single slow test file can be split across parallel CI nodes. Analyzing 1 slow test files.
+2024-03-07T01:50:49.7625772Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 2522 / 6650 LOC (37.92%) covered.
+2024-03-07T01:50:53.1197411Z /opt/hostedtoolcache/Ruby/3.2.2/x64/bin/ruby -I/home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-core-3.12.2/lib:/home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-support-3.12.1/lib /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-core-3.12.2/exe/rspec  --format documentation --format KnapsackPro::Formatters::TimeTracker --default-path spec "spec/system/partner_system_spec.rb" "spec/system/product_drive_participant_system_spec.rb" "spec/system/request_system_spec.rb" "spec/system/product_drive_system_spec.rb" "spec/system/vendor_system_spec.rb" "spec/system/distributions_by_county_system_spec.rb" "spec/system/dashboard_system_spec.rb[1:2:4:3:1:1]" "spec/system/log_in_system_spec.rb" "spec/requests/distributions_requests_spec.rb" "spec/system/dashboard_system_spec.rb[1:2:6:2:1:1]" "spec/system/dashboard_system_spec.rb[1:2:6:6:1:1]" "spec/system/dashboard_system_spec.rb[1:2:7:8:1:1]" "spec/system/dashboard_system_spec.rb[1:2:5:2:1:1]" "spec/system/dashboard_system_spec.rb[1:2:7:2:1:1]" "spec/system/dashboard_system_spec.rb[1:2:5:9:1:3]" "spec/system/dashboard_system_spec.rb[1:2:5:9:1:2]" "spec/system/dashboard_system_spec.rb[1:2:5:8:1:2]" "spec/system/dashboard_system_spec.rb[1:2:5:5:1:2]" "spec/system/authorization_system_spec.rb" "spec/requests/partners/profiles_requests_spec.rb" "spec/requests/users_requests_spec.rb" "spec/requests/admin_requests_spec.rb" "spec/system/dashboard_system_spec.rb[1:2:6:1]" "spec/requests/partners/requests_spec.rb" "spec/requests/admin/partners_requests_spec.rb" "spec/requests/admin/account_requests_requests_spec.rb" "spec/requests/static_requests_spec.rb"
+2024-03-07T01:51:01.7140023Z Run options: include {:ids=>{"./spec/system/dashboard_system_spec.rb"=>["1:2:4:3:1:1", "1:2:6:2:1:1", "1:2:6:6:1:1", "1:2:7:8:1:1", "1:2:5:2:1:1", "1:2:7:2:1:1", "1:2:5:9:1:3", "1:2:5:9:1:2", "1:2:5:8:1:2", "1:2:5:5:1:2", "1:2:6:1"]}}
+2024-03-07T01:51:01.7167650Z 
+2024-03-07T01:51:01.7168061Z Randomized with seed 20696
+2024-03-07T01:51:02.6827816Z 
+2024-03-07T01:51:02.6828519Z Admin
+2024-03-07T01:51:02.6829683Z   while signed in as a non-super-admin
+2024-03-07T01:51:02.7346236Z     disallows dashboard access, redirecting to the normal dashboard
+2024-03-07T01:51:02.7347022Z   while signed in as a super admin
+2024-03-07T01:51:02.7798941Z     allows a user to load the dashboard (FAILED - 1)
+2024-03-07T01:51:02.7800074Z     with rendered views
+2024-03-07T01:51:03.0327481Z       shows a logout button (FAILED - 2)
+2024-03-07T01:51:03.3028666Z       shows the recently added users email (FAILED - 3)
+2024-03-07T01:51:03.3029313Z 
+2024-03-07T01:51:03.3029576Z Admin::Partners
+2024-03-07T01:51:03.3030654Z   When logged in as a super admin
+2024-03-07T01:51:03.3031647Z     GET #edit
+2024-03-07T01:51:03.3452625Z       returns http success (FAILED - 4)
+2024-03-07T01:51:03.3453624Z     PUT #update
+2024-03-07T01:51:03.3454190Z       successful save
+2024-03-07T01:51:03.3918347Z         updates partner
+2024-03-07T01:51:03.4294818Z         redirects
+2024-03-07T01:51:03.4295628Z       unsuccessful save due to empty params
+2024-03-07T01:51:03.4711576Z         renders #edit template with error message (FAILED - 5)
+2024-03-07T01:51:03.4712752Z     GET #show
+2024-03-07T01:51:03.5075286Z       returns http success (FAILED - 6)
+2024-03-07T01:51:03.5076372Z     GET #index
+2024-03-07T01:51:03.5250766Z       returns http success (FAILED - 7)
+2024-03-07T01:51:03.5251462Z 
+2024-03-07T01:51:03.5251733Z Users
+2024-03-07T01:51:03.5253316Z   GET #index
+2024-03-07T01:51:03.5624357Z     returns http success
+2024-03-07T01:51:03.5625655Z   GET #switch_to_partner_role
+2024-03-07T01:51:03.5626353Z     without a partner role
+2024-03-07T01:51:03.7632925Z       should redirect to the root path with an error
+2024-03-07T01:51:03.7633856Z     with a partner role
+2024-03-07T01:51:03.8020344Z       should redirect to the partner path
+2024-03-07T01:51:03.8022060Z   GET #new
+2024-03-07T01:51:03.8325609Z     returns http success
+2024-03-07T01:51:03.8326436Z   POST #send_partner_user_reset_password
+2024-03-07T01:51:03.8806479Z     should return an error if it cannot find the user
+2024-03-07T01:51:04.0064150Z     should send a password
+2024-03-07T01:51:04.2183131Z     should return an error if organization does not own the partner
+2024-03-07T01:51:04.2680318Z     should return send a password even if case-insensitive spelling of email
+2024-03-07T01:51:04.2682621Z 
+2024-03-07T01:51:04.2682947Z Dashboard
+2024-03-07T01:51:04.2684404Z   With an existing essentials bank
+2024-03-07T01:51:04.2686100Z     Distributions
+2024-03-07T01:51:04.2689751Z       given 1 Distribution on 2023-12-31  (unless 'All Time'), 4 during 2024-01-01..2024-12-31, and 1 on 2025-01-01
+2024-03-07T01:51:04.2691168Z         filtering to 'This Year'
+2024-03-07T01:51:18.4860592Z           shows the correct total and 3 Recent Distribution link(s)
+2024-03-07T01:51:18.4862800Z       given 1 Distribution on 2024-03-05  (unless 'All Time'), 2 during 2024-03-06..2024-03-06, and 1 on 2024-03-07
+2024-03-07T01:51:18.4864510Z         filtering to 'Today'
+2024-03-07T01:51:19.9726985Z           shows the correct total and 2 Recent Distribution link(s)
+2024-03-07T01:51:19.9728461Z     Product Drives
+2024-03-07T01:51:19.9731908Z       given 1 Product Drive Donation on 2022-03-05 (unless 'All Time'), 3 during 2022-03-06..2024-01-14, and 1 on 2024-01-15
+2024-03-07T01:51:19.9733025Z         filtering to '' (March 6, 2022 - January 14, 2024)
+2024-03-07T01:51:21.5283806Z           shows the correct total money raised
+2024-03-07T01:51:23.0394845Z           shows 3 Recent Donation link(s)
+2024-03-07T01:51:23.0396419Z       given 1 Product Drive Donation on 2024-03-05 (unless 'All Time'), 1 during 2024-03-06..2024-03-06, and 1 on 2024-03-07
+2024-03-07T01:51:23.0397985Z         filtering to 'Today'
+2024-03-07T01:51:24.4466463Z           shows the correct total donations
+2024-03-07T01:51:24.4467960Z       given 1 Product Drive Donation on 2023-12-31 (unless 'All Time'), 1 during 2024-01-01..2024-12-31, and 1 on 2025-01-01
+2024-03-07T01:51:24.4469158Z         filtering to 'This Year'
+2024-03-07T01:51:25.8500887Z           shows the correct total money raised
+2024-03-07T01:51:25.8504166Z       given 1 Product Drive Donation on 2024-02-05 (unless 'All Time'), 0 during 2024-02-06..2024-03-06, and 1 on 2024-03-07
+2024-03-07T01:51:25.8505701Z         filtering to 'Last 30 Days'
+2024-03-07T01:51:27.2191849Z           shows the correct total money raised
+2024-03-07T01:51:27.2195854Z     Purchases
+2024-03-07T01:51:27.2199038Z       given 1 Purchase on 2024-03-04  (unless 'All Time'), 3 during 2024-03-05..2024-03-05, and 1 on 2024-03-06
+2024-03-07T01:51:27.2200043Z         filtering to 'Yesterday'
+2024-03-07T01:51:28.7090488Z           shows correct 3 Recent Purchase link(s)
+2024-03-07T01:51:28.7095867Z     Manufacturer Donations
+2024-03-07T01:51:29.3045485Z       has a link to create a new donation
+2024-03-07T01:51:29.3051059Z       given 1 Manufacturer donating on 2024-03-05  (unless 'All Time'), 6 during 2024-03-06..2024-03-06, and 1 on 2024-03-07
+2024-03-07T01:51:29.3052561Z         filtering to 'Today'
+2024-03-07T01:51:31.4584259Z           shows the correct total and 8 Top Manufacturer Donation link(s)
+2024-03-07T01:51:31.4586430Z       given 1 Manufacturer donating on 2024-02-29  (unless 'All Time'), 3 during 2024-03-01..2024-03-31, and 1 on 2024-04-01
+2024-03-07T01:51:31.4587989Z         filtering to 'This Month'
+2024-03-07T01:51:33.0716943Z           shows the correct total and 5 Top Manufacturer Donation link(s)
+2024-03-07T01:51:33.0720062Z 
+2024-03-07T01:51:33.0722348Z Participant
+2024-03-07T01:51:33.0722946Z   When a user views the index page
+2024-03-07T01:51:33.5763218Z     alphabetizes the product drive participant names
+2024-03-07T01:51:33.5763913Z     When the s have donations associated with them already
+2024-03-07T01:51:34.4340360Z       allows single  Participants to show semi-detailed stats about donations from that product drive
+2024-03-07T01:51:35.2924715Z       shows existing  Participants in the #index with some summary stats
+2024-03-07T01:51:35.2926132Z   when editing an existing product drive participant
+2024-03-07T01:51:36.0679233Z     does not allow a user to update a product drive participant with empty attributes
+2024-03-07T01:51:36.8688276Z     allows a user to update the contact info for a product drive participant
+2024-03-07T01:51:36.8689443Z   when creating new product drive participants
+2024-03-07T01:51:37.6121178Z     does not allow a user to add a new product drive instance with empty attributes
+2024-03-07T01:51:38.4239070Z     allows a user to create a new product drive instance
+2024-03-07T01:51:38.4240246Z 
+2024-03-07T01:51:38.4240583Z Distributions
+2024-03-07T01:51:38.4242140Z   While not signed in
+2024-03-07T01:51:38.4553000Z     redirects the user to the sign-in page for CRUD actions
+2024-03-07T01:51:38.4553949Z     GET #calendar
+2024-03-07T01:51:38.4554394Z       without a correct hash id
+2024-03-07T01:51:38.4638541Z         should error unauthorized
+2024-03-07T01:51:38.4639315Z       with a correct hash id
+2024-03-07T01:51:38.4755700Z         should render the calendar
+2024-03-07T01:51:38.4758975Z   While signed in
+2024-03-07T01:51:38.4761791Z     Looking at a different organization
+2024-03-07T01:51:38.6779787Z       redirects the user to the sign-in page for CRUD actions
+2024-03-07T01:51:38.6780572Z     GET #edit
+2024-03-07T01:51:38.7948412Z       should show a warning if there is an inteverning audit
+2024-03-07T01:51:38.8912455Z       should not show a warning if the audit is for another location
+2024-03-07T01:51:38.9755223Z       should show the distribution
+2024-03-07T01:51:38.9756193Z     GET #schedule
+2024-03-07T01:51:39.0066576Z       returns http success
+2024-03-07T01:51:39.0067393Z     GET #itemized_breakdown
+2024-03-07T01:51:39.0234239Z       returns http success
+2024-03-07T01:51:39.0234969Z     GET #reclaim
+2024-03-07T01:51:39.1005619Z       returns http success
+2024-03-07T01:51:39.1006650Z     GET #pickup_day
+2024-03-07T01:51:39.2111641Z       correctly sums the item package counts from distributions
+2024-03-07T01:51:39.2414322Z       returns http success
+2024-03-07T01:51:39.3514130Z       correctly sums the item counts from distributions
+2024-03-07T01:51:39.3515692Z     GET #print
+2024-03-07T01:51:39.3911575Z       returns http success
+2024-03-07T01:51:39.3912684Z       with non-UTF8 characters
+2024-03-07T01:51:39.4304888Z         returns http success
+2024-03-07T01:51:39.4306411Z     POST #create
+2024-03-07T01:51:39.4924995Z       redirects to #show on success
+2024-03-07T01:51:39.5483997Z       renders #new again on failure, with notice
+2024-03-07T01:51:39.5484620Z     GET #show
+2024-03-07T01:51:39.6613291Z       sums distribution totals accurately
+2024-03-07T01:51:39.7192482Z       returns http success
+2024-03-07T01:51:39.7193320Z     PATCH #picked_up
+2024-03-07T01:51:39.7194385Z       when the distribution is successfully updated
+2024-03-07T01:51:39.7636472Z         updates the state to 'complete'
+2024-03-07T01:51:39.8074607Z         redirects the user back to the distributions page
+2024-03-07T01:51:39.8076464Z     GET #new
+2024-03-07T01:51:39.8975122Z       returns http success
+2024-03-07T01:51:39.8975973Z       with org default but no partner default
+2024-03-07T01:51:40.0201205Z         selects org default
+2024-03-07T01:51:40.0202011Z       with partner default
+2024-03-07T01:51:40.1811760Z         selects partner default
+2024-03-07T01:51:40.1812524Z     GET #index
+2024-03-07T01:51:40.3832161Z       sums distribution totals accurately
+2024-03-07T01:51:40.4193752Z       returns http success
+2024-03-07T01:51:40.4195414Z     POST #update
+2024-03-07T01:51:40.4895834Z       returns a 200
+2024-03-07T01:51:40.4896546Z       mail follow up
+2024-03-07T01:51:40.5558491Z         does not send an e-mail
+2024-03-07T01:51:40.5559554Z         sending
+2024-03-07T01:51:40.6498194Z           does send an e-mail
+2024-03-07T01:51:40.6499295Z         partner reminder sending switched off
+2024-03-07T01:51:40.7237124Z           does not send the e-mail
+2024-03-07T01:51:40.7238237Z       when changing storage location
+2024-03-07T01:51:40.9027646Z         updates storage quantity correctly
+2024-03-07T01:51:40.9071741Z         rollsback updates if quantity would go below 0
+2024-03-07T01:51:40.9072743Z 
+2024-03-07T01:51:40.9073025Z Authentication
+2024-03-07T01:51:40.9074615Z   Deactivated user
+2024-03-07T01:51:41.6347512Z     should not allow the user to log in
+2024-03-07T01:51:41.6348412Z   Showing the modal warning in staging
+2024-03-07T01:51:41.6349354Z     when accessing /users/sign_in in the staging environment
+2024-03-07T01:51:42.0762236Z       should render the modal
+2024-03-07T01:51:42.0763279Z     when accessing /users/password/new in the staging environment
+2024-03-07T01:51:42.5024458Z       should render the modal
+2024-03-07T01:51:42.5025650Z     when accessing /users/password/new not in the staging environment
+2024-03-07T01:51:42.9325374Z       should not render the modal
+2024-03-07T01:51:42.9326439Z     when accessing /users/sign_in not in the staging environment
+2024-03-07T01:51:43.3623918Z       should not render the modal
+2024-03-07T01:51:43.3624782Z   Success
+2024-03-07T01:51:43.9337329Z     should show dashboard upon signin
+2024-03-07T01:51:43.9337785Z 
+2024-03-07T01:51:43.9338302Z Authorization
+2024-03-07T01:51:44.4888755Z   redirects to the organization dashboard when authorized
+2024-03-07T01:51:45.0573536Z   redirects to the dashboard when unauthorized user attempts access
+2024-03-07T01:51:45.0574328Z 
+2024-03-07T01:51:45.0574554Z /partners/requests
+2024-03-07T01:51:45.0575973Z   GET #new
+2024-03-07T01:51:45.1227316Z     should render without any issues
+2024-03-07T01:51:45.1228167Z   GET #show
+2024-03-07T01:51:45.1733968Z     should give a 404 error if not found
+2024-03-07T01:51:45.2439242Z     should give a 404 error if forbidden
+2024-03-07T01:51:45.3034171Z     should render without any issues
+2024-03-07T01:51:45.3035049Z   POST #create
+2024-03-07T01:51:45.3035644Z     when given invalid parameters
+2024-03-07T01:51:45.3603439Z       should not redirect
+2024-03-07T01:51:45.3604204Z     when given valid parameters
+2024-03-07T01:51:45.4117334Z       should redirect to the show page
+2024-03-07T01:51:45.4118445Z   GET #index
+2024-03-07T01:51:45.4715003Z     should display total count of items in partner request
+2024-03-07T01:51:45.5152419Z     should render without any issues
+2024-03-07T01:51:45.5152978Z 
+2024-03-07T01:51:45.5153310Z Distributions by County
+2024-03-07T01:51:45.5153964Z   handles time ranges properly
+2024-03-07T01:51:47.3080696Z     works for this year
+2024-03-07T01:51:49.0738303Z     works for all time
+2024-03-07T01:51:49.0739076Z 
+2024-03-07T01:51:49.0739361Z Static
+2024-03-07T01:51:49.0741000Z   Not signed in
+2024-03-07T01:51:49.0741874Z     GET #page/privacypolicy
+2024-03-07T01:51:49.0830967Z       renders the contact page
+2024-03-07T01:51:49.0831850Z     GET #index
+2024-03-07T01:51:49.0913487Z       returns http success
+2024-03-07T01:51:49.0978651Z       renders the static index
+2024-03-07T01:51:49.0979734Z   Non super user without org signed in
+2024-03-07T01:51:49.0980457Z     GET #index
+2024-03-07T01:51:49.1192292Z       redirects to a public/403.html page
+2024-03-07T01:51:49.1193348Z   Signed in
+2024-03-07T01:51:49.1193753Z     GET #index
+2024-03-07T01:51:49.1315039Z       redirects to organization dashboard
+2024-03-07T01:51:49.1316059Z   Super user without org signed in
+2024-03-07T01:51:49.1316682Z     GET #index
+2024-03-07T01:51:49.1419964Z       redirects to admin dashboard
+2024-03-07T01:51:49.1421381Z 
+2024-03-07T01:51:49.1421599Z Requests
+2024-03-07T01:51:49.1423442Z   canceling a request as a bank user
+2024-03-07T01:51:49.1424192Z     when a bank user cancels a request
+2024-03-07T01:51:50.4024712Z       should set the request as canceled/discarded and contain the reason
+2024-03-07T01:51:50.4026275Z   #index
+2024-03-07T01:51:51.0154380Z     lists requests
+2024-03-07T01:51:51.7734985Z     can be exported in CSV
+2024-03-07T01:51:51.7735822Z     when filtering on the index page
+2024-03-07T01:51:51.7737014Z       when filtering by status
+2024-03-07T01:51:52.7090743Z         constrains the list
+2024-03-07T01:51:52.7091629Z       when filtering by partner
+2024-03-07T01:51:53.6461368Z         constrains the list
+2024-03-07T01:51:53.6462237Z       when exporting as CSV
+2024-03-07T01:51:54.6638126Z         respects the applied filters
+2024-03-07T01:51:54.6639173Z       when filtering by item
+2024-03-07T01:51:55.5999769Z         constrains the list
+2024-03-07T01:51:55.6000474Z       with filters cleared
+2024-03-07T01:51:56.5390094Z         displays all requests
+2024-03-07T01:51:56.5391072Z     behaves like Date Range Picker
+2024-03-07T01:51:56.5392134Z       when choosing 'Last Month'
+2024-03-07T01:51:57.6586828Z         shows only 2 of the records
+2024-03-07T01:51:57.6588025Z       when choosing 'All Time'
+2024-03-07T01:51:58.7415684Z         shows all the records
+2024-03-07T01:51:58.7416399Z       when choosing a date range that only includes the previous week
+2024-03-07T01:51:59.8001377Z         shows only 1 record
+2024-03-07T01:51:59.8002329Z   #show
+2024-03-07T01:52:00.3294919Z     should show the request with a request sender if a partner user is set
+2024-03-07T01:52:00.8577887Z     should show the request without a request sender if a partner user is not set
+2024-03-07T01:52:01.4497552Z     should show the number of items on-hand
+2024-03-07T01:52:01.4498447Z     change status request
+2024-03-07T01:52:02.5936409Z       should change to started
+2024-03-07T01:52:02.5937286Z       when save the distribution
+2024-03-07T01:52:04.4673989Z         should change request to fulfilled
+2024-03-07T01:52:04.4674914Z 
+2024-03-07T01:52:04.4675342Z Vendor
+2024-03-07T01:52:04.4677304Z   When a user views the index page
+2024-03-07T01:52:04.9608526Z     should have the vendor names in alphabetical order
+2024-03-07T01:52:04.9609400Z   When vendor have purchases associated with them already
+2024-03-07T01:52:05.6396283Z     can have a single vendor show semi-detailed stats about purchases
+2024-03-07T01:52:06.3403369Z     can have existing vendors show in the #index with some summary stats
+2024-03-07T01:52:06.3404151Z   when creating a new vendor
+2024-03-07T01:52:07.1372310Z     can create a new vendor instance as a user
+2024-03-07T01:52:07.8832023Z     cannot add a new vendor instance with empty attributes
+2024-03-07T01:52:07.8832811Z   when editing an existing vendor
+2024-03-07T01:52:08.6828162Z     can update the contact info for a vendor as a user
+2024-03-07T01:52:09.4633907Z     does not update a vendor with empty attributes
+2024-03-07T01:52:09.4635776Z 
+2024-03-07T01:52:09.4636071Z Partner management
+2024-03-07T01:52:09.4638854Z   adding a new partner and inviting them
+2024-03-07T01:52:09.4640005Z     when adding & inviting a partner successfully
+2024-03-07T01:52:11.0335848Z       should have added the partner and invited them
+2024-03-07T01:52:11.0336976Z     when adding a partner incorrectly
+2024-03-07T01:52:12.0715318Z       should have not added a new partner and indicate the failure
+2024-03-07T01:52:12.0716835Z   partner group management
+2024-03-07T01:52:12.0717761Z     editing a existing partner group
+2024-03-07T01:52:15.5965636Z       should allow updating the partner name
+2024-03-07T01:52:15.5966226Z     creating a new partner group
+2024-03-07T01:52:16.9536118Z       should allow creating a new partner group with item categories
+2024-03-07T01:52:16.9537235Z   requesting recertification of a partner
+2024-03-07T01:52:16.9538480Z     GIVEN a user goes through the process of requesting recertification of partner
+2024-03-07T01:52:17.7870611Z       should notify the user that its been successful and change the partner status
+2024-03-07T01:52:17.7872342Z   approving a partner that is awaiting approval
+2024-03-07T01:52:17.7873347Z     when the approval does not succeed
+2024-03-07T01:52:18.9850703Z       should show an error message and not approve the partner
+2024-03-07T01:52:18.9851496Z     when the approval succeeds
+2024-03-07T01:52:20.0640864Z       should approve the partner
+2024-03-07T01:52:20.0641880Z   changing partner group association
+2024-03-07T01:52:20.0642943Z     when the partner has no partner group
+2024-03-07T01:52:20.5635537Z       it should say they can request every item
+2024-03-07T01:52:20.5636238Z     when a partner is assigned to partner group
+2024-03-07T01:52:20.5637075Z       that has requestable item categories
+2024-03-07T01:52:21.7086617Z         should properly indicate the requestable items and adjust the partners requestable items
+2024-03-07T01:52:21.7087912Z       that has no requestable item categories
+2024-03-07T01:52:22.8487996Z         should properly indicate the requestable items and adjust the partners requestable items
+2024-03-07T01:52:22.8489192Z   one step inviting a partner
+2024-03-07T01:52:22.8490348Z     when partner is uninvited and one step partner invite setting is on
+2024-03-07T01:52:23.3377758Z Modal window with text `One step invite and approve Leslie Sue, the 52 to begin using the partner application?` has been opened, but you didn't wrap your code into (`accept_prompt` | `dismiss_prompt` | `accept_confirm` | `dismiss_confirm` | `accept_alert`), accepting by default
+2024-03-07T01:52:23.6829100Z       shows Invite and Approve button and approves the partner when clicked
+2024-03-07T01:52:23.6832426Z     when one step partner invite setting is off
+2024-03-07T01:52:24.1785936Z       does not show invite and approve button
+2024-03-07T01:52:24.1786994Z   #approve_partner
+2024-03-07T01:52:24.1788231Z     when partner has :awaiting_review status
+2024-03-07T01:52:25.0488526Z       is expected to have visible link or button "Approve Partner"
+2024-03-07T01:52:25.0489518Z     when partner has :invited status
+2024-03-07T01:52:25.9113204Z       is expected to have visible link or button "Approve Partner"
+2024-03-07T01:52:25.9114714Z     when viewing a partner's users
+2024-03-07T01:52:26.4588285Z       can show users of a partner
+2024-03-07T01:52:26.4589222Z   #new
+2024-03-07T01:52:26.9340431Z     should not display inactive storage locations in dropdown
+2024-03-07T01:52:27.9267316Z     User can add a new partner
+2024-03-07T01:52:28.6941473Z     disallows a user from creating a new partner with empty name
+2024-03-07T01:52:28.6942320Z   #edit
+2024-03-07T01:52:29.4879009Z     prevents a user from updating a partner with empty name
+2024-03-07T01:52:30.4568756Z     User can uncheck send_reminders
+2024-03-07T01:52:31.2963996Z     User can update a partner
+2024-03-07T01:52:31.2964660Z   #show
+2024-03-07T01:52:31.2965600Z     when viewing a deactivated partner
+2024-03-07T01:52:31.8256115Z       allows reactivation
+2024-03-07T01:52:31.8256715Z     when viewing an uninvited partner
+2024-03-07T01:52:32.3590786Z       only has an edit option available
+2024-03-07T01:52:32.3591886Z     when viewing an invited partner as a partner
+2024-03-07T01:52:32.9563191Z       redirects user to partners page root page (dashboard) with error message
+2024-03-07T01:52:32.9564466Z     when exporting as CSV
+2024-03-07T01:52:32.9565087Z       when filtering
+2024-03-07T01:52:33.7789202Z         preserves the filter constraints in the CSV output
+2024-03-07T01:52:33.7790061Z   #index
+2024-03-07T01:52:34.3859056Z     shows invite button only for unapproved partners
+2024-03-07T01:52:35.5172307Z     allows a user to invite a partner
+2024-03-07T01:52:36.1010285Z     displays the partner agency names in alphabetical order
+2024-03-07T01:52:36.1010897Z     when filtering
+2024-03-07T01:52:36.9733043Z       allows the user to click on one of the statuses at the top to filter the results
+2024-03-07T01:52:36.9734053Z     when exporting as CSV
+2024-03-07T01:52:36.9734465Z       when filtering
+2024-03-07T01:52:38.0223553Z         preserves the filter constraints in the CSV output
+2024-03-07T01:52:38.0224798Z 
+2024-03-07T01:52:38.0227144Z Product Drives
+2024-03-07T01:52:38.0228052Z   When visiting the index page without parameters
+2024-03-07T01:52:38.5609062Z     shows the expected product drives
+2024-03-07T01:52:39.0684624Z     shows two non-virtual product drives
+2024-03-07T01:52:39.5793450Z     shows only one virtual product drives
+2024-03-07T01:52:40.0883905Z     shows in descending order of start date
+2024-03-07T01:52:40.6204245Z     Shows the expected filters with the expected values and in alphabetical order for name filter
+2024-03-07T01:52:40.6205083Z   when showing a Product Drive with no end date
+2024-03-07T01:52:41.0979310Z     must be able to show the product drive
+2024-03-07T01:52:41.0980217Z   when creating a normal product drive
+2024-03-07T01:52:41.9401508Z     must have the success message
+2024-03-07T01:52:42.7782628Z     must have correct attributes
+2024-03-07T01:52:43.5688965Z     must create a new product drive
+2024-03-07T01:52:43.5689742Z   when creating a Virtual Product Drive
+2024-03-07T01:52:44.5211563Z     must create a new virtual Product Drive
+2024-03-07T01:52:45.5516413Z     must have correct attributes
+2024-03-07T01:52:46.4989126Z     must have the success message
+2024-03-07T01:52:46.4991873Z 
+2024-03-07T01:52:46.4992417Z /partners/profiles
+2024-03-07T01:52:46.4993553Z   GET #edit
+2024-03-07T01:52:46.6076521Z     has "No" radio button value when value is false
+2024-03-07T01:52:46.6991758Z     has "Yes" radio button value when value is true
+2024-03-07T01:52:46.7978192Z     does not have default radio button value when value is nil
+2024-03-07T01:52:46.8870618Z     displays the partner
+2024-03-07T01:52:46.8871329Z   GET #show
+2024-03-07T01:52:46.9495572Z     shows correct values for yes/no buttons
+2024-03-07T01:52:47.0028269Z     displays the partner
+2024-03-07T01:52:47.0028984Z   PUT #update
+2024-03-07T01:52:47.0600430Z     updates the partner and profile
+2024-03-07T01:52:47.0601654Z     when updating an existing value to a blank value
+2024-03-07T01:52:47.1172559Z       updates the partner profile attribute to a blank value
+2024-03-07T01:52:47.1764855Z       does store N/A in the database
+2024-03-07T01:52:47.2307089Z       does not update other partner profile attributes to blank
+2024-03-07T01:52:47.2308714Z     with no social media
+2024-03-07T01:52:47.3352179Z       shows an error
+2024-03-07T01:52:47.3352865Z 
+2024-03-07T01:52:47.3353346Z Admin::AccountRequestsController
+2024-03-07T01:52:47.3354471Z   while signed in as a super admin
+2024-03-07T01:52:47.3357587Z     GET #for_rejection
+2024-03-07T01:52:47.3358722Z       with a valid token
+2024-03-07T01:52:47.3758960Z         should show the request (FAILED - 8)
+2024-03-07T01:52:47.3760132Z       with an invalid token
+2024-03-07T01:52:47.3913377Z         should show a not found message (FAILED - 9)
+2024-03-07T01:52:47.3914279Z     GET #index
+2024-03-07T01:52:47.4107893Z       returns success (FAILED - 10)
+2024-03-07T01:52:47.4109030Z     POST #reject
+2024-03-07T01:52:47.4341444Z       should redirect back on success
+2024-03-07T01:52:47.7556300Z 
+2024-03-07T01:52:47.7557407Z Deprecation Warnings:
+2024-03-07T01:52:47.7557861Z 
+2024-03-07T01:52:47.7557872Z 
+2024-03-07T01:52:47.7561661Z Using `should` from rspec-expectations' old `:should` syntax without explicitly enabling the syntax is deprecated. Use the new `:expect` syntax or explicitly enable `:should` with `config.expect_with(:rspec) { |c| c.syntax = :should }` instead. Called from /home/runner/work/human-essentials/human-essentials/spec/system/partner_system_spec.rb:140:in `block (5 levels) in <top (required)>'.
+2024-03-07T01:52:47.7565330Z Failures:
+2024-03-07T01:52:47.7565872Z 
+2024-03-07T01:52:47.7565880Z 
+2024-03-07T01:52:47.7566357Z If you need more of the backtrace for any of these deprecations to
+2024-03-07T01:52:47.7567471Z identify where to make the necessary changes, you can configure
+2024-03-07T01:52:47.7568645Z `config.raise_errors_for_deprecations!`, and it will turn the
+2024-03-07T01:52:47.7569156Z 
+2024-03-07T01:52:47.7569723Z   1) Admin while signed in as a super admin allows a user to load the dashboard
+2024-03-07T01:52:47.7571312Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7572191Z 
+2024-03-07T01:52:47.7572586Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7573996Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x000000000322f8>
+2024-03-07T01:52:47.7575732Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7577754Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7579331Z      # ./spec/requests/admin_requests_spec.rb:8:in `block (3 levels) in <top (required)>'
+2024-03-07T01:52:47.7580399Z      # ------------------
+2024-03-07T01:52:47.7581096Z      # --- Caused by: ---
+2024-03-07T01:52:47.7581662Z      # NameError:
+2024-03-07T01:52:47.7583001Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x000000000322f8>
+2024-03-07T01:52:47.7584777Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7586083Z 
+2024-03-07T01:52:47.7586732Z   2) Admin while signed in as a super admin with rendered views shows a logout button
+2024-03-07T01:52:47.7588383Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7589210Z 
+2024-03-07T01:52:47.7589486Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7590792Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x000000000323c0>
+2024-03-07T01:52:47.7592660Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7594558Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7596136Z      # ./spec/requests/admin_requests_spec.rb:18:in `block (4 levels) in <top (required)>'
+2024-03-07T01:52:47.7597662Z      # ------------------
+2024-03-07T01:52:47.7598300Z      # --- Caused by: ---
+2024-03-07T01:52:47.7598949Z      # NameError:
+2024-03-07T01:52:47.7600196Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x000000000323c0>
+2024-03-07T01:52:47.7602176Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7603236Z 
+2024-03-07T01:52:47.7604059Z   3) Admin while signed in as a super admin with rendered views shows the recently added users email 
+2024-03-07T01:52:47.7605679Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7606545Z 
+2024-03-07T01:52:47.7606776Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7608223Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032988>
+2024-03-07T01:52:47.7610004Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7611880Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7613589Z      # ./spec/requests/admin_requests_spec.rb:23:in `block (4 levels) in <top (required)>'
+2024-03-07T01:52:47.7614648Z      # ------------------
+2024-03-07T01:52:47.7615366Z      # --- Caused by: ---
+2024-03-07T01:52:47.7615932Z      # NameError:
+2024-03-07T01:52:47.7617112Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032988>
+2024-03-07T01:52:47.7619007Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7620114Z 
+2024-03-07T01:52:47.7620703Z   4) Admin::Partners When logged in as a super admin GET #edit returns http success
+2024-03-07T01:52:47.7622270Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7623241Z 
+2024-03-07T01:52:47.7623485Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7624862Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032a50>
+2024-03-07T01:52:47.7627101Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7629004Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7630675Z      # ./spec/requests/admin/partners_requests_spec.rb:27:in `block (4 levels) in <top (required)>'
+2024-03-07T01:52:47.7631936Z      # ------------------
+2024-03-07T01:52:47.7632551Z      # --- Caused by: ---
+2024-03-07T01:52:47.7633081Z      # NameError:
+2024-03-07T01:52:47.7634474Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032a50>
+2024-03-07T01:52:47.7636348Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7637745Z 
+2024-03-07T01:52:47.7638746Z   5) Admin::Partners When logged in as a super admin PUT #update unsuccessful save due to empty params renders #edit template with error message
+2024-03-07T01:52:47.7640759Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7641797Z 
+2024-03-07T01:52:47.7642093Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7643602Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032be0>
+2024-03-07T01:52:47.7645504Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7648030Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7649742Z      # ./app/controllers/admin/partners_controller.rb:20:in `update'
+2024-03-07T01:52:47.7651433Z      # ./spec/requests/admin/partners_requests_spec.rb:47:in `block (5 levels) in <top (required)>'
+2024-03-07T01:52:47.7653467Z      # ./spec/requests/admin/partners_requests_spec.rb:50:in `block (5 levels) in <top (required)>'
+2024-03-07T01:52:47.7654794Z      # ------------------
+2024-03-07T01:52:47.7655644Z      # --- Caused by: ---
+2024-03-07T01:52:47.7656332Z      # NameError:
+2024-03-07T01:52:47.7657986Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032be0>
+2024-03-07T01:52:47.7659941Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7661146Z 
+2024-03-07T01:52:47.7661768Z   6) Admin::Partners When logged in as a super admin GET #show returns http success
+2024-03-07T01:52:47.7663639Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7664537Z 
+2024-03-07T01:52:47.7664851Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7666650Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032c58>
+2024-03-07T01:52:47.7974226Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7976261Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7977831Z      # ./spec/requests/admin/partners_requests_spec.rb:20:in `block (4 levels) in <top (required)>'
+2024-03-07T01:52:47.7979035Z      # ------------------
+2024-03-07T01:52:47.7979538Z      # --- Caused by: ---
+2024-03-07T01:52:47.7979977Z      # NameError:
+2024-03-07T01:52:47.7981197Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032c58>
+2024-03-07T01:52:47.7982865Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7983865Z 
+2024-03-07T01:52:47.7984381Z   7) Admin::Partners When logged in as a super admin GET #index returns http success
+2024-03-07T01:52:47.7986086Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.7986883Z 
+2024-03-07T01:52:47.7987088Z      ActionView::Template::Error:
+2024-03-07T01:52:47.7988345Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032cd0>
+2024-03-07T01:52:47.7990012Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7991774Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.7993333Z      # ./spec/requests/admin/partners_requests_spec.rb:13:in `block (4 levels) in <top (required)>'
+2024-03-07T01:52:47.7994373Z      # ------------------
+2024-03-07T01:52:47.7994877Z      # --- Caused by: ---
+2024-03-07T01:52:47.7995323Z      # NameError:
+2024-03-07T01:52:47.7996439Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x00000000032cd0>
+2024-03-07T01:52:47.7998080Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.7999109Z 
+2024-03-07T01:52:47.7999974Z   8) Admin::AccountRequestsController while signed in as a super admin GET #for_rejection with a valid token should show the request
+2024-03-07T01:52:47.8001745Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.8002993Z 
+2024-03-07T01:52:47.8003196Z      ActionView::Template::Error:
+2024-03-07T01:52:47.8004440Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x0000000004bf50>
+2024-03-07T01:52:47.8006091Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.8008117Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.8009739Z      # ./spec/requests/admin/account_requests_requests_spec.rb:31:in `block (5 levels) in <top (required)>'
+2024-03-07T01:52:47.8010828Z      # ------------------
+2024-03-07T01:52:47.8011328Z      # --- Caused by: ---
+2024-03-07T01:52:47.8011773Z      # NameError:
+2024-03-07T01:52:47.8012876Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x0000000004bf50>
+2024-03-07T01:52:47.8014529Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.8015535Z 
+2024-03-07T01:52:47.8016481Z   9) Admin::AccountRequestsController while signed in as a super admin GET #for_rejection with an invalid token should show a not found message
+2024-03-07T01:52:47.8018311Z      Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.8019534Z deprecation warnings into errors, giving you the full backtrace.
+2024-03-07T01:52:47.8020132Z 
+2024-03-07T01:52:47.8020324Z      ActionView::Template::Error:
+2024-03-07T01:52:47.8021564Z        undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x0000000004bfa0>
+2024-03-07T01:52:47.8065775Z      # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.8066919Z      # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.8067892Z      # ./spec/requests/admin/account_requests_requests_spec.rb:22:in `block (5 levels) in <top (required)>'
+2024-03-07T01:52:47.8068663Z      # ------------------
+2024-03-07T01:52:47.8069056Z      # --- Caused by: ---
+2024-03-07T01:52:47.8069387Z      # NameError:
+2024-03-07T01:52:47.8070236Z      #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x0000000004bfa0>
+2024-03-07T01:52:47.8071455Z      #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.8072208Z 
+2024-03-07T01:52:47.8072671Z   10) Admin::AccountRequestsController while signed in as a super admin GET #index returns success
+2024-03-07T01:52:47.8073782Z       Failure/Error: <li class="nav-item <%= 'active' if current_page?(admin_barcode_items_path) %>">
+2024-03-07T01:52:47.8074358Z 
+2024-03-07T01:52:47.8074508Z       ActionView::Template::Error:
+2024-03-07T01:52:47.8075379Z         undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x0000000004c040>
+2024-03-07T01:52:47.8076578Z       # ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.8077833Z       # ./app/views/layouts/application.html.erb:80:in `_app_views_layouts_application_html_erb__507248033861601437_102720'
+2024-03-07T01:52:47.8078878Z       # ./spec/requests/admin/account_requests_requests_spec.rb:11:in `block (4 levels) in <top (required)>'
+2024-03-07T01:52:47.8079492Z       # ------------------
+2024-03-07T01:52:47.8079787Z       # --- Caused by: ---
+2024-03-07T01:52:47.8080056Z       # NameError:
+2024-03-07T01:52:47.8080692Z       #   undefined local variable or method `admin_barcode_items_path' for #<ActionView::Base:0x0000000004c040>
+2024-03-07T01:52:47.8081643Z       #   ./app/views/layouts/_lte_admin_sidebar.html.erb:17:in `_app_views_layouts__lte_admin_sidebar_html_erb__3360805094800462899_102760'
+2024-03-07T01:52:47.8082503Z 
+2024-03-07T01:52:47.8082615Z 1 deprecation warning total
+2024-03-07T01:52:47.8082808Z 
+2024-03-07T01:52:47.8083036Z Finished in 1 minute 46.01 seconds (files took 8.36 seconds to load)
+2024-03-07T01:52:47.8083488Z 172 examples, 10 failures
+2024-03-07T01:52:47.8083675Z 
+2024-03-07T01:52:47.8083767Z Failed examples:
+2024-03-07T01:52:47.8084074Z 
+2024-03-07T01:52:47.8084541Z rspec ./spec/requests/admin_requests_spec.rb:7 # Admin while signed in as a super admin allows a user to load the dashboard
+2024-03-07T01:52:47.8085614Z rspec ./spec/requests/admin_requests_spec.rb:17 # Admin while signed in as a super admin with rendered views shows a logout button
+2024-03-07T01:52:47.8086785Z rspec ./spec/requests/admin_requests_spec.rb:22 # Admin while signed in as a super admin with rendered views shows the recently added users email 
+2024-03-07T01:52:47.8087988Z rspec ./spec/requests/admin/partners_requests_spec.rb:26 # Admin::Partners When logged in as a super admin GET #edit returns http success
+2024-03-07T01:52:47.8089426Z rspec ./spec/requests/admin/partners_requests_spec.rb:49 # Admin::Partners When logged in as a super admin PUT #update unsuccessful save due to empty params renders #edit template with error message
+2024-03-07T01:52:47.8090830Z rspec ./spec/requests/admin/partners_requests_spec.rb:19 # Admin::Partners When logged in as a super admin GET #show returns http success
+2024-03-07T01:52:47.8092038Z rspec ./spec/requests/admin/partners_requests_spec.rb:12 # Admin::Partners When logged in as a super admin GET #index returns http success
+2024-03-07T01:52:47.8093433Z rspec ./spec/requests/admin/account_requests_requests_spec.rb:28 # Admin::AccountRequestsController while signed in as a super admin GET #for_rejection with a valid token should show the request
+2024-03-07T01:52:47.8095079Z rspec ./spec/requests/admin/account_requests_requests_spec.rb:20 # Admin::AccountRequestsController while signed in as a super admin GET #for_rejection with an invalid token should show a not found message
+2024-03-07T01:52:47.8096597Z rspec ./spec/requests/admin/account_requests_requests_spec.rb:10 # Admin::AccountRequestsController while signed in as a super admin GET #index returns success
+2024-03-07T01:52:47.8097319Z 
+2024-03-07T01:52:47.8097432Z Randomized with seed 20696
+2024-03-07T01:52:47.8097618Z 
+2024-03-07T01:52:48.0689607Z Stopped processing SimpleCov as a previous error not related to SimpleCov has been detected
+2024-03-07T01:52:48.0691835Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 3855 / 6435 LOC (59.91%) covered.
+2024-03-07T01:52:48.1769581Z /opt/hostedtoolcache/Ruby/3.2.2/x64/bin/ruby -I/home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-core-3.12.2/lib:/home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-support-3.12.1/lib /home/runner/work/human-essentials/human-essentials/vendor/bundle/ruby/3.2.0/gems/rspec-core-3.12.2/exe/rspec  --format documentation --format KnapsackPro::Formatters::TimeTracker --default-path spec "spec/system/partner_system_spec.rb" "spec/system/product_drive_participant_system_spec.rb" "spec/system/request_system_spec.rb" "spec/system/product_drive_system_spec.rb" "spec/system/vendor_system_spec.rb" "spec/system/distributions_by_county_system_spec.rb" "spec/system/dashboard_system_spec.rb[1:2:4:3:1:1]" "spec/system/log_in_system_spec.rb" "spec/requests/distributions_requests_spec.rb" "spec/system/dashboard_system_spec.rb[1:2:6:2:1:1]" "spec/system/dashboard_system_spec.rb[1:2:6:6:1:1]" "spec/system/dashboard_system_spec.rb[1:2:7:8:1:1]" "spec/system/dashboard_system_spec.rb[1:2:5:2:1:1]" "spec/system/dashboard_system_spec.rb[1:2:7:2:1:1]" "spec/system/dashboard_system_spec.rb[1:2:5:9:1:3]" "spec/system/dashboard_system_spec.rb[1:2:5:9:1:2]" "spec/system/dashboard_system_spec.rb[1:2:5:8:1:2]" "spec/system/dashboard_system_spec.rb[1:2:5:5:1:2]" "spec/system/authorization_system_spec.rb" "spec/requests/partners/profiles_requests_spec.rb" "spec/requests/users_requests_spec.rb" "spec/requests/admin_requests_spec.rb" "spec/system/dashboard_system_spec.rb[1:2:6:1]" "spec/requests/partners/requests_spec.rb" "spec/requests/admin/partners_requests_spec.rb" "spec/requests/admin/account_requests_requests_spec.rb" "spec/requests/static_requests_spec.rb" failed
+2024-03-07T01:52:48.5754976Z Stopped processing SimpleCov as a previous error not related to SimpleCov has been detected
+2024-03-07T01:52:48.5756411Z Coverage report generated for RSpec to /home/runner/work/human-essentials/human-essentials/coverage. 38 / 10705 LOC (0.35%) covered.
+2024-03-07T01:52:48.6033886Z ##[error]Process completed with exit code 1.
+2024-03-07T01:52:48.6099766Z ##[group]Run actions/upload-artifact@v2
+2024-03-07T01:52:48.6100151Z with:
+2024-03-07T01:52:48.6100389Z   name: failed-browser-tests
+2024-03-07T01:52:48.6100734Z   path: tmp/capybara
+2024-03-07T01:52:48.6101005Z   if-no-files-found: warn
+2024-03-07T01:52:48.6101294Z ##[endgroup]
+2024-03-07T01:52:48.6652536Z ##[warning]No files were found with the provided path: tmp/capybara. No artifacts will be uploaded.
+2024-03-07T01:52:48.6724306Z Post job cleanup.
+2024-03-07T01:52:48.7743526Z [command]/usr/bin/git version
+2024-03-07T01:52:48.7795817Z git version 2.43.2
+2024-03-07T01:52:48.7840267Z Temporarily overriding HOME='/home/runner/work/_temp/130eef84-c1f5-4028-b63e-30143679a7ba' before making global git config changes
+2024-03-07T01:52:48.7842053Z Adding repository directory to the temporary git global config as a safe directory
+2024-03-07T01:52:48.7847216Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/human-essentials/human-essentials
+2024-03-07T01:52:48.7889739Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-03-07T01:52:48.7930165Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-03-07T01:52:48.8249418Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-03-07T01:52:48.8284240Z http.https://github.com/.extraheader
+2024-03-07T01:52:48.8294387Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-03-07T01:52:48.8335301Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-03-07T01:52:48.8728132Z Print service container logs: 12d8c6aedbde4e5cbc1eb297c6a5879e_postgres123_b38f81
+2024-03-07T01:52:48.8733355Z ##[command]/usr/bin/docker logs --details c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:52:48.8933142Z  The files belonging to this database system will be owned by user "postgres".
+2024-03-07T01:52:48.8935930Z  initdb: warning: enabling "trust" authentication for local connections
+2024-03-07T01:52:48.8937026Z  You can change this by editing pg_hba.conf or using the option -A, or
+2024-03-07T01:52:48.8937992Z  --auth-local and --auth-host, the next time you run initdb.
+2024-03-07T01:52:48.8939543Z  2024-03-07 01:49:10.778 UTC [1] LOG:  starting PostgreSQL 12.3 (Debian 12.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2024-03-07T01:52:48.8941144Z  2024-03-07 01:49:10.778 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2024-03-07T01:52:48.8941859Z  2024-03-07 01:49:10.778 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2024-03-07T01:52:48.8942605Z  2024-03-07 01:49:10.779 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-03-07T01:52:48.8943362Z  2024-03-07 01:49:10.789 UTC [56] LOG:  database system was shut down at 2024-03-07 01:49:10 UTC
+2024-03-07T01:52:48.8944059Z  2024-03-07 01:49:10.794 UTC [1] LOG:  database system is ready to accept connections
+2024-03-07T01:52:48.8945017Z  2024-03-07 01:49:19.927 UTC [70] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8946692Z  2024-03-07 01:49:30.011 UTC [78] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8947267Z  2024-03-07 01:49:40.086 UTC [86] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8948334Z  2024-03-07 01:49:50.160 UTC [94] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8949330Z  2024-03-07 01:49:51.484 UTC [95] FATAL:  database "diaper_test" does not exist
+2024-03-07T01:52:48.8950501Z  2024-03-07 01:49:58.348 UTC [97] ERROR:  relation "flipper_gates" does not exist at character 491
+2024-03-07T01:52:48.8951380Z  2024-03-07 01:49:58.348 UTC [97] STATEMENT:  SELECT a.attname, format_type(a.atttypid, a.atttypmod),
+2024-03-07T01:52:48.8952099Z  	       pg_get_expr(d.adbin, d.adrelid), a.attnotnull, a.atttypid, a.atttypmod,
+2024-03-07T01:52:48.8952705Z  	       c.collname, col_description(a.attrelid, a.attnum) AS comment,
+2024-03-07T01:52:48.8953153Z  	       attgenerated as attgenerated
+2024-03-07T01:52:48.8953497Z  	  FROM pg_attribute a
+2024-03-07T01:52:48.8953919Z  	  LEFT JOIN pg_attrdef d ON a.attrelid = d.adrelid AND a.attnum = d.adnum
+2024-03-07T01:52:48.8954426Z  	  LEFT JOIN pg_type t ON a.atttypid = t.oid
+2024-03-07T01:52:48.8954992Z  	  LEFT JOIN pg_collation c ON a.attcollation = c.oid AND a.attcollation <> t.typcollation
+2024-03-07T01:52:48.8955570Z  	 WHERE a.attrelid = '"flipper_gates"'::regclass
+2024-03-07T01:52:48.8955970Z  	   AND a.attnum > 0 AND NOT a.attisdropped
+2024-03-07T01:52:48.8956319Z  	 ORDER BY a.attnum
+2024-03-07T01:52:48.8956559Z  	
+2024-03-07T01:52:48.8956902Z  2024-03-07 01:50:00.238 UTC [107] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8957452Z  2024-03-07 01:50:10.343 UTC [116] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8957994Z  2024-03-07 01:50:20.436 UTC [124] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8958526Z  2024-03-07 01:50:30.517 UTC [133] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8959076Z  2024-03-07 01:50:40.592 UTC [141] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8959611Z  2024-03-07 01:50:50.668 UTC [150] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8960144Z  2024-03-07 01:51:00.759 UTC [160] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8960670Z  2024-03-07 01:51:10.838 UTC [169] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8961194Z  2024-03-07 01:51:20.923 UTC [177] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8961721Z  2024-03-07 01:51:31.025 UTC [186] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8962518Z  2024-03-07 01:51:41.105 UTC [194] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8963056Z  2024-03-07 01:51:51.205 UTC [202] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8963575Z  2024-03-07 01:52:01.291 UTC [211] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8964095Z  2024-03-07 01:52:11.381 UTC [219] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8964612Z  2024-03-07 01:52:21.476 UTC [227] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8965129Z  2024-03-07 01:52:31.573 UTC [236] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8965644Z  2024-03-07 01:52:41.669 UTC [244] FATAL:  role "root" does not exist
+2024-03-07T01:52:48.8966108Z  This user must also own the server process.
+2024-03-07T01:52:48.8966439Z  
+2024-03-07T01:52:48.8966780Z  The database cluster will be initialized with locale "en_US.utf8".
+2024-03-07T01:52:48.8967353Z  The default database encoding has accordingly been set to "UTF8".
+2024-03-07T01:52:48.8967916Z  The default text search configuration will be set to "english".
+2024-03-07T01:52:48.8968337Z  
+2024-03-07T01:52:48.8968563Z  Data page checksums are disabled.
+2024-03-07T01:52:48.8968864Z  
+2024-03-07T01:52:48.8969226Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2024-03-07T01:52:48.8969713Z  creating subdirectories ... ok
+2024-03-07T01:52:48.8970108Z  selecting dynamic shared memory implementation ... posix
+2024-03-07T01:52:48.8970700Z  selecting default max_connections ... 100
+2024-03-07T01:52:48.8971081Z  selecting default shared_buffers ... 128MB
+2024-03-07T01:52:48.8971457Z  selecting default time zone ... Etc/UTC
+2024-03-07T01:52:48.8971807Z  creating configuration files ... ok
+2024-03-07T01:52:48.8972147Z  running bootstrap script ... ok
+2024-03-07T01:52:48.8972516Z  performing post-bootstrap initialization ... ok
+2024-03-07T01:52:48.8972901Z  syncing data to disk ... ok
+2024-03-07T01:52:48.8973175Z  
+2024-03-07T01:52:48.8973365Z  
+2024-03-07T01:52:48.8973643Z  Success. You can now start the database server using:
+2024-03-07T01:52:48.8974025Z  
+2024-03-07T01:52:48.8974303Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2024-03-07T01:52:48.8974668Z  
+2024-03-07T01:52:48.8975474Z  waiting for server to start....2024-03-07 01:49:10.574 UTC [47] LOG:  starting PostgreSQL 12.3 (Debian 12.3-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2024-03-07T01:52:48.8976610Z  2024-03-07 01:49:10.575 UTC [47] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2024-03-07T01:52:48.8977375Z  2024-03-07 01:49:10.590 UTC [48] LOG:  database system was shut down at 2024-03-07 01:49:10 UTC
+2024-03-07T01:52:48.8978072Z  2024-03-07 01:49:10.595 UTC [47] LOG:  database system is ready to accept connections
+2024-03-07T01:52:48.8978553Z   done
+2024-03-07T01:52:48.8978758Z  server started
+2024-03-07T01:52:48.8978985Z  
+2024-03-07T01:52:48.8979378Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2024-03-07T01:52:48.8979868Z  
+2024-03-07T01:52:48.8980198Z  2024-03-07 01:49:10.667 UTC [47] LOG:  received fast shutdown request
+2024-03-07T01:52:48.8980904Z  waiting for server to shut down....2024-03-07 01:49:10.668 UTC [47] LOG:  aborting any active transactions
+2024-03-07T01:52:48.8981811Z  2024-03-07 01:49:10.669 UTC [47] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2024-03-07T01:52:48.8982494Z  2024-03-07 01:49:10.669 UTC [49] LOG:  shutting down
+2024-03-07T01:52:48.8982974Z  2024-03-07 01:49:10.677 UTC [47] LOG:  database system is shut down
+2024-03-07T01:52:48.8983391Z   done
+2024-03-07T01:52:48.8983599Z  server stopped
+2024-03-07T01:52:48.8983821Z  
+2024-03-07T01:52:48.8984104Z  PostgreSQL init process complete; ready for start up.
+2024-03-07T01:52:48.8984474Z  
+2024-03-07T01:52:48.8990774Z Stop and remove container: 12d8c6aedbde4e5cbc1eb297c6a5879e_postgres123_b38f81
+2024-03-07T01:52:48.8996234Z ##[command]/usr/bin/docker rm --force c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:52:49.1298851Z c57f199c4030b2f5cad8b74e83058f4fbad086e9f649d42c89193461f351bb63
+2024-03-07T01:52:49.1324794Z Remove container network: github_network_ac40b68ab7e442239738f4ed4a368ba7
+2024-03-07T01:52:49.1330047Z ##[command]/usr/bin/docker network rm github_network_ac40b68ab7e442239738f4ed4a368ba7
+2024-03-07T01:52:49.3684633Z github_network_ac40b68ab7e442239738f4ed4a368ba7
+2024-03-07T01:52:49.3862031Z Cleaning up orphan processes
