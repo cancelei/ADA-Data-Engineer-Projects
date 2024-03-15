@@ -1,3 +1,6 @@
+# Instructions: Run this file to extract log data from the target repository before running the .ipynb file.
+# Adjust the number of runs to fetch in the fetch_workflow_runs function to gather more or less data.
+
 import requests
 import csv
 import zipfile
@@ -27,7 +30,7 @@ WORKFLOW_FILES = [
 ]
 CSV_FILE = "ci_run_metadata_per_workflow.csv"
 
-def fetch_workflow_runs(workflow_file, max_runs=180):
+def fetch_workflow_runs(workflow_file, max_runs=180): # Adjust this number to gather more data
     runs = []
     page = 1
     while len(runs) < max_runs:
